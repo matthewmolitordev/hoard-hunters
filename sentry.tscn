@@ -6,6 +6,13 @@
 
 [sub_resource type="BoxMesh" id="BoxMesh_jyont"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yhqha"]
+albedo_color = Color(0.62075394, 0.677875, 0.7447054, 1)
+metallic = 1.0
+roughness = 0.45
+emission = Color(0.42688888, 0.8880072, 0.9535784, 1)
+emission_energy_multiplier = 0.22
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_h7n1j"]
 radius = 20.0
 
@@ -17,6 +24,7 @@ shape = SubResource("BoxShape3D_h7n1j")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=725164236]
 mesh = SubResource("BoxMesh_jyont")
+surface_material_override/0 = SubResource("StandardMaterial3D_yhqha")
 
 [node name="DetectionZone" type="Area3D" parent="." unique_id=354151201]
 

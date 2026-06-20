@@ -1,0 +1,90 @@
+[gd_scene format=3 uid="uid://3llsmtg8esoo"]
+
+[ext_resource type="PackedScene" uid="uid://bd4abpdncwq8b" path="res://player.tscn" id="1_1iog8"]
+[ext_resource type="Script" uid="uid://clx3e7l5upabg" path="res://portal.gd" id="2_oe58s"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_4n47x"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jyont"]
+noise = SubResource("FastNoiseLite_4n47x")
+seamless = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h7n1j"]
+albedo_color = Color(0.22665176, 0.10349136, 0.0018793975, 1)
+albedo_texture = SubResource("NoiseTexture2D_jyont")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h7n1j"]
+size = Vector3(3, 4, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_n5r1m"]
+frequency = 0.05
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_djjlw"]
+noise = SubResource("FastNoiseLite_n5r1m")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_h3cym"]
+frequency = 0.06
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_o0xtw"]
+noise = SubResource("FastNoiseLite_h3cym")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_6bdq6"]
+frequency = 0.04
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_aut73"]
+noise = SubResource("FastNoiseLite_6bdq6")
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_4n47x"]
+frames = 3
+frame_0/texture = SubResource("NoiseTexture2D_djjlw")
+frame_0/duration = 0.1
+frame_1/texture = SubResource("NoiseTexture2D_o0xtw")
+frame_1/duration = 0.1
+frame_2/texture = SubResource("NoiseTexture2D_aut73")
+frame_2/duration = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jyont"]
+albedo_color = Color(0.49762362, 0.47888243, 0.19522938, 1)
+emission_enabled = true
+emission = Color(0.23365518, 0.3505286, 0.96071154, 1)
+emission_energy_multiplier = 0.14
+emission_texture = SubResource("AnimatedTexture_4n47x")
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_oe58s"]
+ground_bottom_color = Color(0.025447031, 0.10478487, 0.040150143, 1)
+
+[sub_resource type="Sky" id="Sky_fj7yv"]
+sky_material = SubResource("ProceduralSkyMaterial_oe58s")
+
+[sub_resource type="Environment" id="Environment_e0qst"]
+background_mode = 2
+background_energy_multiplier = 1.76
+sky = SubResource("Sky_fj7yv")
+glow_enabled = true
+glow_bloom = 0.3
+
+[node name="HubWorld" type="Node3D" unique_id=893329640]
+
+[node name="Floor" type="CSGBox3D" parent="." unique_id=404084622]
+use_collision = true
+size = Vector3(30, 1, 30)
+material = SubResource("StandardMaterial3D_h7n1j")
+
+[node name="Player" parent="." unique_id=55416726 instance=ExtResource("1_1iog8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.8136115, -6.2433424)
+
+[node name="Portal" type="Area3D" parent="." unique_id=1267654559]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.4741082, 0)
+script = ExtResource("2_oe58s")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Portal" unique_id=1932113505]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9496269, 8.152737)
+shape = SubResource("BoxShape3D_h7n1j")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Portal" unique_id=27048802]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9396262, 8.145889)
+size = Vector3(3, 4, 1)
+material = SubResource("StandardMaterial3D_jyont")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2092172206]
+environment = SubResource("Environment_e0qst")

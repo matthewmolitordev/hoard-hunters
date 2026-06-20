@@ -79,7 +79,11 @@ func shoot_fireball() ->void:
 	get_tree().root.add_child(fireball)
 	var camera_node = $Camera3D
 	var forward_vector = -camera_node.global_transform.basis.z.normalized()
-	fireball.global_position = global_position + forward_vector * 1
+	var spawn_pos = camera_node.global_position
+	spawn_pos += forward_vector * 1.5
+	spawn_pos.y -= 0.4
+	
+	fireball.global_position = spawn_pos
 	fireball.velocity = forward_vector * fireball.speed
 	fireball.look_at(fireball.global_position + forward_vector, Vector3.UP)
 	await get_tree().create_timer(fire_ball_cooldown).timeout

@@ -3,7 +3,16 @@
 [ext_resource type="PackedScene" uid="uid://bd4abpdncwq8b" path="res://player.tscn" id="1_f3sb7"]
 [ext_resource type="Script" uid="uid://co4bn81gso7cq" path="res://dungeon_generator.gd" id="2_fj7yv"]
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_fj7yv"]
+ground_bottom_color = Color(0.025447031, 0.10478487, 0.040150143, 1)
+
+[sub_resource type="Sky" id="Sky_fj7yv"]
+sky_material = SubResource("ProceduralSkyMaterial_fj7yv")
+
 [sub_resource type="Environment" id="Environment_h7n1j"]
+background_mode = 2
+background_energy_multiplier = 1.76
+sky = SubResource("Sky_fj7yv")
 glow_enabled = true
 glow_bloom = 0.3
 
@@ -11,9 +20,6 @@ glow_bloom = 0.3
 
 [node name="Player" parent="." unique_id=55416726 instance=ExtResource("1_f3sb7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2211256, 2.0037637, 1.0118032)
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1136829166]
-transform = Transform3D(1, 0, 0, 0, -0.46697158, 0.88427234, 0, -0.88427234, -0.46697158, 0.68115044, 5.1831956, -10.19812)
 
 [node name="DungeonGenerator" type="Node3D" parent="." unique_id=1522880769]
 script = ExtResource("2_fj7yv")

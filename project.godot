@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="3d sandbox"
-run/main_scene="uid://dcxa03suu4vbj"
+run/main_scene="uid://3llsmtg8esoo"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
