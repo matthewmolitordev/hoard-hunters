@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dcxa03suu4vbj"]
+
+[ext_resource type="PackedScene" uid="uid://bd4abpdncwq8b" path="res://player.tscn" id="1_f3sb7"]
+[ext_resource type="Script" uid="uid://co4bn81gso7cq" path="res://dungeon_generator.gd" id="2_fj7yv"]
+
+[node name="World" type="Node3D" unique_id=1830653815]
+
+[node name="Player" parent="." unique_id=55416726 instance=ExtResource("1_f3sb7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2211256, 2.0037637, 1.0118032)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1136829166]
+transform = Transform3D(1, 0, 0, 0, -0.46697158, 0.88427234, 0, -0.88427234, -0.46697158, 0.68115044, 5.1831956, -10.19812)
+
+[node name="DungeonGenerator" type="Node3D" parent="." unique_id=1522880769]
+script = ExtResource("2_fj7yv")
+absolute_seed = 122

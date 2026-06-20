@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://b4iaxuomgkgav"]
+
+[ext_resource type="Script" uid="uid://cj1uvjjendqvc" path="res://sentry.gd" id="1_lf4fg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h7n1j"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_jyont"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_h7n1j"]
+radius = 20.0
+
+[node name="Sentry" type="CharacterBody3D" unique_id=81391864]
+script = ExtResource("1_lf4fg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1443697117]
+shape = SubResource("BoxShape3D_h7n1j")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=725164236]
+mesh = SubResource("BoxMesh_jyont")
+
+[node name="DetectionZone" type="Area3D" parent="." unique_id=354151201]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionZone" unique_id=1757770737]
+shape = SubResource("SphereShape3D_h7n1j")
+debug_color = Color(0.7511385, 0.3993271, 0.6001887, 0.41960785)
+
+[node name="RayCast3D" type="RayCast3D" parent="." unique_id=1638293311]
+target_position = Vector3(0, -100, 0)
+collide_with_areas = true
