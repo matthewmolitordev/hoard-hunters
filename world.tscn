@@ -3,6 +3,10 @@
 [ext_resource type="PackedScene" uid="uid://bd4abpdncwq8b" path="res://player.tscn" id="1_f3sb7"]
 [ext_resource type="Script" uid="uid://co4bn81gso7cq" path="res://dungeon_generator.gd" id="2_fj7yv"]
 
+[sub_resource type="Environment" id="Environment_h7n1j"]
+glow_enabled = true
+glow_bloom = 0.3
+
 [node name="World" type="Node3D" unique_id=1830653815]
 
 [node name="Player" parent="." unique_id=55416726 instance=ExtResource("1_f3sb7")]
@@ -14,3 +18,6 @@ transform = Transform3D(1, 0, 0, 0, -0.46697158, 0.88427234, 0, -0.88427234, -0.
 [node name="DungeonGenerator" type="Node3D" parent="." unique_id=1522880769]
 script = ExtResource("2_fj7yv")
 absolute_seed = 122
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1891180988]
+environment = SubResource("Environment_h7n1j")

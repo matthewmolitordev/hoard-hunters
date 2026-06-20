@@ -1,5 +1,9 @@
 extends CharacterBody3D
 
+const FIREBALL_SCENE = preload("res://fireball.tscn")
+@export var fire_ball_cooldown: float = 0.3
+var fireball_can_shoot: bool = true
+
 # exposed variable editable in the inspector panel
 @export var speed: float = 3.0
 @export var jump_velocity = 4.5
@@ -63,3 +67,20 @@ func _unhandled_input(event: InputEvent) -> void:
 		rotate_y(-event.relative.x * mouse_sensitivity)
 		camera.rotate_x(-event.relative.y * mouse_sensitivity)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-85), deg_to_rad(85))
+		
+	#handle mouse click (fireball)
+	if event.is_action_pressed("action_bar_slot_1") and fireball_can_shoot:
+		shoot_fireball()
+		
+		
+func shoot_fireball() ->void:
+	fireball_can_shoot = false
+	var fireball = FIREBALL_SCENE.instantiate()
+	get_tree().root.add_child(fireball)
+	var camera_node = $Camera3D
+	var forward_vector = -camera_node.global_transform.basis.z.normalized()
+	fireball.global_position = global_position + forward_vector * 1
+	fireball.velocity = forward_vector * fireball.speed
+	fireball.look_at(fireball.global_position + forward_vector, Vector3.UP)
+	await get_tree().create_timer(fire_ball_cooldown).timeout
+	fireball_can_shoot = true

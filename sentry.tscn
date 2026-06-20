@@ -9,7 +9,7 @@
 [sub_resource type="SphereShape3D" id="SphereShape3D_h7n1j"]
 radius = 20.0
 
-[node name="Sentry" type="CharacterBody3D" unique_id=81391864]
+[node name="Sentry" type="CharacterBody3D" unique_id=81391864 groups=["enemy"]]
 script = ExtResource("1_lf4fg")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1443697117]
