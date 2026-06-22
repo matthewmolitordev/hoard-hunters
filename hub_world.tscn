@@ -2,16 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://bd4abpdncwq8b" path="res://player.tscn" id="1_1iog8"]
 [ext_resource type="Script" uid="uid://clx3e7l5upabg" path="res://portal.gd" id="2_oe58s"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_4n47x"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jyont"]
-noise = SubResource("FastNoiseLite_4n47x")
-seamless = true
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h7n1j"]
-albedo_color = Color(0.22665176, 0.10349136, 0.0018793975, 1)
-albedo_texture = SubResource("NoiseTexture2D_jyont")
+[ext_resource type="PackedScene" uid="uid://682af8kldk6l" path="res://assets/portal_arch.glb" id="3_e0qst"]
+[ext_resource type="Material" uid="uid://c3nyqpyeam64" path="res://assets/texture/stone_material.tres" id="4_w1cbi"]
+[ext_resource type="PackedScene" uid="uid://c757wm2j1mc0y" path="res://spawning_fountain.tscn" id="5_gdsyq"]
+[ext_resource type="PackedScene" uid="uid://dd4cxtqy36ath" path="res://open_box.tscn" id="6_5lugp"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_h7n1j"]
 size = Vector3(3, 4, 1)
@@ -63,28 +57,104 @@ sky = SubResource("Sky_fj7yv")
 glow_enabled = true
 glow_bloom = 0.3
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4n47x"]
+albedo_color = Color(0.2791721, 0.15901911, 0.017618911, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_djjlw"]
+albedo_color = Color(0.19555321, 0.34288588, 0.16614762, 1)
+
 [node name="HubWorld" type="Node3D" unique_id=893329640]
 
-[node name="Floor" type="CSGBox3D" parent="." unique_id=404084622]
-use_collision = true
-size = Vector3(30, 1, 30)
-material = SubResource("StandardMaterial3D_h7n1j")
-
 [node name="Player" parent="." unique_id=55416726 instance=ExtResource("1_1iog8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.8136115, -6.2433424)
+transform = Transform3D(-0.9037503, 0, -0.42806, 0, 1, 0, 0.42806, 0, -0.9037503, 0, 1.7150738, 27.414337)
 
 [node name="Portal" type="Area3D" parent="." unique_id=1267654559]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.4741082, 0)
+collision_mask = 3
 script = ExtResource("2_oe58s")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Portal" unique_id=1932113505]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9496269, 8.152737)
+transform = Transform3D(0.9069416, 0, 0.4212564, 0, 1, 0, -0.4212564, 0, 0.9069416, 11.885323, -0.9496269, 47.25729)
 shape = SubResource("BoxShape3D_h7n1j")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Portal" unique_id=27048802]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.9396262, 8.145889)
+transform = Transform3D(0.9069416, 0, 0.4212564, 0, 1, 0, -0.4212564, 0, 0.9069416, 11.882438, -0.9396262, 47.25108)
 size = Vector3(3, 4, 1)
 material = SubResource("StandardMaterial3D_jyont")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2092172206]
 environment = SubResource("Environment_e0qst")
+
+[node name="PlazaFloor" type="CSGBox3D" parent="." unique_id=1473348146]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10.445679, 34.8893)
+use_collision = true
+size = Vector3(100, 20, 30)
+material = SubResource("StandardMaterial3D_4n47x")
+
+[node name="PlazaFloor" type="CSGBox3D" parent="PlazaFloor" unique_id=1824640548]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -52.729153, 14.218586)
+use_collision = true
+size = Vector3(100, 20, 1000)
+material = SubResource("StandardMaterial3D_4n47x")
+
+[node name="HillsBoundry" type="CSGCombiner3D" parent="." unique_id=2110339009]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57.16793, 0, 0)
+use_collision = true
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="HillsBoundry" unique_id=271700044]
+transform = Transform3D(-0.7580532, 0, 0.9253858, 0, 1, 0, -1.8507715, 0, -0.3790266, -11.940117, 0, -38.607697)
+radius = 20.0
+material = SubResource("StandardMaterial3D_djjlw")
+
+[node name="CSGSphere3D2" type="CSGSphere3D" parent="HillsBoundry" unique_id=1655858569]
+transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 1, -81.476875, -0.62986374, 61.985107)
+radius = 20.0
+material = SubResource("StandardMaterial3D_djjlw")
+
+[node name="CSGSphere3D3" type="CSGSphere3D" parent="HillsBoundry" unique_id=1412734042]
+transform = Transform3D(0.8091982, 0, 0.91449416, 0, 1, 0, -1.8289883, 0, 0.4045991, 5.852623, 0, 16.534607)
+radius = 20.0
+material = SubResource("StandardMaterial3D_djjlw")
+
+[node name="CSGSphere3D4" type="CSGSphere3D" parent="HillsBoundry" unique_id=1180662220]
+transform = Transform3D(1.9665594, 0, 0.18210164, 0, 1, 0, -0.36420327, 0, 0.9832797, -28.223564, 0, 62.613754)
+radius = 20.0
+material = SubResource("StandardMaterial3D_djjlw")
+
+[node name="CSGSphere3D5" type="CSGSphere3D" parent="HillsBoundry" unique_id=1340655430]
+transform = Transform3D(0.7871739, 0, -0.9192874, 0, 1, 0, 1.8385748, 0, 0.39358696, -116.19696, -0.62986374, 31.65963)
+radius = 20.0
+material = SubResource("StandardMaterial3D_djjlw")
+
+[node name="CSGSphere3D6" type="CSGSphere3D" parent="HillsBoundry" unique_id=643076037]
+transform = Transform3D(-0.86589575, 0, -0.901419, 0, 1, 0, 1.802838, 0, -0.43294787, -116.19696, -0.62986374, -22.88778)
+radius = 20.0
+material = SubResource("StandardMaterial3D_djjlw")
+
+[node name="CSGSphere3D7" type="CSGSphere3D" parent="HillsBoundry" unique_id=821130565]
+transform = Transform3D(-1.9878826, 0, -0.10991165, 0, 1, 0, 0.2198233, 0, -0.9939413, -63.191315, -0.62986374, -57.734306)
+radius = 20.0
+material = SubResource("StandardMaterial3D_djjlw")
+
+[node name="portal_arch" parent="." unique_id=196459378 instance=ExtResource("3_e0qst")]
+transform = Transform3D(-0.0057071573, 0, 0.9999837, 0, 1, 0, -0.9999837, 0, -0.0057071573, -2.5810227, -0.5152265, 7.622753)
+
+[node name="Cube_002" parent="portal_arch" index="0" unique_id=362585251]
+transform = Transform3D(0.4534708, 0, 0.2106282, 0, 0.5, 0, -0.2106282, 0, 0.4534708, -39.887173, 4.5, 12.579346)
+material_overlay = ExtResource("4_w1cbi")
+
+[node name="Cube_001" parent="portal_arch" index="1" unique_id=1610618820]
+transform = Transform3D(-0.45347077, 0, -0.21062824, 0, 0.5, 0, 0.21062824, 0, -0.45347077, -38.623413, 4.5, 15.300174)
+material_overlay = ExtResource("4_w1cbi")
+
+[node name="Cube" parent="portal_arch" index="2" unique_id=108266538]
+transform = Transform3D(0.9069416, 0, 1.2260414, 0, 0.12997139, 0, -0.42125636, 0, 2.6395977, -39.25528, 5, 13.939758)
+material_overlay = ExtResource("4_w1cbi")
+
+[node name="SpawningFountain" parent="." unique_id=1752228861 instance=ExtResource("5_gdsyq")]
+transform = Transform3D(0.65753627, -0.75342286, 0, 0.5847179, 0.51030207, -0.6306319, 0.4751325, 0.41466337, 0.77608204, 4.5552573, 12.331836, 36.16573)
+
+[node name="OpenBox" parent="." unique_id=1536612551 instance=ExtResource("6_5lugp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.467732, -0.020868301, 32.875164)
+
+[editable path="portal_arch"]

@@ -7,6 +7,8 @@
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_f3sb7"]
 
 [node name="Player" type="CharacterBody3D" unique_id=55416726 groups=["player"]]
+collision_layer = 2
+collision_mask = 5
 script = ExtResource("1_4flbx")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2079872323]
@@ -17,9 +19,31 @@ mesh = SubResource("CapsuleMesh_f3sb7")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1762887908]
 
-[node name="UI" type="CanvasLayer" parent="." unique_id=2039329973]
+[node name="RayCast3D" type="RayCast3D" parent="Camera3D" unique_id=1698444435]
+target_position = Vector3(0, 0, -4)
+collision_mask = 4
 
-[node name="CenterContainer" type="CenterContainer" parent="UI" unique_id=579182569]
+[node name="Generic6DOFJoint3D" type="Generic6DOFJoint3D" parent="Camera3D" unique_id=768238028]
+node_a = NodePath("../Hand")
+linear_limit_x/enabled = false
+linear_limit_y/enabled = false
+linear_limit_z/enabled = false
+linear_spring_x/enabled = true
+linear_spring_x/stiffness = 500.0
+linear_spring_x/damping = 50.0
+linear_spring_y/enabled = true
+linear_spring_y/stiffness = 500.0
+linear_spring_y/damping = 50.0
+linear_spring_z/enabled = true
+linear_spring_z/stiffness = 500.0
+linear_spring_z/damping = 50.0
+
+[node name="Hand" type="StaticBody3D" parent="Camera3D" unique_id=619965400]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -2)
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1556343225]
+
+[node name="CenterContainer" type="CenterContainer" parent="UI" unique_id=435143426]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -27,7 +51,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="ColorRect" type="ColorRect" parent="UI/CenterContainer" unique_id=315415770]
+[node name="ColorRect" type="ColorRect" parent="UI/CenterContainer" unique_id=33866590]
 custom_minimum_size = Vector2(6, 6)
 layout_mode = 2
 mouse_filter = 2

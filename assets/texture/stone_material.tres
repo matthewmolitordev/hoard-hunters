@@ -1,0 +1,14 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://c3nyqpyeam64"]
+
+[sub_resource type="Gradient" id="Gradient_co1li"]
+colors = PackedColorArray(0.11858138, 0.11858138, 0.11858138, 1, 0.2376642, 0.21554965, 0.19344065, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_bswsn"]
+gradient = SubResource("Gradient_co1li")
+fill_from = Vector2(0.5, 1)
+fill_to = Vector2(0.5, 0)
+
+[resource]
+albedo_color = Color(0.4158344, 0.38715458, 0.36914593, 1)
+albedo_texture = SubResource("GradientTexture2D_bswsn")
+roughness = 0.8

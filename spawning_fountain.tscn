@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://c757wm2j1mc0y"]
+
+[ext_resource type="Script" uid="uid://cx6l51764xj0g" path="res://spawning_fountain.gd" id="1_qdetu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jyont"]
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_h7n1j"]
+material = SubResource("StandardMaterial3D_jyont")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h7n1j"]
+
+[node name="SpawningFountain" type="StaticBody3D" unique_id=1752228861]
+script = ExtResource("1_qdetu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1441841762]
+mesh = SubResource("BoxMesh_h7n1j")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=616443430]
+shape = SubResource("BoxShape3D_h7n1j")
+
+[node name="Timer" type="Timer" parent="." unique_id=1040140366]

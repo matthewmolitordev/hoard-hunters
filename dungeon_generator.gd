@@ -7,7 +7,7 @@ const TILE_SCENE = preload("res://tile.tscn")
 const SENTRY_SCENE = preload("res://sentry.tscn")
 
 @export var map_size: int = 2000    #grid boundry
-@export var absolute_seed: int = 123
+@export var absolute_seed: int = 674567
 @export var tile_spacing: float = 2.0      #2x2 tile size
 
 var grid = {}     #has map dictionary to track occupied coordinate states {Vector2: bool}

@@ -1,5 +1,10 @@
 extends CharacterBody3D
 
+@onready var raycast = $Camera3D/RayCast3D
+@onready var joint = $Camera3D/Generic6DOFJoint3D
+@onready var hand = $Camera3D/Hand
+var grabbed_body: RigidBody3D = null
+
 const FIREBALL_SCENE = preload("res://fireball.tscn")
 @export var fire_ball_cooldown: float = 0.3
 var fireball_can_shoot: bool = true
@@ -68,10 +73,15 @@ func _unhandled_input(event: InputEvent) -> void:
 		camera.rotate_x(-event.relative.y * mouse_sensitivity)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-85), deg_to_rad(85))
 		
-	#handle mouse click (fireball)
+	#handle action bar click (fireball)
 	if event.is_action_pressed("action_bar_slot_1") and fireball_can_shoot:
 		shoot_fireball()
 		
+	#handle mouse click grab
+	if event.is_action_pressed("click"):
+		try_grab_object()
+	elif event.is_action_released("click"):
+		release_object()
 		
 func shoot_fireball() ->void:
 	fireball_can_shoot = false
@@ -88,3 +98,18 @@ func shoot_fireball() ->void:
 	fireball.look_at(fireball.global_position + forward_vector, Vector3.UP)
 	await get_tree().create_timer(fire_ball_cooldown).timeout
 	fireball_can_shoot = true
+	
+func try_grab_object() -> void:
+	if raycast.is_colliding():
+		var target = raycast.get_collider()
+		if target is RigidBody3D and not target.freeze:
+			grabbed_body = target
+		grabbed_body.gravity_scale = 0.0
+		joint.node_b = grabbed_body.get_path()
+		
+func release_object() -> void:
+	if grabbed_body:
+		grabbed_body.gravity_scale = 1.0
+		joint.node_b = NodePath("")
+		grabbed_body = null
+	
