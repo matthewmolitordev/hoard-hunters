@@ -2,6 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://copbyv6d84075" path="res://assets/open_box.glb" id="1_ane53"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_7mkr1"]
+friction = 0.2
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_h7n1j"]
 size = Vector3(1.9630127, 0.080566406, 0.91448975)
 
@@ -13,7 +16,8 @@ size = Vector3(1.7980957, 0.92819214, 0.068359375)
 
 [node name="OpenBox" type="RigidBody3D" unique_id=1536612551]
 collision_layer = 5
-mass = 30.0
+mass = 10.0
+physics_material_override = SubResource("PhysicsMaterial_7mkr1")
 
 [node name="open_box" parent="." unique_id=860566221 instance=ExtResource("1_ane53")]
 transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0, 0)

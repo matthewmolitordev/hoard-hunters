@@ -1,6 +1,6 @@
 extends Area3D
 
-@export_file("*.tscn") var target_dungeon_scene: String = "res://world.tscn"
+@export_file("*.tscn") var target_dungeon_scene: String = "res://dungeon_room_crypt.tscn"
 
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)

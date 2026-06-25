@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://c4omkquitrfg5"]
+
+[ext_resource type="Script" uid="uid://nxpm2g7bjkg0" path="res://dungeon_room_crypt.gd" id="1_ou0cy"]
+[ext_resource type="PackedScene" uid="uid://ykswxr12tn5p" path="res://tileset/room_large.tscn" id="5_lt53x"]
+[ext_resource type="PackedScene" uid="uid://da7qgy6oekht8" path="res://tileset/corridor.tscn" id="6_tchn4"]
+[ext_resource type="PackedScene" uid="uid://rwuwgb7jr0p6" path="res://tileset/gate.tscn" id="7_eb4og"]
+[ext_resource type="PackedScene" uid="uid://ccpandllg68x8" path="res://tileset/gate_metal_bars.tscn" id="8_k22qw"]
+[ext_resource type="PackedScene" uid="uid://bfeh3cs0q7kwf" path="res://tileset/stairs.tscn" id="9_5m56l"]
+[ext_resource type="PackedScene" uid="uid://bd4abpdncwq8b" path="res://player.tscn" id="10_opli8"]
+[ext_resource type="PackedScene" uid="uid://c757wm2j1mc0y" path="res://spawning_fountain.tscn" id="11_7um1t"]
+[ext_resource type="PackedScene" uid="uid://dd4cxtqy36ath" path="res://open_box.tscn" id="12_q4lqq"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ou0cy"]
+ground_bottom_color = Color(0.025447031, 0.10478487, 0.040150143, 1)
+
+[sub_resource type="Sky" id="Sky_fj7yv"]
+sky_material = SubResource("ProceduralSkyMaterial_ou0cy")
+
+[sub_resource type="Environment" id="Environment_iepfy"]
+background_mode = 2
+background_energy_multiplier = 1.76
+sky = SubResource("Sky_fj7yv")
+glow_enabled = true
+glow_bloom = 0.3
+
+[node name="DungeonRoomCrypt" type="Node3D" unique_id=1659817514]
+script = ExtResource("1_ou0cy")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1339435876]
+environment = SubResource("Environment_iepfy")
+
+[node name="Player" parent="." unique_id=55416726 instance=ExtResource("10_opli8")]
+transform = Transform3D(1, 0, 5.9604645e-08, 0, 1, 0, -5.9604645e-08, 0, 1, -1.2271738, 9.292885, 20.729496)
+
+[node name="SpawningFountain" parent="." unique_id=1752228861 instance=ExtResource("11_7um1t")]
+transform = Transform3D(0.65753627, -0.75342286, 0, 0.5847179, 0.51030207, -0.6306319, 0.4751325, 0.41466337, 0.77608204, 1.9721234, 5.0443816, -1.7528658)
+
+[node name="OpenBox" parent="." unique_id=1536612551 instance=ExtResource("12_q4lqq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.1321144, 1.5773792, -1.4176865)
+
+[node name="RoomLarge" parent="." unique_id=1627036046 instance=ExtResource("5_lt53x")]
+
+[node name="Corridor" parent="." unique_id=164960555 instance=ExtResource("6_tchn4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 0)
+
+[node name="Corridor2" parent="." unique_id=1445944005 instance=ExtResource("6_tchn4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 0)
+
+[node name="Gate" parent="." unique_id=1394186464 instance=ExtResource("7_eb4og")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -18, 0, 0)
+
+[node name="GateMetalBars" parent="." unique_id=292143203 instance=ExtResource("8_k22qw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9)
+
+[node name="GateMetalBars2" parent="." unique_id=887015518 instance=ExtResource("8_k22qw")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 9, 0, 0)
+
+[node name="Stairs" parent="." unique_id=1320607100 instance=ExtResource("9_5m56l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 16)
+
+[node name="Corridor3" parent="." unique_id=141567003 instance=ExtResource("6_tchn4")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 4, 20)

@@ -1,0 +1,188 @@
+[gd_scene format=3 uid="uid://bb1nkyybmmp3d"]
+
+[ext_resource type="PackedScene" uid="uid://bd4abpdncwq8b" path="res://player.tscn" id="1_1kff1"]
+[ext_resource type="PackedScene" uid="uid://c757wm2j1mc0y" path="res://spawning_fountain.tscn" id="2_ascbd"]
+[ext_resource type="PackedScene" uid="uid://dd4cxtqy36ath" path="res://open_box.tscn" id="3_3qdhg"]
+
+[node name="Dungeon_Greybox" type="Node3D" unique_id=1929769538]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=794328678]
+transform = Transform3D(-0.44694352, 0, -0.8945622, 0, 1, 0, 0.8945622, 0, -0.44694352, -9.6742935, 8.338211, -51.62628)
+
+[node name="Dungeon_Geometry" type="CSGCombiner3D" parent="." unique_id=1458104416]
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Dungeon_Geometry" unique_id=1632586292]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.856, 5, -32.61201)
+size = Vector3(3, 1, 30)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Dungeon_Geometry" unique_id=830251838]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0015633, -0.5, -31.43232)
+size = Vector3(5, 1, 5)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Dungeon_Geometry" unique_id=874173741]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.003889, -0.5, -31.43232)
+size = Vector3(5, 1, 5)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Dungeon_Geometry" unique_id=2373815]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.992006, -0.5, -31.43232)
+size = Vector3(5, 1, 5)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="Dungeon_Geometry" unique_id=665712948]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.924973, -0.5, -36.446743)
+size = Vector3(5, 1, 5)
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="Dungeon_Geometry" unique_id=1137042184]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.924973, 4.150732, -49.572197)
+size = Vector3(5, 1, 5)
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="Dungeon_Geometry" unique_id=1430531326]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.924973, 4.150732, -54.52079)
+size = Vector3(5, 1, 5)
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="Dungeon_Geometry" unique_id=57976848]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.598782, 4.150732, -54.52079)
+size = Vector3(5, 1, 5)
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="Dungeon_Geometry" unique_id=319930725]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.377598, 4.150732, -54.52079)
+size = Vector3(5, 1, 5)
+
+[node name="CSGBox3D13" type="CSGBox3D" parent="Dungeon_Geometry" unique_id=486494954]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.300146, 4.150732, -54.52079)
+size = Vector3(5, 1, 5)
+
+[node name="CSGBox3D14" type="CSGBox3D" parent="Dungeon_Geometry" unique_id=1559624545]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.300146, 4.150732, -49.615875)
+size = Vector3(5, 1, 5)
+
+[node name="CSGBox3D15" type="CSGBox3D" parent="Dungeon_Geometry" unique_id=1387456953]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.203684, 4.150732, -49.615875)
+size = Vector3(5, 1, 5)
+
+[node name="CSGBox3D16" type="CSGBox3D" parent="Dungeon_Geometry" unique_id=979604117]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.203684, 4.150732, -54.430687)
+size = Vector3(5, 1, 5)
+
+[node name="CSGBox3D19" type="CSGBox3D" parent="Dungeon_Geometry" unique_id=1742261830]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.253464, 4.6407285, -54.33116)
+size = Vector3(11.641602, 1, 1.1582031)
+
+[node name="CSGBox3D17" type="CSGBox3D" parent="Dungeon_Geometry" unique_id=815132771]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.203684, 4.150732, -59.356422)
+size = Vector3(5, 1, 5)
+
+[node name="CSGBox3D18" type="CSGBox3D" parent="Dungeon_Geometry" unique_id=1300135447]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.241045, 4.150732, -59.22171)
+size = Vector3(5, 1, 5)
+
+[node name="CSGBox3D26" type="CSGBox3D" parent="Dungeon_Geometry" unique_id=553189846]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.28229, 5, -5.49438)
+size = Vector3(5, 1, 5)
+
+[node name="CSGBox3D36" type="CSGBox3D" parent="Dungeon_Geometry" unique_id=1907996483]
+transform = Transform3D(-0.0006692951, 0.008506564, 0.9999636, -0.99691904, -0.078437425, 0, 0.07843457, -0.99688274, 0.008532854, 44.28229, 14.272282, -25.582682)
+size = Vector3(5, 1, 5)
+
+[node name="CSGBox3D37" type="CSGBox3D" parent="Dungeon_Geometry" unique_id=988535939]
+transform = Transform3D(-0.0006692951, 0.008506564, 0.9999636, -0.99691904, -0.078437425, 0, 0.07843457, -0.99688274, 0.008532854, 44.28229, 14.272282, -30.935177)
+size = Vector3(5, 1, 5)
+
+[node name="CSGBox3D30" type="CSGBox3D" parent="Dungeon_Geometry" unique_id=387116389]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62.088623, 5, 7.133835)
+size = Vector3(30, 1, 30)
+
+[node name="CSGBox3D35" type="CSGBox3D" parent="Dungeon_Geometry" unique_id=60547641]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62.2744, 14.277537, -38.99656)
+size = Vector3(30, 1, 30)
+
+[node name="CSGBox3D27" type="CSGBox3D" parent="Dungeon_Geometry" unique_id=367183216]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.185825, 5, -10.309192)
+size = Vector3(5, 1, 5)
+
+[node name="CSGBox3D28" type="CSGBox3D" parent="Dungeon_Geometry" unique_id=152272878]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49.185825, 5, -15.234927)
+size = Vector3(5, 1, 5)
+
+[node name="CSGBox3D29" type="CSGBox3D" parent="Dungeon_Geometry" unique_id=1310926913]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 44.223186, 5, -15.100215)
+size = Vector3(5, 1, 5)
+
+[node name="CSGBox3D20" type="CSGBox3D" parent="Dungeon_Geometry" unique_id=1022679097]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.79425, 5, -54.52079)
+size = Vector3(5, 1, 5)
+
+[node name="CSGBox3D21" type="CSGBox3D" parent="Dungeon_Geometry" unique_id=1800178281]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.79425, 5, -49.615875)
+size = Vector3(5, 1, 5)
+
+[node name="CSGBox3D22" type="CSGBox3D" parent="Dungeon_Geometry" unique_id=972411152]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.697784, 5, -49.615875)
+size = Vector3(5, 1, 5)
+
+[node name="CSGBox3D23" type="CSGBox3D" parent="Dungeon_Geometry" unique_id=1645489464]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.697784, 5, -54.430687)
+size = Vector3(5, 1, 5)
+
+[node name="CSGBox3D24" type="CSGBox3D" parent="Dungeon_Geometry" unique_id=1024871107]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.697784, 5, -59.356422)
+size = Vector3(5, 1, 5)
+
+[node name="CSGBox3D25" type="CSGBox3D" parent="Dungeon_Geometry" unique_id=1379754700]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.735146, 5, -59.22171)
+size = Vector3(5, 1, 5)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="Dungeon_Geometry" unique_id=1686815896]
+transform = Transform3D(1, 0, 0, 0, 0.8660254, -0.5, 0, 0.5, 0.8660254, 10.924973, 0.75239706, -41.286133)
+size = Vector3(5, 1, 5)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="Dungeon_Geometry" unique_id=1576057408]
+transform = Transform3D(1, 0, 0, 0, 0.8660254, -0.5, 0, 0.5, 0.8660254, 10.924973, 2.9934998, -45.164063)
+size = Vector3(5, 1, 5)
+
+[node name="CSGBox3D31" type="CSGBox3D" parent="Dungeon_Geometry" unique_id=1425503516]
+transform = Transform3D(1, 0, 0, 0, 0.8660254, -0.5, 0, 0.5, 0.8660254, 74.42416, 6.19039, -10.223932)
+size = Vector3(5, 1, 5)
+
+[node name="CSGBox3D32" type="CSGBox3D" parent="Dungeon_Geometry" unique_id=1277879089]
+transform = Transform3D(1, 0, 0, 0, 0.8660254, -0.5, 0, 0.5, 0.8660254, 74.42416, 8.431493, -14.101862)
+size = Vector3(5, 1, 5)
+
+[node name="CSGBox3D33" type="CSGBox3D" parent="Dungeon_Geometry" unique_id=2058505912]
+transform = Transform3D(1, 0, 0, 0, 0.8660254, -0.5, 0, 0.5, 0.8660254, 74.39069, 10.817522, -18.243134)
+size = Vector3(5, 1, 5)
+
+[node name="CSGBox3D34" type="CSGBox3D" parent="Dungeon_Geometry" unique_id=116380265]
+transform = Transform3D(1, 0, 0, 0, 0.8660254, -0.5, 0, 0.5, 0.8660254, 74.42416, 13.067844, -22.121063)
+size = Vector3(5, 1, 5)
+
+[node name="CSGBox3D39" type="CSGBox3D" parent="Dungeon_Geometry" unique_id=1327571115]
+transform = Transform3D(-0.014053347, -0.4999506, -0.86593974, -9.282035e-09, 0.8660252, -0.49999994, 0.9999013, -0.0070266603, -0.0121705495, 39.442055, 9.716007, -28.028551)
+size = Vector3(5, 1, 18.475098)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="Dungeon_Geometry" unique_id=1319491650]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.01987, -0.5, -36.446743)
+size = Vector3(5, 1, 5)
+
+[node name="Player" parent="." unique_id=55416726 instance=ExtResource("1_1kff1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52.854298, 16.548088, -27.246208)
+
+[node name="SpawningFountain" parent="." unique_id=1752228861 instance=ExtResource("2_ascbd")]
+transform = Transform3D(0.65753627, -0.75342286, 0, 0.5847179, 0.51030207, -0.6306319, 0.4751325, 0.41466337, 0.77608204, 58.77938, 66.82069, 6.167637)
+
+[node name="OpenBox" parent="." unique_id=1536612551 instance=ExtResource("3_3qdhg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52.60648, 16.28239, -29.643665)
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="." unique_id=1411296436]
+use_collision = true
+
+[node name="CSGBox3D40" type="CSGBox3D" parent="CSGCombiner3D" unique_id=815715203]
+transform = Transform3D(0.95376843, 0.3005424, 0, -0.3005424, 0.95376843, 0, 0, 0, 1, 27.045359, 5.298288, -27.38773)
+size = Vector3(7.876465, 10, 10)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CSGCombiner3D" unique_id=1696111656]
+transform = Transform3D(0.3005424, 2.8553417e-08, 0.95376843, 0.95376843, -5.482767e-08, -0.3005424, 4.371139e-08, 1, -4.371139e-08, 27.708147, 13.098718, -27.407429)
+operation = 2
+radius = 8.36
+height = 10.275879
+sides = 64

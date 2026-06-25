@@ -10,10 +10,11 @@ const FIREBALL_SCENE = preload("res://fireball.tscn")
 var fireball_can_shoot: bool = true
 
 # exposed variable editable in the inspector panel
-@export var speed: float = 3.0
+@export var speed: float = 5.0
 @export var jump_velocity = 4.5
 @export var coyote_duration: float = 0.15 
 @export var mouse_sensitivity: float = 0.003
+@export var push_force: float = 50.0
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var time_since_on_floor: float = 0.0
@@ -83,6 +84,10 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_released("click"):
 		release_object()
 		
+	#handle push
+	if event.is_action_pressed("right_click"):
+		push_object()
+		
 func shoot_fireball() ->void:
 	fireball_can_shoot = false
 	var fireball = FIREBALL_SCENE.instantiate()
@@ -112,4 +117,14 @@ func release_object() -> void:
 		grabbed_body.gravity_scale = 1.0
 		joint.node_b = NodePath("")
 		grabbed_body = null
+		
+func push_object() -> void:
+	if raycast.is_colliding():
+		var target = raycast.get_collider()
+		if target is RigidBody3D and not target.freeze:
+			var push_direction = -camera.global_transform.basis.z.normalized()
+			
+			# Apply a sudden physical kick to the object's center of mass
+			target.apply_central_impulse(push_direction * push_force)
+	
 	

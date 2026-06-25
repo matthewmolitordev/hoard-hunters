@@ -6,6 +6,13 @@
 [ext_resource type="Material" uid="uid://c3nyqpyeam64" path="res://assets/texture/stone_material.tres" id="4_w1cbi"]
 [ext_resource type="PackedScene" uid="uid://c757wm2j1mc0y" path="res://spawning_fountain.tscn" id="5_gdsyq"]
 [ext_resource type="PackedScene" uid="uid://dd4cxtqy36ath" path="res://open_box.tscn" id="6_5lugp"]
+[ext_resource type="PackedScene" uid="uid://da7qgy6oekht8" path="res://tileset/corridor.tscn" id="7_fycy5"]
+[ext_resource type="PackedScene" uid="uid://bbaytslh405fy" path="res://tileset/corridor_corner.tscn" id="8_an8be"]
+[ext_resource type="PackedScene" uid="uid://dp4ul82372kpu" path="res://tileset/corridor_end.tscn" id="9_tkrox"]
+[ext_resource type="PackedScene" uid="uid://ceej01t55aneu" path="res://tileset/corridor_intersection.tscn" id="10_xj3tp"]
+[ext_resource type="PackedScene" uid="uid://bl1vm2qww23io" path="res://tileset/corridor_junction.tscn" id="11_dft3v"]
+[ext_resource type="PackedScene" uid="uid://bvqfn1ga2r6vd" path="res://tileset/corridor_transition.tscn" id="12_dbe7u"]
+[ext_resource type="PackedScene" uid="uid://ccpandllg68x8" path="res://tileset/gate_metal_bars.tscn" id="13_4gvti"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_h7n1j"]
 size = Vector3(3, 4, 1)
@@ -47,13 +54,13 @@ emission_texture = SubResource("AnimatedTexture_4n47x")
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_oe58s"]
 ground_bottom_color = Color(0.025447031, 0.10478487, 0.040150143, 1)
 
-[sub_resource type="Sky" id="Sky_fj7yv"]
+[sub_resource type="Sky" id="Sky_tufch"]
 sky_material = SubResource("ProceduralSkyMaterial_oe58s")
 
 [sub_resource type="Environment" id="Environment_e0qst"]
 background_mode = 2
 background_energy_multiplier = 1.76
-sky = SubResource("Sky_fj7yv")
+sky = SubResource("Sky_tufch")
 glow_enabled = true
 glow_bloom = 0.3
 
@@ -66,7 +73,7 @@ albedo_color = Color(0.19555321, 0.34288588, 0.16614762, 1)
 [node name="HubWorld" type="Node3D" unique_id=893329640]
 
 [node name="Player" parent="." unique_id=55416726 instance=ExtResource("1_1iog8")]
-transform = Transform3D(-0.9037503, 0, -0.42806, 0, 1, 0, 0.42806, 0, -0.9037503, 0, 1.7150738, 27.414337)
+transform = Transform3D(-0.9037503, 0, -0.42806, 0, 1, 0, 0.42806, 0, -0.9037503, 7.6418877, 1.7150738, 43.179695)
 
 [node name="Portal" type="Area3D" parent="." unique_id=1267654559]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.4741082, 0)
@@ -156,5 +163,29 @@ transform = Transform3D(0.65753627, -0.75342286, 0, 0.5847179, 0.51030207, -0.63
 
 [node name="OpenBox" parent="." unique_id=1536612551 instance=ExtResource("6_5lugp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.467732, -0.020868301, 32.875164)
+
+[node name="Corridor" parent="." unique_id=164960555 instance=ExtResource("7_fycy5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.833109, -0.4456749, 33.955807)
+
+[node name="CorridorCorner" parent="." unique_id=1669641424 instance=ExtResource("8_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.55674, -0.445673, 33.792744)
+
+[node name="CorridorEnd" parent="." unique_id=309848599 instance=ExtResource("9_tkrox")]
+transform = Transform3D(-0.008759073, 0, -0.9999616, 0, 1, 0, 0.9999616, 0, -0.008759073, 24.616749, -0.4456749, 30.13358)
+
+[node name="CorridorIntersection" parent="." unique_id=1930323746 instance=ExtResource("10_xj3tp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.972431, -0.4456749, 34.235268)
+
+[node name="CorridorJunction" parent="." unique_id=65619783 instance=ExtResource("11_dft3v")]
+transform = Transform3D(0.034361586, 0, 0.99940944, 0, 1, 0, -0.99940944, 0, 0.034361586, 17.134333, -0.445673, 30.142426)
+
+[node name="CorridorTransition" parent="." unique_id=727903612 instance=ExtResource("12_dbe7u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.604418, 1.3019247, 32.11596)
+
+[node name="GateMetalBars" parent="." unique_id=292143203 instance=ExtResource("13_4gvti")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.591572, -0.445673, 28.150108)
+
+[node name="GateMetalBars2" parent="." unique_id=1964633604 instance=ExtResource("13_4gvti")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.044231, 1.5642262, 36.547817)
 
 [editable path="portal_arch"]
