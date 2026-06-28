@@ -2,16 +2,26 @@
 
 [ext_resource type="PackedScene" uid="uid://dt5p7auw1vfij" path="res://assets/tourmaline.glb" id="1_ttgbp"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_jyont"]
-size = Vector3(0.56140137, 0.15426636, 0.47125244)
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ttgbp"]
+points = PackedVector3Array(-0.38271904, -1.9609928e-05, -0.9238795, -0.9238795, -1.9609928e-05, -0.38271904, -0.6124228, 0.17495298, -0.6124228, -0.00018084049, 0.17495298, -0.86600137, 0.3825382, -1.9609928e-05, -0.9238795, -0.00018084049, -0.20504701, -0.5413413, -0.38271904, -0.20504701, -0.38271904, -0.9238795, -1.9609928e-05, 0.3825382, -0.86600137, 0.17495298, -0.00018084049, -0.5413413, -0.20504701, -0.00018084049, -0.55436385, 0.34999996, -0.22970378, -0.22970378, 0.34999996, -0.55436385, 0.22952294, 0.34999996, -0.55436385, 0.612242, 0.17495298, -0.6124228, 0.9238795, -1.9609928e-05, -0.38271904, 0.3825382, -0.20504701, -0.38271904, -0.00018084049, -0.41000003, -0.00018084049, -0.38271904, -0.20504701, 0.3825382, -0.38271904, -1.9609928e-05, 0.9238795, -0.6124228, 0.17495298, 0.612242, -0.55436385, 0.34999996, 0.22952294, 0.554183, 0.34999996, -0.22970378, 0.8658205, 0.17495298, -0.00018084049, 0.9238795, -1.9609928e-05, 0.3825382, 0.54116046, -0.20504701, -0.00018084049, 0.3825382, -0.20504701, 0.3825382, -0.00018084049, -0.20504701, 0.54116046, -0.22970378, 0.34999996, 0.554183, 0.3825382, -1.9609928e-05, 0.9238795, -0.00018084049, 0.17495298, 0.8658205, 0.554183, 0.34999996, 0.22952294, 0.612242, 0.17495298, 0.612242, 0.22952294, 0.34999996, 0.554183)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ttgbp"]
+albedo_color = Color(1, 0.28235295, 1, 1)
+metallic = 0.9
+roughness = 0.1
 
 [node name="Tourmaline" type="RigidBody3D" unique_id=1975222285]
 collision_layer = 4
 collision_mask = 5
 
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1029748886]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -0.07317245, 0, -0.07877207)
+shape = SubResource("ConvexPolygonShape3D_ttgbp")
+
 [node name="tourmaline" parent="." unique_id=597655778 instance=ExtResource("1_ttgbp")]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -0.07317245, 0, -0.07877207)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1044653301]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08135986, -0.007858276, -0.09194946)
-shape = SubResource("BoxShape3D_jyont")
+[node name="Gem_001" parent="tourmaline" index="0" unique_id=919272127]
+material_override = SubResource("StandardMaterial3D_ttgbp")
+
+[editable path="tourmaline"]

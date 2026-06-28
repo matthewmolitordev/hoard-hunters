@@ -10,8 +10,8 @@ const FIREBALL_SCENE = preload("res://fireball.tscn")
 var fireball_can_shoot: bool = true
 
 # exposed variable editable in the inspector panel
-@export var speed: float = 5.0
-@export var jump_velocity = 4.5
+@export var default_speed: float = 5.0
+@export var jump_velocity: float = 4.5
 @export var coyote_duration: float = 0.15 
 @export var mouse_sensitivity: float = 0.003
 @export var push_force: float = 50.0
@@ -19,13 +19,27 @@ var fireball_can_shoot: bool = true
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var time_since_on_floor: float = 0.0
 var camera_look_input: float = 0.0
+var active_kit: Node = null
 
 @onready var camera: Camera3D = $ Camera3D
 
 func _ready() -> void:
+	var chosen_class = HubWorldMusic.player_class
+	if chosen_class == "knight":
+		active_kit = $KnightSpells
+	elif chosen_class == "acrobat": 
+		active_kit = $AcrobatSpells
+	elif chosen_class == "sorcerer":
+		active_kit = $SorcererSpells
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
 func _physics_process(delta: float) -> void:
+	var speed = default_speed
+	if active_kit and "kit_speed" in active_kit:
+		speed = active_kit.kit_speed
+		
+	if active_kit and "kit_jump_velocity" in active_kit:
+		jump_velocity = active_kit.kit_jump_velocity
 	# track coyote time
 	if is_on_floor():
 		time_since_on_floor = 0.0
@@ -35,10 +49,13 @@ func _physics_process(delta: float) -> void:
 	#apply gravity
 	if not is_on_floor():
 		velocity.y -= gravity * delta
+	else:
+		active_kit.reset_abilities()
 		
 	# handle jump
 	if Input.is_action_just_pressed("ui_accept"):
-		if is_on_floor() or time_since_on_floor <= coyote_duration:
+		if active_kit.try_jump(self) or time_since_on_floor <= coyote_duration:
+			print("jump_velocity", jump_velocity)
 			velocity.y = jump_velocity
 		
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
@@ -126,5 +143,3 @@ func push_object() -> void:
 			
 			# Apply a sudden physical kick to the object's center of mass
 			target.apply_central_impulse(push_direction * push_force)
-	
-	

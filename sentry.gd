@@ -11,6 +11,7 @@ var target_height: float = 0.0
 var state_timer: float = 0.0
 var current_platform_y: float = 0.0
 var wander_velocity: Vector3 = Vector3.ZERO
+@onready var anim_player = $Sketchfab_Scene/AnimationPlayer
 
 #y axis collision
 @onready var floor_checker: RayCast3D = $RayCast3D
@@ -19,6 +20,7 @@ func _ready() -> void:
 	$DetectionZone.body_entered.connect(_on_detection_zone_body_entered)
 	$DetectionZone.body_exited.connect(_on_detection_zone_body_exited)
 	current_platform_y = global_position.y
+	anim_player.play("Mushroom|Walk")
 
 func _physics_process(delta: float) -> void:
 	#floor sensor override

@@ -1,0 +1,107 @@
+[gd_scene format=3 uid="uid://cqa6eqdyo523g"]
+
+[ext_resource type="Script" uid="uid://vo87xbvqdo2m" path="res://class_select.gd" id="1_l4fku"]
+[ext_resource type="Texture2D" uid="uid://cjnupyr2ncx7d" path="res://assets/ui/PNG/panel_beige.png" id="1_xgl5k"]
+[ext_resource type="Texture2D" uid="uid://bva4u2hegbxgx" path="res://assets/ui/PNG/buttonLong_brown.png" id="2_l4fku"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e654n"]
+texture = ExtResource("2_l4fku")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lkpfg"]
+texture = ExtResource("2_l4fku")
+modulate_color = Color(0.41568628, 0.41568628, 0.41568628, 0.3882353)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bxjfl"]
+texture = ExtResource("2_l4fku")
+modulate_color = Color(1, 1, 1, 0.8392157)
+
+[node name="ClassSelect" type="Control" unique_id=1094869553]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l4fku")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=881732822]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 434.00003
+offset_top = 21.0
+offset_right = -199.0
+offset_bottom = -143.0
+scale = Vector2(0.5378692, 0.51066947)
+texture = ExtResource("1_xgl5k")
+expand_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=892558487]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=428183165]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1344767225]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1612906906]
+layout_mode = 2
+
+[node name="KnightButton" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer" unique_id=392441747]
+custom_minimum_size = Vector2(90, 0)
+custom_maximum_size = Vector2(90, -1)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxTexture_e654n")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_lkpfg")
+theme_override_styles/hover = SubResource("StyleBoxTexture_bxjfl")
+text = "Knight
+"
+
+[node name="AcrobatButton" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer" unique_id=1988687514]
+custom_minimum_size = Vector2(90, 0)
+custom_maximum_size = Vector2(90, -1)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxTexture_e654n")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_lkpfg")
+theme_override_styles/hover = SubResource("StyleBoxTexture_bxjfl")
+text = "Acrobat
+"
+
+[node name="SorcererButton" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer" unique_id=574945879]
+custom_minimum_size = Vector2(90, 0)
+custom_maximum_size = Vector2(90, -1)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxTexture_e654n")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_lkpfg")
+theme_override_styles/hover = SubResource("StyleBoxTexture_bxjfl")
+text = "Sorcerer
+"
+
+[node name="Back" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer" unique_id=1981238452]
+custom_minimum_size = Vector2(90, 0)
+custom_maximum_size = Vector2(90, -1)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxTexture_e654n")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_lkpfg")
+theme_override_styles/hover = SubResource("StyleBoxTexture_bxjfl")
+text = "Back
+"

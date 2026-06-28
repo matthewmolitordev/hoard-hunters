@@ -1,17 +1,9 @@
 [gd_scene format=3 uid="uid://b4iaxuomgkgav"]
 
 [ext_resource type="Script" uid="uid://cj1uvjjendqvc" path="res://sentry.gd" id="1_lf4fg"]
+[ext_resource type="PackedScene" uid="uid://hemv2cvqfsdb" path="res://assets/monsters/mushroom.tscn" id="2_mmh82"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_h7n1j"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_jyont"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yhqha"]
-albedo_color = Color(0.62075394, 0.677875, 0.7447054, 1)
-metallic = 1.0
-roughness = 0.45
-emission = Color(0.42688888, 0.8880072, 0.9535784, 1)
-emission_energy_multiplier = 0.22
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_h7n1j"]
 radius = 20.0
@@ -22,10 +14,6 @@ script = ExtResource("1_lf4fg")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1443697117]
 shape = SubResource("BoxShape3D_h7n1j")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=725164236]
-mesh = SubResource("BoxMesh_jyont")
-surface_material_override/0 = SubResource("StandardMaterial3D_yhqha")
-
 [node name="DetectionZone" type="Area3D" parent="." unique_id=354151201]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionZone" unique_id=1757770737]
@@ -35,3 +23,25 @@ debug_color = Color(0.7511385, 0.3993271, 0.6001887, 0.41960785)
 [node name="RayCast3D" type="RayCast3D" parent="." unique_id=1638293311]
 target_position = Vector3(0, -100, 0)
 collide_with_areas = true
+
+[node name="Sketchfab_Scene" parent="." unique_id=1095280077 instance=ExtResource("2_mmh82")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5014221, 0.18976402)
+
+[node name="Skeleton3D" parent="Sketchfab_Scene/Sketchfab_model/9550e7e77f0d46ebabfb3d0f01219f69_fbx/Object_2/RootNode/Mushroom/Object_5" parent_id_path=PackedInt32Array(1095280077, 1575839135) index="0" unique_id=1061312469]
+bones/1/rotation = Quaternion(0.80767983, 7.031485e-08, 9.6064454e-08, 0.58962125)
+bones/2/rotation = Quaternion(-0.19346182, -1.1688098e-07, -2.2584572e-08, 0.98110783)
+bones/3/rotation = Quaternion(-0.04784136, -2.1125462e-14, -4.55105e-15, 0.99885494)
+bones/6/rotation = Quaternion(-0.5896211, 9.592621e-08, -6.9849186e-08, 0.8076799)
+bones/7/position = Vector3(0.07458644, 0.034827404, -0.020367485)
+bones/7/rotation = Quaternion(-0.15412153, -0.004595235, -0.029444959, 0.9876024)
+bones/8/rotation = Quaternion(0.16880658, -0.0029045756, 0.07563843, 0.98273844)
+bones/10/position = Vector3(-0.074586436, 0.034827437, -0.020367522)
+bones/10/rotation = Quaternion(-0.15412126, 0.0045949947, 0.029444825, 0.9876025)
+bones/11/rotation = Quaternion(0.16880605, 0.0029045558, -0.07563826, 0.98273855)
+bones/13/position = Vector3(0.07458645, -0.00041803718, 0.020371702)
+bones/15/rotation = Quaternion(0.514686, -1.0058284e-07, -2.6240014e-07, 0.85737884)
+bones/17/position = Vector3(-0.07458645, -0.00041803718, 0.020371702)
+bones/17/rotation = Quaternion(0, 7.66187e-40, 0, 1)
+bones/19/rotation = Quaternion(0.514686, 1.0617077e-07, 2.6309863e-07, 0.8573788)
+
+[editable path="Sketchfab_Scene"]

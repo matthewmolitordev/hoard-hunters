@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://3llsmtg8esoo"]
 
 [ext_resource type="PackedScene" uid="uid://bd4abpdncwq8b" path="res://player.tscn" id="1_1iog8"]
+[ext_resource type="Script" uid="uid://b57ne3k6loda8" path="res://hub_world.gd" id="1_an8be"]
 [ext_resource type="Script" uid="uid://clx3e7l5upabg" path="res://portal.gd" id="2_oe58s"]
 [ext_resource type="PackedScene" uid="uid://682af8kldk6l" path="res://assets/portal_arch.glb" id="3_e0qst"]
 [ext_resource type="Material" uid="uid://c3nyqpyeam64" path="res://assets/texture/stone_material.tres" id="4_w1cbi"]
-[ext_resource type="PackedScene" uid="uid://c757wm2j1mc0y" path="res://spawning_fountain.tscn" id="5_gdsyq"]
 [ext_resource type="PackedScene" uid="uid://dd4cxtqy36ath" path="res://open_box.tscn" id="6_5lugp"]
 [ext_resource type="PackedScene" uid="uid://da7qgy6oekht8" path="res://tileset/corridor.tscn" id="7_fycy5"]
 [ext_resource type="PackedScene" uid="uid://bbaytslh405fy" path="res://tileset/corridor_corner.tscn" id="8_an8be"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://bl1vm2qww23io" path="res://tileset/corridor_junction.tscn" id="11_dft3v"]
 [ext_resource type="PackedScene" uid="uid://bvqfn1ga2r6vd" path="res://tileset/corridor_transition.tscn" id="12_dbe7u"]
 [ext_resource type="PackedScene" uid="uid://ccpandllg68x8" path="res://tileset/gate_metal_bars.tscn" id="13_4gvti"]
+[ext_resource type="PackedScene" uid="uid://bk20rfxaluwci" path="res://tileset/template_floor_detail.tscn" id="14_an8be"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_h7n1j"]
 size = Vector3(3, 4, 1)
@@ -64,13 +65,11 @@ sky = SubResource("Sky_tufch")
 glow_enabled = true
 glow_bloom = 0.3
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4n47x"]
-albedo_color = Color(0.2791721, 0.15901911, 0.017618911, 1)
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_djjlw"]
 albedo_color = Color(0.19555321, 0.34288588, 0.16614762, 1)
 
 [node name="HubWorld" type="Node3D" unique_id=893329640]
+script = ExtResource("1_an8be")
 
 [node name="Player" parent="." unique_id=55416726 instance=ExtResource("1_1iog8")]
 transform = Transform3D(-0.9037503, 0, -0.42806, 0, 1, 0, 0.42806, 0, -0.9037503, 7.6418877, 1.7150738, 43.179695)
@@ -85,24 +84,12 @@ transform = Transform3D(0.9069416, 0, 0.4212564, 0, 1, 0, -0.4212564, 0, 0.90694
 shape = SubResource("BoxShape3D_h7n1j")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Portal" unique_id=27048802]
-transform = Transform3D(0.9069416, 0, 0.4212564, 0, 1, 0, -0.4212564, 0, 0.9069416, 11.882438, -0.9396262, 47.25108)
-size = Vector3(3, 4, 1)
+transform = Transform3D(0.9069416, 0, 0.4212564, 0, 1, 0, -0.4212564, 0, 0.9069416, 11.882438, -1.9371848, 47.25108)
+size = Vector3(3, 5.995117, 1)
 material = SubResource("StandardMaterial3D_jyont")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2092172206]
 environment = SubResource("Environment_e0qst")
-
-[node name="PlazaFloor" type="CSGBox3D" parent="." unique_id=1473348146]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10.445679, 34.8893)
-use_collision = true
-size = Vector3(100, 20, 30)
-material = SubResource("StandardMaterial3D_4n47x")
-
-[node name="PlazaFloor" type="CSGBox3D" parent="PlazaFloor" unique_id=1824640548]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -52.729153, 14.218586)
-use_collision = true
-size = Vector3(100, 20, 1000)
-material = SubResource("StandardMaterial3D_4n47x")
 
 [node name="HillsBoundry" type="CSGCombiner3D" parent="." unique_id=2110339009]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57.16793, 0, 0)
@@ -158,9 +145,6 @@ material_overlay = ExtResource("4_w1cbi")
 transform = Transform3D(0.9069416, 0, 1.2260414, 0, 0.12997139, 0, -0.42125636, 0, 2.6395977, -39.25528, 5, 13.939758)
 material_overlay = ExtResource("4_w1cbi")
 
-[node name="SpawningFountain" parent="." unique_id=1752228861 instance=ExtResource("5_gdsyq")]
-transform = Transform3D(0.65753627, -0.75342286, 0, 0.5847179, 0.51030207, -0.6306319, 0.4751325, 0.41466337, 0.77608204, 4.5552573, 12.331836, 36.16573)
-
 [node name="OpenBox" parent="." unique_id=1536612551 instance=ExtResource("6_5lugp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.467732, -0.020868301, 32.875164)
 
@@ -180,12 +164,1862 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.972431, -0.4456749, 34.235
 transform = Transform3D(0.034361586, 0, 0.99940944, 0, 1, 0, -0.99940944, 0, 0.034361586, 17.134333, -0.445673, 30.142426)
 
 [node name="CorridorTransition" parent="." unique_id=727903612 instance=ExtResource("12_dbe7u")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.604418, 1.3019247, 32.11596)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.604418, -0.530797, 32.11596)
 
 [node name="GateMetalBars" parent="." unique_id=292143203 instance=ExtResource("13_4gvti")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.591572, -0.445673, 28.150108)
 
 [node name="GateMetalBars2" parent="." unique_id=1964633604 instance=ExtResource("13_4gvti")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.044231, 1.5642262, 36.547817)
+
+[node name="GridMap" type="GridMap" parent="." unique_id=619962754]
+
+[node name="TemplateFloorDetail" parent="GridMap" unique_id=79727498 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 0, -12)
+
+[node name="TemplateFloorDetail2" parent="GridMap" unique_id=830851270 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 0, -12)
+
+[node name="TemplateFloorDetail3" parent="GridMap" unique_id=2075005942 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 0, -16)
+
+[node name="TemplateFloorDetail4" parent="GridMap" unique_id=54003636 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 0, -16)
+
+[node name="TemplateFloorDetail5" parent="GridMap" unique_id=166810782 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34, 0, -12)
+
+[node name="TemplateFloorDetail6" parent="GridMap" unique_id=814145100 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, -12)
+
+[node name="TemplateFloorDetail7" parent="GridMap" unique_id=588691326 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, -16)
+
+[node name="TemplateFloorDetail8" parent="GridMap" unique_id=1189454897 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34, 0, -16)
+
+[node name="TemplateFloorDetail9" parent="GridMap" unique_id=1670374485 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 0, -12)
+
+[node name="TemplateFloorDetail10" parent="GridMap" unique_id=435390349 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, -12)
+
+[node name="TemplateFloorDetail11" parent="GridMap" unique_id=359793392 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, -16)
+
+[node name="TemplateFloorDetail12" parent="GridMap" unique_id=1054486200 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 0, -16)
+
+[node name="TemplateFloorDetail13" parent="GridMap" unique_id=1001262333 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, -12)
+
+[node name="TemplateFloorDetail14" parent="GridMap" unique_id=1050843425 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -12)
+
+[node name="TemplateFloorDetail15" parent="GridMap" unique_id=1500201530 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -16)
+
+[node name="TemplateFloorDetail16" parent="GridMap" unique_id=586439111 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, -16)
+
+[node name="TemplateFloorDetail17" parent="GridMap" unique_id=765240277 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -12)
+
+[node name="TemplateFloorDetail18" parent="GridMap" unique_id=1693081743 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -16)
+
+[node name="TemplateFloorDetail19" parent="GridMap" unique_id=873833501 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -12)
+
+[node name="TemplateFloorDetail20" parent="GridMap" unique_id=1713146069 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -12)
+
+[node name="TemplateFloorDetail21" parent="GridMap" unique_id=410731478 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -16)
+
+[node name="TemplateFloorDetail22" parent="GridMap" unique_id=678193728 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -16)
+
+[node name="TemplateFloorDetail23" parent="GridMap" unique_id=1127384662 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 0, -20)
+
+[node name="TemplateFloorDetail24" parent="GridMap" unique_id=1614960641 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 0, -20)
+
+[node name="TemplateFloorDetail25" parent="GridMap" unique_id=171605290 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 0, -24)
+
+[node name="TemplateFloorDetail26" parent="GridMap" unique_id=379862143 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 0, -24)
+
+[node name="TemplateFloorDetail27" parent="GridMap" unique_id=1471016989 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34, 0, -20)
+
+[node name="TemplateFloorDetail28" parent="GridMap" unique_id=951742965 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, -20)
+
+[node name="TemplateFloorDetail29" parent="GridMap" unique_id=236956451 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, -24)
+
+[node name="TemplateFloorDetail30" parent="GridMap" unique_id=1059314162 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34, 0, -24)
+
+[node name="TemplateFloorDetail31" parent="GridMap" unique_id=2044855857 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 0, -20)
+
+[node name="TemplateFloorDetail32" parent="GridMap" unique_id=1374412441 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, -20)
+
+[node name="TemplateFloorDetail33" parent="GridMap" unique_id=36121562 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, -24)
+
+[node name="TemplateFloorDetail34" parent="GridMap" unique_id=1382921687 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 0, -24)
+
+[node name="TemplateFloorDetail35" parent="GridMap" unique_id=44315174 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, -20)
+
+[node name="TemplateFloorDetail36" parent="GridMap" unique_id=9575457 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -20)
+
+[node name="TemplateFloorDetail37" parent="GridMap" unique_id=576143888 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -24)
+
+[node name="TemplateFloorDetail38" parent="GridMap" unique_id=1808213330 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, -24)
+
+[node name="TemplateFloorDetail39" parent="GridMap" unique_id=1615382726 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -20)
+
+[node name="TemplateFloorDetail40" parent="GridMap" unique_id=477735881 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -24)
+
+[node name="TemplateFloorDetail41" parent="GridMap" unique_id=607663997 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -20)
+
+[node name="TemplateFloorDetail42" parent="GridMap" unique_id=1374114910 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -20)
+
+[node name="TemplateFloorDetail43" parent="GridMap" unique_id=1445264770 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -24)
+
+[node name="TemplateFloorDetail44" parent="GridMap" unique_id=816405181 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -24)
+
+[node name="TemplateFloorDetail45" parent="GridMap" unique_id=714889416 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 0, -28)
+
+[node name="TemplateFloorDetail46" parent="GridMap" unique_id=865639725 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 0, -28)
+
+[node name="TemplateFloorDetail47" parent="GridMap" unique_id=349421737 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 0, -32)
+
+[node name="TemplateFloorDetail48" parent="GridMap" unique_id=409957122 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 0, -32)
+
+[node name="TemplateFloorDetail49" parent="GridMap" unique_id=1659575299 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34, 0, -28)
+
+[node name="TemplateFloorDetail50" parent="GridMap" unique_id=1478215166 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, -28)
+
+[node name="TemplateFloorDetail51" parent="GridMap" unique_id=1059668932 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, -32)
+
+[node name="TemplateFloorDetail52" parent="GridMap" unique_id=467644520 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34, 0, -32)
+
+[node name="TemplateFloorDetail53" parent="GridMap" unique_id=2047713110 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 0, -28)
+
+[node name="TemplateFloorDetail54" parent="GridMap" unique_id=877389879 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, -28)
+
+[node name="TemplateFloorDetail55" parent="GridMap" unique_id=1793809170 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, -32)
+
+[node name="TemplateFloorDetail56" parent="GridMap" unique_id=1461438000 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 0, -32)
+
+[node name="TemplateFloorDetail57" parent="GridMap" unique_id=568887321 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, -28)
+
+[node name="TemplateFloorDetail58" parent="GridMap" unique_id=1202755334 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -28)
+
+[node name="TemplateFloorDetail59" parent="GridMap" unique_id=1175369671 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -32)
+
+[node name="TemplateFloorDetail60" parent="GridMap" unique_id=1574849185 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, -32)
+
+[node name="TemplateFloorDetail61" parent="GridMap" unique_id=1652062411 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -28)
+
+[node name="TemplateFloorDetail62" parent="GridMap" unique_id=850156398 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -32)
+
+[node name="TemplateFloorDetail63" parent="GridMap" unique_id=334427198 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -28)
+
+[node name="TemplateFloorDetail64" parent="GridMap" unique_id=1248863742 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -28)
+
+[node name="TemplateFloorDetail65" parent="GridMap" unique_id=1513355647 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -32)
+
+[node name="TemplateFloorDetail66" parent="GridMap" unique_id=558977041 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -32)
+
+[node name="TemplateFloorDetail67" parent="GridMap" unique_id=909994821 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 0, -36)
+
+[node name="TemplateFloorDetail68" parent="GridMap" unique_id=1843709895 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 0, -36)
+
+[node name="TemplateFloorDetail69" parent="GridMap" unique_id=1828506728 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -38, 0, -40)
+
+[node name="TemplateFloorDetail70" parent="GridMap" unique_id=1377550142 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 0, -40)
+
+[node name="TemplateFloorDetail71" parent="GridMap" unique_id=106107098 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34, 0, -36)
+
+[node name="TemplateFloorDetail72" parent="GridMap" unique_id=982480985 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, -36)
+
+[node name="TemplateFloorDetail73" parent="GridMap" unique_id=525052744 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30, 0, -40)
+
+[node name="TemplateFloorDetail74" parent="GridMap" unique_id=395683431 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34, 0, -40)
+
+[node name="TemplateFloorDetail75" parent="GridMap" unique_id=1500256232 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 0, -36)
+
+[node name="TemplateFloorDetail76" parent="GridMap" unique_id=1674155830 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, -36)
+
+[node name="TemplateFloorDetail77" parent="GridMap" unique_id=311638223 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22, 0, -40)
+
+[node name="TemplateFloorDetail78" parent="GridMap" unique_id=1541877368 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26, 0, -40)
+
+[node name="TemplateFloorDetail79" parent="GridMap" unique_id=337638618 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, -36)
+
+[node name="TemplateFloorDetail80" parent="GridMap" unique_id=884843097 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -36)
+
+[node name="TemplateFloorDetail81" parent="GridMap" unique_id=749040312 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 0, -40)
+
+[node name="TemplateFloorDetail82" parent="GridMap" unique_id=386771477 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18, 0, -40)
+
+[node name="TemplateFloorDetail83" parent="GridMap" unique_id=113291067 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -36)
+
+[node name="TemplateFloorDetail84" parent="GridMap" unique_id=1873880026 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -40)
+
+[node name="TemplateFloorDetail85" parent="GridMap" unique_id=1218460638 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -36)
+
+[node name="TemplateFloorDetail86" parent="GridMap" unique_id=2001737924 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -36)
+
+[node name="TemplateFloorDetail87" parent="GridMap" unique_id=2047940758 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -40)
+
+[node name="TemplateFloorDetail88" parent="GridMap" unique_id=231659024 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -40)
+
+[node name="TemplateFloorDetail89" parent="GridMap" unique_id=1437466216 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -12)
+
+[node name="TemplateFloorDetail90" parent="GridMap" unique_id=1264882350 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -12)
+
+[node name="TemplateFloorDetail91" parent="GridMap" unique_id=88872399 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -16)
+
+[node name="TemplateFloorDetail92" parent="GridMap" unique_id=2067802776 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -16)
+
+[node name="TemplateFloorDetail93" parent="GridMap" unique_id=134873189 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -12)
+
+[node name="TemplateFloorDetail94" parent="GridMap" unique_id=2034275274 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -12)
+
+[node name="TemplateFloorDetail95" parent="GridMap" unique_id=955921300 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -16)
+
+[node name="TemplateFloorDetail96" parent="GridMap" unique_id=326530329 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -16)
+
+[node name="TemplateFloorDetail97" parent="GridMap" unique_id=71150799 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, -12)
+
+[node name="TemplateFloorDetail98" parent="GridMap" unique_id=1478404806 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, -12)
+
+[node name="TemplateFloorDetail99" parent="GridMap" unique_id=1549835432 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, -16)
+
+[node name="TemplateFloorDetail100" parent="GridMap" unique_id=383281087 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, -16)
+
+[node name="TemplateFloorDetail101" parent="GridMap" unique_id=1574468207 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 0, -12)
+
+[node name="TemplateFloorDetail102" parent="GridMap" unique_id=1716554875 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, -12)
+
+[node name="TemplateFloorDetail103" parent="GridMap" unique_id=951802169 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, -16)
+
+[node name="TemplateFloorDetail104" parent="GridMap" unique_id=1610228307 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 0, -16)
+
+[node name="TemplateFloorDetail105" parent="GridMap" unique_id=1487039716 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 0, -12)
+
+[node name="TemplateFloorDetail106" parent="GridMap" unique_id=1591824586 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 0, -16)
+
+[node name="TemplateFloorDetail107" parent="GridMap" unique_id=56327069 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 0, -12)
+
+[node name="TemplateFloorDetail108" parent="GridMap" unique_id=2106618599 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 0, -12)
+
+[node name="TemplateFloorDetail109" parent="GridMap" unique_id=1607958492 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 0, -16)
+
+[node name="TemplateFloorDetail110" parent="GridMap" unique_id=322730237 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 0, -16)
+
+[node name="TemplateFloorDetail111" parent="GridMap" unique_id=722311585 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -20)
+
+[node name="TemplateFloorDetail112" parent="GridMap" unique_id=1354963728 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -20)
+
+[node name="TemplateFloorDetail113" parent="GridMap" unique_id=185692118 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -24)
+
+[node name="TemplateFloorDetail114" parent="GridMap" unique_id=957460413 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -24)
+
+[node name="TemplateFloorDetail115" parent="GridMap" unique_id=1245216536 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -20)
+
+[node name="TemplateFloorDetail116" parent="GridMap" unique_id=583402769 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -20)
+
+[node name="TemplateFloorDetail117" parent="GridMap" unique_id=2085144956 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -24)
+
+[node name="TemplateFloorDetail118" parent="GridMap" unique_id=1868743209 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -24)
+
+[node name="TemplateFloorDetail119" parent="GridMap" unique_id=1247667869 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, -20)
+
+[node name="TemplateFloorDetail120" parent="GridMap" unique_id=971513064 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, -20)
+
+[node name="TemplateFloorDetail121" parent="GridMap" unique_id=1337399572 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, -24)
+
+[node name="TemplateFloorDetail122" parent="GridMap" unique_id=582652025 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, -24)
+
+[node name="TemplateFloorDetail123" parent="GridMap" unique_id=1998788560 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 0, -20)
+
+[node name="TemplateFloorDetail124" parent="GridMap" unique_id=769265744 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, -20)
+
+[node name="TemplateFloorDetail125" parent="GridMap" unique_id=35932516 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, -24)
+
+[node name="TemplateFloorDetail126" parent="GridMap" unique_id=760721406 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 0, -24)
+
+[node name="TemplateFloorDetail127" parent="GridMap" unique_id=1835181432 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 0, -20)
+
+[node name="TemplateFloorDetail128" parent="GridMap" unique_id=1642423743 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 0, -24)
+
+[node name="TemplateFloorDetail129" parent="GridMap" unique_id=2102522697 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 0, -20)
+
+[node name="TemplateFloorDetail130" parent="GridMap" unique_id=599059424 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 0, -20)
+
+[node name="TemplateFloorDetail131" parent="GridMap" unique_id=1801655939 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 0, -24)
+
+[node name="TemplateFloorDetail132" parent="GridMap" unique_id=609268008 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 0, -24)
+
+[node name="TemplateFloorDetail133" parent="GridMap" unique_id=2091170180 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -28)
+
+[node name="TemplateFloorDetail134" parent="GridMap" unique_id=2136649215 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -28)
+
+[node name="TemplateFloorDetail135" parent="GridMap" unique_id=75201011 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -32)
+
+[node name="TemplateFloorDetail136" parent="GridMap" unique_id=1705024992 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -32)
+
+[node name="TemplateFloorDetail137" parent="GridMap" unique_id=683462005 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -28)
+
+[node name="TemplateFloorDetail138" parent="GridMap" unique_id=1469074278 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -28)
+
+[node name="TemplateFloorDetail139" parent="GridMap" unique_id=892360507 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -32)
+
+[node name="TemplateFloorDetail140" parent="GridMap" unique_id=844002191 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -32)
+
+[node name="TemplateFloorDetail141" parent="GridMap" unique_id=1050765364 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, -28)
+
+[node name="TemplateFloorDetail142" parent="GridMap" unique_id=1465606333 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, -28)
+
+[node name="TemplateFloorDetail143" parent="GridMap" unique_id=2006312353 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, -32)
+
+[node name="TemplateFloorDetail144" parent="GridMap" unique_id=91423817 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, -32)
+
+[node name="TemplateFloorDetail145" parent="GridMap" unique_id=330334721 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 0, -28)
+
+[node name="TemplateFloorDetail146" parent="GridMap" unique_id=1326458999 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, -28)
+
+[node name="TemplateFloorDetail147" parent="GridMap" unique_id=367348180 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, -32)
+
+[node name="TemplateFloorDetail148" parent="GridMap" unique_id=864510314 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 0, -32)
+
+[node name="TemplateFloorDetail149" parent="GridMap" unique_id=1479492089 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 0, -28)
+
+[node name="TemplateFloorDetail150" parent="GridMap" unique_id=800567742 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 0, -32)
+
+[node name="TemplateFloorDetail151" parent="GridMap" unique_id=617427237 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 0, -28)
+
+[node name="TemplateFloorDetail152" parent="GridMap" unique_id=283869427 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 0, -28)
+
+[node name="TemplateFloorDetail153" parent="GridMap" unique_id=1287121232 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 0, -32)
+
+[node name="TemplateFloorDetail154" parent="GridMap" unique_id=177043602 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 0, -32)
+
+[node name="TemplateFloorDetail155" parent="GridMap" unique_id=1341576396 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -36)
+
+[node name="TemplateFloorDetail156" parent="GridMap" unique_id=881126204 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -36)
+
+[node name="TemplateFloorDetail157" parent="GridMap" unique_id=2119245393 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -40)
+
+[node name="TemplateFloorDetail158" parent="GridMap" unique_id=85779310 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -40)
+
+[node name="TemplateFloorDetail159" parent="GridMap" unique_id=1415729158 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -36)
+
+[node name="TemplateFloorDetail160" parent="GridMap" unique_id=1267168572 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -36)
+
+[node name="TemplateFloorDetail161" parent="GridMap" unique_id=1858782172 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -40)
+
+[node name="TemplateFloorDetail162" parent="GridMap" unique_id=2058909177 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -40)
+
+[node name="TemplateFloorDetail163" parent="GridMap" unique_id=1230013299 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, -36)
+
+[node name="TemplateFloorDetail164" parent="GridMap" unique_id=661000412 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, -36)
+
+[node name="TemplateFloorDetail165" parent="GridMap" unique_id=12051658 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 0, -40)
+
+[node name="TemplateFloorDetail166" parent="GridMap" unique_id=694831807 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18, 0, -40)
+
+[node name="TemplateFloorDetail167" parent="GridMap" unique_id=1278517786 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 0, -36)
+
+[node name="TemplateFloorDetail168" parent="GridMap" unique_id=776840603 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, -36)
+
+[node name="TemplateFloorDetail169" parent="GridMap" unique_id=1143504552 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30, 0, -40)
+
+[node name="TemplateFloorDetail170" parent="GridMap" unique_id=1681693055 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 0, -40)
+
+[node name="TemplateFloorDetail171" parent="GridMap" unique_id=1511902296 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 0, -36)
+
+[node name="TemplateFloorDetail172" parent="GridMap" unique_id=957775438 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 0, -40)
+
+[node name="TemplateFloorDetail173" parent="GridMap" unique_id=1967385353 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 0, -36)
+
+[node name="TemplateFloorDetail174" parent="GridMap" unique_id=760710366 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 0, -36)
+
+[node name="TemplateFloorDetail175" parent="GridMap" unique_id=126815137 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38, 0, -40)
+
+[node name="TemplateFloorDetail176" parent="GridMap" unique_id=1694939861 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42, 0, -40)
+
+[node name="TemplateFloorDetail177" parent="GridMap" unique_id=1532501348 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 20)
+
+[node name="TemplateFloorDetail178" parent="GridMap" unique_id=1682872342 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 20)
+
+[node name="TemplateFloorDetail179" parent="GridMap" unique_id=1494300359 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 16)
+
+[node name="TemplateFloorDetail180" parent="GridMap" unique_id=467774973 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 16)
+
+[node name="TemplateFloorDetail181" parent="GridMap" unique_id=735796239 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 20)
+
+[node name="TemplateFloorDetail182" parent="GridMap" unique_id=1637200442 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 0, 20)
+
+[node name="TemplateFloorDetail183" parent="GridMap" unique_id=127783826 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 0, 16)
+
+[node name="TemplateFloorDetail184" parent="GridMap" unique_id=571006825 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 16)
+
+[node name="TemplateFloorDetail185" parent="GridMap" unique_id=92172930 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 20)
+
+[node name="TemplateFloorDetail186" parent="GridMap" unique_id=1446952266 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 0, 20)
+
+[node name="TemplateFloorDetail187" parent="GridMap" unique_id=1447447637 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 0, 16)
+
+[node name="TemplateFloorDetail188" parent="GridMap" unique_id=39349678 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 16)
+
+[node name="TemplateFloorDetail189" parent="GridMap" unique_id=2013075014 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 0, 20)
+
+[node name="TemplateFloorDetail190" parent="GridMap" unique_id=1948474155 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37, 0, 20)
+
+[node name="TemplateFloorDetail191" parent="GridMap" unique_id=2128328873 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37, 0, 16)
+
+[node name="TemplateFloorDetail192" parent="GridMap" unique_id=492523638 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 0, 16)
+
+[node name="TemplateFloorDetail193" parent="GridMap" unique_id=1847346853 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41, 0, 20)
+
+[node name="TemplateFloorDetail194" parent="GridMap" unique_id=236052505 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41, 0, 16)
+
+[node name="TemplateFloorDetail195" parent="GridMap" unique_id=1972622740 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 20)
+
+[node name="TemplateFloorDetail196" parent="GridMap" unique_id=1425636926 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49, 0, 20)
+
+[node name="TemplateFloorDetail197" parent="GridMap" unique_id=2098746436 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49, 0, 16)
+
+[node name="TemplateFloorDetail198" parent="GridMap" unique_id=904889042 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 16)
+
+[node name="TemplateFloorDetail199" parent="GridMap" unique_id=112936536 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 12)
+
+[node name="TemplateFloorDetail200" parent="GridMap" unique_id=1265307587 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 12)
+
+[node name="TemplateFloorDetail201" parent="GridMap" unique_id=1700413945 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 8)
+
+[node name="TemplateFloorDetail202" parent="GridMap" unique_id=302849058 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 8)
+
+[node name="TemplateFloorDetail203" parent="GridMap" unique_id=2139440170 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 12)
+
+[node name="TemplateFloorDetail204" parent="GridMap" unique_id=1145733728 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 0, 12)
+
+[node name="TemplateFloorDetail205" parent="GridMap" unique_id=179164114 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 0, 8)
+
+[node name="TemplateFloorDetail206" parent="GridMap" unique_id=251369982 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 8)
+
+[node name="TemplateFloorDetail207" parent="GridMap" unique_id=1367090743 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 12)
+
+[node name="TemplateFloorDetail208" parent="GridMap" unique_id=392464833 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 0, 12)
+
+[node name="TemplateFloorDetail209" parent="GridMap" unique_id=526551093 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 0, 8)
+
+[node name="TemplateFloorDetail210" parent="GridMap" unique_id=1571776086 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 8)
+
+[node name="TemplateFloorDetail211" parent="GridMap" unique_id=1449522348 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 0, 12)
+
+[node name="TemplateFloorDetail212" parent="GridMap" unique_id=900360754 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37, 0, 12)
+
+[node name="TemplateFloorDetail213" parent="GridMap" unique_id=1303060167 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37, 0, 8)
+
+[node name="TemplateFloorDetail214" parent="GridMap" unique_id=819913073 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 0, 8)
+
+[node name="TemplateFloorDetail215" parent="GridMap" unique_id=504165153 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41, 0, 12)
+
+[node name="TemplateFloorDetail216" parent="GridMap" unique_id=358456090 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41, 0, 8)
+
+[node name="TemplateFloorDetail217" parent="GridMap" unique_id=653925691 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 12)
+
+[node name="TemplateFloorDetail218" parent="GridMap" unique_id=1789350573 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49, 0, 12)
+
+[node name="TemplateFloorDetail219" parent="GridMap" unique_id=1252876212 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49, 0, 8)
+
+[node name="TemplateFloorDetail220" parent="GridMap" unique_id=485477404 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 8)
+
+[node name="TemplateFloorDetail221" parent="GridMap" unique_id=2027011362 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 4)
+
+[node name="TemplateFloorDetail222" parent="GridMap" unique_id=318374532 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 4)
+
+[node name="TemplateFloorDetail223" parent="GridMap" unique_id=1579249408 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 0)
+
+[node name="TemplateFloorDetail224" parent="GridMap" unique_id=570702428 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 0)
+
+[node name="TemplateFloorDetail225" parent="GridMap" unique_id=288321906 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 4)
+
+[node name="TemplateFloorDetail226" parent="GridMap" unique_id=1387649500 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 0, 4)
+
+[node name="TemplateFloorDetail227" parent="GridMap" unique_id=1343514850 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 0, 0)
+
+[node name="TemplateFloorDetail228" parent="GridMap" unique_id=424843252 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 0)
+
+[node name="TemplateFloorDetail229" parent="GridMap" unique_id=1102948359 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 4)
+
+[node name="TemplateFloorDetail230" parent="GridMap" unique_id=1267937724 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 0, 4)
+
+[node name="TemplateFloorDetail231" parent="GridMap" unique_id=1251399745 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 0, 0)
+
+[node name="TemplateFloorDetail232" parent="GridMap" unique_id=44951740 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 0)
+
+[node name="TemplateFloorDetail233" parent="GridMap" unique_id=1848443223 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 0, 4)
+
+[node name="TemplateFloorDetail234" parent="GridMap" unique_id=1916513562 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37, 0, 4)
+
+[node name="TemplateFloorDetail235" parent="GridMap" unique_id=1035369003 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37, 0, 0)
+
+[node name="TemplateFloorDetail236" parent="GridMap" unique_id=1426533852 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 0, 0)
+
+[node name="TemplateFloorDetail237" parent="GridMap" unique_id=2140154557 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41, 0, 4)
+
+[node name="TemplateFloorDetail238" parent="GridMap" unique_id=114106217 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41, 0, 0)
+
+[node name="TemplateFloorDetail239" parent="GridMap" unique_id=1723055823 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 4)
+
+[node name="TemplateFloorDetail240" parent="GridMap" unique_id=1268922281 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49, 0, 4)
+
+[node name="TemplateFloorDetail241" parent="GridMap" unique_id=242769660 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49, 0, 0)
+
+[node name="TemplateFloorDetail242" parent="GridMap" unique_id=1128874602 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 0)
+
+[node name="TemplateFloorDetail243" parent="GridMap" unique_id=510773965 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, -4)
+
+[node name="TemplateFloorDetail244" parent="GridMap" unique_id=723443725 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, -4)
+
+[node name="TemplateFloorDetail245" parent="GridMap" unique_id=905586496 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, -8)
+
+[node name="TemplateFloorDetail246" parent="GridMap" unique_id=1686206324 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, -8)
+
+[node name="TemplateFloorDetail247" parent="GridMap" unique_id=482551301 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, -4)
+
+[node name="TemplateFloorDetail248" parent="GridMap" unique_id=1145746603 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 0, -4)
+
+[node name="TemplateFloorDetail249" parent="GridMap" unique_id=613498698 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 0, -8)
+
+[node name="TemplateFloorDetail250" parent="GridMap" unique_id=1045121497 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, -8)
+
+[node name="TemplateFloorDetail251" parent="GridMap" unique_id=491431399 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, -4)
+
+[node name="TemplateFloorDetail252" parent="GridMap" unique_id=1646425710 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 0, -4)
+
+[node name="TemplateFloorDetail253" parent="GridMap" unique_id=548361896 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 0, -8)
+
+[node name="TemplateFloorDetail254" parent="GridMap" unique_id=181334939 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, -8)
+
+[node name="TemplateFloorDetail255" parent="GridMap" unique_id=600660164 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 0, -4)
+
+[node name="TemplateFloorDetail256" parent="GridMap" unique_id=258326139 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37, 0, -4)
+
+[node name="TemplateFloorDetail257" parent="GridMap" unique_id=137952253 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37, 0, -8)
+
+[node name="TemplateFloorDetail258" parent="GridMap" unique_id=1518861256 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 0, -8)
+
+[node name="TemplateFloorDetail259" parent="GridMap" unique_id=1678967624 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41, 0, -4)
+
+[node name="TemplateFloorDetail260" parent="GridMap" unique_id=416119913 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41, 0, -8)
+
+[node name="TemplateFloorDetail261" parent="GridMap" unique_id=1797731731 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, -4)
+
+[node name="TemplateFloorDetail262" parent="GridMap" unique_id=209442039 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49, 0, -4)
+
+[node name="TemplateFloorDetail263" parent="GridMap" unique_id=1949838281 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, -8)
+
+[node name="TemplateFloorDetail264" parent="GridMap" unique_id=1467734773 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49, 0, -8)
+
+[node name="TemplateFloorDetail265" parent="GridMap" unique_id=449617214 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 51)
+
+[node name="TemplateFloorDetail266" parent="GridMap" unique_id=2124761796 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 51)
+
+[node name="TemplateFloorDetail267" parent="GridMap" unique_id=69511211 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 47)
+
+[node name="TemplateFloorDetail268" parent="GridMap" unique_id=867627006 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 47)
+
+[node name="TemplateFloorDetail269" parent="GridMap" unique_id=1446005000 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 51)
+
+[node name="TemplateFloorDetail270" parent="GridMap" unique_id=1519234183 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 0, 51)
+
+[node name="TemplateFloorDetail271" parent="GridMap" unique_id=1978110927 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 0, 47)
+
+[node name="TemplateFloorDetail272" parent="GridMap" unique_id=1127627233 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 47)
+
+[node name="TemplateFloorDetail273" parent="GridMap" unique_id=1387685790 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 51)
+
+[node name="TemplateFloorDetail274" parent="GridMap" unique_id=1631660428 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 0, 51)
+
+[node name="TemplateFloorDetail275" parent="GridMap" unique_id=450713841 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 0, 47)
+
+[node name="TemplateFloorDetail276" parent="GridMap" unique_id=1677436578 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 47)
+
+[node name="TemplateFloorDetail277" parent="GridMap" unique_id=1216833547 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 0, 51)
+
+[node name="TemplateFloorDetail278" parent="GridMap" unique_id=365977221 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37, 0, 51)
+
+[node name="TemplateFloorDetail279" parent="GridMap" unique_id=1840266208 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37, 0, 47)
+
+[node name="TemplateFloorDetail280" parent="GridMap" unique_id=780471993 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 0, 47)
+
+[node name="TemplateFloorDetail281" parent="GridMap" unique_id=1193710623 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41, 0, 51)
+
+[node name="TemplateFloorDetail282" parent="GridMap" unique_id=1768838796 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41, 0, 47)
+
+[node name="TemplateFloorDetail283" parent="GridMap" unique_id=1153788964 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 51)
+
+[node name="TemplateFloorDetail284" parent="GridMap" unique_id=1119021728 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49, 0, 51)
+
+[node name="TemplateFloorDetail285" parent="GridMap" unique_id=1439806909 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49, 0, 47)
+
+[node name="TemplateFloorDetail286" parent="GridMap" unique_id=149150294 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 47)
+
+[node name="TemplateFloorDetail287" parent="GridMap" unique_id=53533327 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 43)
+
+[node name="TemplateFloorDetail288" parent="GridMap" unique_id=1587986437 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 43)
+
+[node name="TemplateFloorDetail289" parent="GridMap" unique_id=1887864584 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 39)
+
+[node name="TemplateFloorDetail290" parent="GridMap" unique_id=1770576339 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 39)
+
+[node name="TemplateFloorDetail291" parent="GridMap" unique_id=1085495744 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 43)
+
+[node name="TemplateFloorDetail292" parent="GridMap" unique_id=1622305840 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 0, 43)
+
+[node name="TemplateFloorDetail293" parent="GridMap" unique_id=531311033 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 0, 39)
+
+[node name="TemplateFloorDetail294" parent="GridMap" unique_id=259175376 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 39)
+
+[node name="TemplateFloorDetail295" parent="GridMap" unique_id=1620964504 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 43)
+
+[node name="TemplateFloorDetail296" parent="GridMap" unique_id=372185609 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 0, 43)
+
+[node name="TemplateFloorDetail297" parent="GridMap" unique_id=346092827 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 0, 39)
+
+[node name="TemplateFloorDetail298" parent="GridMap" unique_id=1979128756 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 39)
+
+[node name="TemplateFloorDetail299" parent="GridMap" unique_id=1930532187 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 0, 43)
+
+[node name="TemplateFloorDetail300" parent="GridMap" unique_id=1469161296 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37, 0, 43)
+
+[node name="TemplateFloorDetail301" parent="GridMap" unique_id=1845323597 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37, 0, 39)
+
+[node name="TemplateFloorDetail302" parent="GridMap" unique_id=1114168306 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 0, 39)
+
+[node name="TemplateFloorDetail303" parent="GridMap" unique_id=1905245520 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41, 0, 43)
+
+[node name="TemplateFloorDetail304" parent="GridMap" unique_id=1656861356 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41, 0, 39)
+
+[node name="TemplateFloorDetail305" parent="GridMap" unique_id=1941101013 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 43)
+
+[node name="TemplateFloorDetail306" parent="GridMap" unique_id=966366335 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49, 0, 43)
+
+[node name="TemplateFloorDetail307" parent="GridMap" unique_id=2073106263 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49, 0, 39)
+
+[node name="TemplateFloorDetail308" parent="GridMap" unique_id=2098827846 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 39)
+
+[node name="TemplateFloorDetail309" parent="GridMap" unique_id=1969437707 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 35)
+
+[node name="TemplateFloorDetail310" parent="GridMap" unique_id=925802795 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 35)
+
+[node name="TemplateFloorDetail311" parent="GridMap" unique_id=1977045878 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 31)
+
+[node name="TemplateFloorDetail312" parent="GridMap" unique_id=1941277425 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 31)
+
+[node name="TemplateFloorDetail313" parent="GridMap" unique_id=1144959464 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 35)
+
+[node name="TemplateFloorDetail314" parent="GridMap" unique_id=1665899374 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 0, 35)
+
+[node name="TemplateFloorDetail315" parent="GridMap" unique_id=1836064741 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 0, 31)
+
+[node name="TemplateFloorDetail316" parent="GridMap" unique_id=562772947 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 31)
+
+[node name="TemplateFloorDetail317" parent="GridMap" unique_id=1664482925 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 35)
+
+[node name="TemplateFloorDetail318" parent="GridMap" unique_id=605510256 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 0, 35)
+
+[node name="TemplateFloorDetail319" parent="GridMap" unique_id=1949796616 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 0, 31)
+
+[node name="TemplateFloorDetail320" parent="GridMap" unique_id=1633432414 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 31)
+
+[node name="TemplateFloorDetail321" parent="GridMap" unique_id=1167059745 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 0, 35)
+
+[node name="TemplateFloorDetail322" parent="GridMap" unique_id=211361507 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37, 0, 35)
+
+[node name="TemplateFloorDetail323" parent="GridMap" unique_id=92638913 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37, 0, 31)
+
+[node name="TemplateFloorDetail324" parent="GridMap" unique_id=1715658044 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 0, 31)
+
+[node name="TemplateFloorDetail325" parent="GridMap" unique_id=1525512216 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41, 0, 35)
+
+[node name="TemplateFloorDetail326" parent="GridMap" unique_id=1990513347 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41, 0, 31)
+
+[node name="TemplateFloorDetail327" parent="GridMap" unique_id=1707241664 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 35)
+
+[node name="TemplateFloorDetail328" parent="GridMap" unique_id=1948176539 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49, 0, 35)
+
+[node name="TemplateFloorDetail329" parent="GridMap" unique_id=1506039826 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49, 0, 31)
+
+[node name="TemplateFloorDetail330" parent="GridMap" unique_id=961412940 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 31)
+
+[node name="TemplateFloorDetail331" parent="GridMap" unique_id=1747262055 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 27)
+
+[node name="TemplateFloorDetail332" parent="GridMap" unique_id=1595390987 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 27)
+
+[node name="TemplateFloorDetail333" parent="GridMap" unique_id=932592040 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 23)
+
+[node name="TemplateFloorDetail334" parent="GridMap" unique_id=716555288 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 23)
+
+[node name="TemplateFloorDetail335" parent="GridMap" unique_id=897344057 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 27)
+
+[node name="TemplateFloorDetail336" parent="GridMap" unique_id=1815394924 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 0, 27)
+
+[node name="TemplateFloorDetail337" parent="GridMap" unique_id=1696363928 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 0, 23)
+
+[node name="TemplateFloorDetail338" parent="GridMap" unique_id=116946679 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 23)
+
+[node name="TemplateFloorDetail339" parent="GridMap" unique_id=2138589550 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 27)
+
+[node name="TemplateFloorDetail340" parent="GridMap" unique_id=2047722093 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 0, 27)
+
+[node name="TemplateFloorDetail341" parent="GridMap" unique_id=1403855323 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 0, 23)
+
+[node name="TemplateFloorDetail342" parent="GridMap" unique_id=235944186 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25, 0, 23)
+
+[node name="TemplateFloorDetail343" parent="GridMap" unique_id=1592595243 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 0, 27)
+
+[node name="TemplateFloorDetail344" parent="GridMap" unique_id=483527376 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37, 0, 27)
+
+[node name="TemplateFloorDetail345" parent="GridMap" unique_id=1926036374 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37, 0, 23)
+
+[node name="TemplateFloorDetail346" parent="GridMap" unique_id=1161168621 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 0, 23)
+
+[node name="TemplateFloorDetail347" parent="GridMap" unique_id=1710234508 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41, 0, 27)
+
+[node name="TemplateFloorDetail348" parent="GridMap" unique_id=366634708 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41, 0, 23)
+
+[node name="TemplateFloorDetail349" parent="GridMap" unique_id=1119104522 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 27)
+
+[node name="TemplateFloorDetail350" parent="GridMap" unique_id=671154320 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49, 0, 27)
+
+[node name="TemplateFloorDetail351" parent="GridMap" unique_id=636296026 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 23)
+
+[node name="TemplateFloorDetail352" parent="GridMap" unique_id=2132741961 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49, 0, 23)
+
+[node name="TemplateFloorDetail353" parent="GridMap" unique_id=1327008767 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35, 0, 51)
+
+[node name="TemplateFloorDetail354" parent="GridMap" unique_id=1901685725 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 51)
+
+[node name="TemplateFloorDetail355" parent="GridMap" unique_id=935274132 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 47)
+
+[node name="TemplateFloorDetail356" parent="GridMap" unique_id=711852315 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35, 0, 47)
+
+[node name="TemplateFloorDetail357" parent="GridMap" unique_id=1650845499 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27, 0, 51)
+
+[node name="TemplateFloorDetail358" parent="GridMap" unique_id=1903126442 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 0, 51)
+
+[node name="TemplateFloorDetail359" parent="GridMap" unique_id=1999506635 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 0, 47)
+
+[node name="TemplateFloorDetail360" parent="GridMap" unique_id=933043169 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27, 0, 47)
+
+[node name="TemplateFloorDetail361" parent="GridMap" unique_id=1886645087 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, 51)
+
+[node name="TemplateFloorDetail362" parent="GridMap" unique_id=1003429116 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, 51)
+
+[node name="TemplateFloorDetail363" parent="GridMap" unique_id=131613410 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, 47)
+
+[node name="TemplateFloorDetail364" parent="GridMap" unique_id=71030583 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, 47)
+
+[node name="TemplateFloorDetail365" parent="GridMap" unique_id=1106431868 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, 51)
+
+[node name="TemplateFloorDetail366" parent="GridMap" unique_id=1645797646 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 51)
+
+[node name="TemplateFloorDetail367" parent="GridMap" unique_id=2036116002 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 47)
+
+[node name="TemplateFloorDetail368" parent="GridMap" unique_id=1950708 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, 47)
+
+[node name="TemplateFloorDetail369" parent="GridMap" unique_id=15321740 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 51)
+
+[node name="TemplateFloorDetail370" parent="GridMap" unique_id=870610540 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 47)
+
+[node name="TemplateFloorDetail371" parent="GridMap" unique_id=1480780518 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 51)
+
+[node name="TemplateFloorDetail372" parent="GridMap" unique_id=1538133940 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 51)
+
+[node name="TemplateFloorDetail373" parent="GridMap" unique_id=960707136 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 47)
+
+[node name="TemplateFloorDetail374" parent="GridMap" unique_id=539589030 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 47)
+
+[node name="TemplateFloorDetail375" parent="GridMap" unique_id=1664180977 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35, 0, 43)
+
+[node name="TemplateFloorDetail376" parent="GridMap" unique_id=411983978 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 43)
+
+[node name="TemplateFloorDetail377" parent="GridMap" unique_id=1891704697 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 39)
+
+[node name="TemplateFloorDetail378" parent="GridMap" unique_id=1831473178 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35, 0, 39)
+
+[node name="TemplateFloorDetail379" parent="GridMap" unique_id=1113489263 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27, 0, 43)
+
+[node name="TemplateFloorDetail380" parent="GridMap" unique_id=997805927 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 0, 43)
+
+[node name="TemplateFloorDetail381" parent="GridMap" unique_id=1465897481 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 0, 39)
+
+[node name="TemplateFloorDetail382" parent="GridMap" unique_id=225592223 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27, 0, 39)
+
+[node name="TemplateFloorDetail383" parent="GridMap" unique_id=1055882830 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, 43)
+
+[node name="TemplateFloorDetail384" parent="GridMap" unique_id=204151576 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, 43)
+
+[node name="TemplateFloorDetail385" parent="GridMap" unique_id=1041051312 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, 39)
+
+[node name="TemplateFloorDetail386" parent="GridMap" unique_id=1452097422 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, 39)
+
+[node name="TemplateFloorDetail387" parent="GridMap" unique_id=1689802698 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, 43)
+
+[node name="TemplateFloorDetail388" parent="GridMap" unique_id=247884234 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 43)
+
+[node name="TemplateFloorDetail389" parent="GridMap" unique_id=1803048539 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 39)
+
+[node name="TemplateFloorDetail390" parent="GridMap" unique_id=889288938 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, 39)
+
+[node name="TemplateFloorDetail391" parent="GridMap" unique_id=174261154 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 43)
+
+[node name="TemplateFloorDetail392" parent="GridMap" unique_id=1166305539 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 39)
+
+[node name="TemplateFloorDetail393" parent="GridMap" unique_id=237660121 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 43)
+
+[node name="TemplateFloorDetail394" parent="GridMap" unique_id=321496393 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 43)
+
+[node name="TemplateFloorDetail395" parent="GridMap" unique_id=630185891 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 39)
+
+[node name="TemplateFloorDetail396" parent="GridMap" unique_id=2116402171 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 39)
+
+[node name="TemplateFloorDetail397" parent="GridMap" unique_id=45696481 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35, 0, 35)
+
+[node name="TemplateFloorDetail398" parent="GridMap" unique_id=936262540 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 35)
+
+[node name="TemplateFloorDetail399" parent="GridMap" unique_id=915881360 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 31)
+
+[node name="TemplateFloorDetail400" parent="GridMap" unique_id=735797423 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35, 0, 31)
+
+[node name="TemplateFloorDetail401" parent="GridMap" unique_id=1784034958 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27, 0, 35)
+
+[node name="TemplateFloorDetail402" parent="GridMap" unique_id=278389362 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 0, 35)
+
+[node name="TemplateFloorDetail403" parent="GridMap" unique_id=1693675993 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 0, 31)
+
+[node name="TemplateFloorDetail404" parent="GridMap" unique_id=885184345 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27, 0, 31)
+
+[node name="TemplateFloorDetail405" parent="GridMap" unique_id=1190548351 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, 35)
+
+[node name="TemplateFloorDetail406" parent="GridMap" unique_id=281935312 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, 35)
+
+[node name="TemplateFloorDetail407" parent="GridMap" unique_id=444170690 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, 31)
+
+[node name="TemplateFloorDetail408" parent="GridMap" unique_id=1742440417 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, 31)
+
+[node name="TemplateFloorDetail409" parent="GridMap" unique_id=1962229195 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, 35)
+
+[node name="TemplateFloorDetail410" parent="GridMap" unique_id=1254851738 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 35)
+
+[node name="TemplateFloorDetail411" parent="GridMap" unique_id=363543944 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 31)
+
+[node name="TemplateFloorDetail412" parent="GridMap" unique_id=1252031300 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, 31)
+
+[node name="TemplateFloorDetail413" parent="GridMap" unique_id=852586563 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 35)
+
+[node name="TemplateFloorDetail414" parent="GridMap" unique_id=753349927 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 31)
+
+[node name="TemplateFloorDetail415" parent="GridMap" unique_id=1976893555 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 35)
+
+[node name="TemplateFloorDetail416" parent="GridMap" unique_id=1010862661 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 35)
+
+[node name="TemplateFloorDetail417" parent="GridMap" unique_id=255505813 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 31)
+
+[node name="TemplateFloorDetail418" parent="GridMap" unique_id=1709052780 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 31)
+
+[node name="TemplateFloorDetail419" parent="GridMap" unique_id=1910539225 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35, 0, 27)
+
+[node name="TemplateFloorDetail420" parent="GridMap" unique_id=1702179358 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 27)
+
+[node name="TemplateFloorDetail421" parent="GridMap" unique_id=2063282354 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 23)
+
+[node name="TemplateFloorDetail422" parent="GridMap" unique_id=2002539384 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35, 0, 23)
+
+[node name="TemplateFloorDetail423" parent="GridMap" unique_id=1241637600 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27, 0, 27)
+
+[node name="TemplateFloorDetail424" parent="GridMap" unique_id=1173015252 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 0, 27)
+
+[node name="TemplateFloorDetail425" parent="GridMap" unique_id=1746121278 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 0, 23)
+
+[node name="TemplateFloorDetail426" parent="GridMap" unique_id=2016718648 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27, 0, 23)
+
+[node name="TemplateFloorDetail427" parent="GridMap" unique_id=1712928991 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, 27)
+
+[node name="TemplateFloorDetail428" parent="GridMap" unique_id=914463536 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, 27)
+
+[node name="TemplateFloorDetail429" parent="GridMap" unique_id=109121759 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, 23)
+
+[node name="TemplateFloorDetail430" parent="GridMap" unique_id=394516445 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, 23)
+
+[node name="TemplateFloorDetail431" parent="GridMap" unique_id=909274868 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, 27)
+
+[node name="TemplateFloorDetail432" parent="GridMap" unique_id=466399146 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 27)
+
+[node name="TemplateFloorDetail433" parent="GridMap" unique_id=1640179066 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 23)
+
+[node name="TemplateFloorDetail434" parent="GridMap" unique_id=1266179684 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, 23)
+
+[node name="TemplateFloorDetail435" parent="GridMap" unique_id=72277807 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 27)
+
+[node name="TemplateFloorDetail436" parent="GridMap" unique_id=527906831 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 23)
+
+[node name="TemplateFloorDetail437" parent="GridMap" unique_id=466372613 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 27)
+
+[node name="TemplateFloorDetail438" parent="GridMap" unique_id=2146398539 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 27)
+
+[node name="TemplateFloorDetail439" parent="GridMap" unique_id=697769528 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 23)
+
+[node name="TemplateFloorDetail440" parent="GridMap" unique_id=99661987 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 23)
+
+[node name="TemplateFloorDetail441" parent="GridMap" unique_id=2038833229 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35, 0, 20)
+
+[node name="TemplateFloorDetail442" parent="GridMap" unique_id=2122287451 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 20)
+
+[node name="TemplateFloorDetail443" parent="GridMap" unique_id=1672569910 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 16)
+
+[node name="TemplateFloorDetail444" parent="GridMap" unique_id=2072867424 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35, 0, 16)
+
+[node name="TemplateFloorDetail445" parent="GridMap" unique_id=1085377557 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27, 0, 20)
+
+[node name="TemplateFloorDetail446" parent="GridMap" unique_id=1228820703 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 0, 20)
+
+[node name="TemplateFloorDetail447" parent="GridMap" unique_id=1599594329 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 0, 16)
+
+[node name="TemplateFloorDetail448" parent="GridMap" unique_id=1660523819 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27, 0, 16)
+
+[node name="TemplateFloorDetail449" parent="GridMap" unique_id=213297425 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, 20)
+
+[node name="TemplateFloorDetail450" parent="GridMap" unique_id=1399533683 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, 20)
+
+[node name="TemplateFloorDetail451" parent="GridMap" unique_id=1594121584 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, 16)
+
+[node name="TemplateFloorDetail452" parent="GridMap" unique_id=971025585 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, 16)
+
+[node name="TemplateFloorDetail453" parent="GridMap" unique_id=395774875 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, 20)
+
+[node name="TemplateFloorDetail454" parent="GridMap" unique_id=2002212234 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 20)
+
+[node name="TemplateFloorDetail455" parent="GridMap" unique_id=1157467613 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 16)
+
+[node name="TemplateFloorDetail456" parent="GridMap" unique_id=1464927976 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, 16)
+
+[node name="TemplateFloorDetail457" parent="GridMap" unique_id=819485331 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 20)
+
+[node name="TemplateFloorDetail458" parent="GridMap" unique_id=440249585 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 16)
+
+[node name="TemplateFloorDetail459" parent="GridMap" unique_id=194594118 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 20)
+
+[node name="TemplateFloorDetail460" parent="GridMap" unique_id=2047472588 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 20)
+
+[node name="TemplateFloorDetail461" parent="GridMap" unique_id=2007620239 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 16)
+
+[node name="TemplateFloorDetail462" parent="GridMap" unique_id=70761274 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 16)
+
+[node name="TemplateFloorDetail463" parent="GridMap" unique_id=2037481400 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35, 0, 12)
+
+[node name="TemplateFloorDetail464" parent="GridMap" unique_id=1552417811 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 12)
+
+[node name="TemplateFloorDetail465" parent="GridMap" unique_id=2076176402 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 8)
+
+[node name="TemplateFloorDetail466" parent="GridMap" unique_id=1187369212 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35, 0, 8)
+
+[node name="TemplateFloorDetail467" parent="GridMap" unique_id=199958212 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27, 0, 12)
+
+[node name="TemplateFloorDetail468" parent="GridMap" unique_id=1142584077 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 0, 12)
+
+[node name="TemplateFloorDetail469" parent="GridMap" unique_id=2081561476 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 0, 8)
+
+[node name="TemplateFloorDetail470" parent="GridMap" unique_id=1666842277 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27, 0, 8)
+
+[node name="TemplateFloorDetail471" parent="GridMap" unique_id=220400708 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, 12)
+
+[node name="TemplateFloorDetail472" parent="GridMap" unique_id=1381180380 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, 12)
+
+[node name="TemplateFloorDetail473" parent="GridMap" unique_id=368591040 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, 8)
+
+[node name="TemplateFloorDetail474" parent="GridMap" unique_id=1518121239 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, 8)
+
+[node name="TemplateFloorDetail475" parent="GridMap" unique_id=1335578478 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, 12)
+
+[node name="TemplateFloorDetail476" parent="GridMap" unique_id=243022829 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 12)
+
+[node name="TemplateFloorDetail477" parent="GridMap" unique_id=1753017024 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 8)
+
+[node name="TemplateFloorDetail478" parent="GridMap" unique_id=2030892598 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, 8)
+
+[node name="TemplateFloorDetail479" parent="GridMap" unique_id=1268906974 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 12)
+
+[node name="TemplateFloorDetail480" parent="GridMap" unique_id=120481085 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 8)
+
+[node name="TemplateFloorDetail481" parent="GridMap" unique_id=194287326 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 12)
+
+[node name="TemplateFloorDetail482" parent="GridMap" unique_id=1232953745 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 12)
+
+[node name="TemplateFloorDetail483" parent="GridMap" unique_id=1878340021 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 8)
+
+[node name="TemplateFloorDetail484" parent="GridMap" unique_id=2078201365 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 8)
+
+[node name="TemplateFloorDetail485" parent="GridMap" unique_id=2104031198 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35, 0, 4)
+
+[node name="TemplateFloorDetail486" parent="GridMap" unique_id=1548649394 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 4)
+
+[node name="TemplateFloorDetail487" parent="GridMap" unique_id=782703598 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, 0)
+
+[node name="TemplateFloorDetail488" parent="GridMap" unique_id=2022504750 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35, 0, 0)
+
+[node name="TemplateFloorDetail489" parent="GridMap" unique_id=57287941 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27, 0, 4)
+
+[node name="TemplateFloorDetail490" parent="GridMap" unique_id=1405216371 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 0, 4)
+
+[node name="TemplateFloorDetail491" parent="GridMap" unique_id=749199037 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 0, 0)
+
+[node name="TemplateFloorDetail492" parent="GridMap" unique_id=1343461138 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27, 0, 0)
+
+[node name="TemplateFloorDetail493" parent="GridMap" unique_id=926383706 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, 4)
+
+[node name="TemplateFloorDetail494" parent="GridMap" unique_id=1551836951 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, 4)
+
+[node name="TemplateFloorDetail495" parent="GridMap" unique_id=447303526 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, 0)
+
+[node name="TemplateFloorDetail496" parent="GridMap" unique_id=2080010735 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, 0)
+
+[node name="TemplateFloorDetail497" parent="GridMap" unique_id=258987159 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, 4)
+
+[node name="TemplateFloorDetail498" parent="GridMap" unique_id=1817163625 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 4)
+
+[node name="TemplateFloorDetail499" parent="GridMap" unique_id=916893885 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 0)
+
+[node name="TemplateFloorDetail500" parent="GridMap" unique_id=851353916 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, 0)
+
+[node name="TemplateFloorDetail501" parent="GridMap" unique_id=286351199 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 4)
+
+[node name="TemplateFloorDetail502" parent="GridMap" unique_id=859563807 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0)
+
+[node name="TemplateFloorDetail503" parent="GridMap" unique_id=1358426792 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 4)
+
+[node name="TemplateFloorDetail504" parent="GridMap" unique_id=541199028 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 4)
+
+[node name="TemplateFloorDetail505" parent="GridMap" unique_id=1708212781 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
+
+[node name="TemplateFloorDetail506" parent="GridMap" unique_id=2018298 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+
+[node name="TemplateFloorDetail507" parent="GridMap" unique_id=1080846951 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35, 0, -4)
+
+[node name="TemplateFloorDetail508" parent="GridMap" unique_id=1087982554 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, -4)
+
+[node name="TemplateFloorDetail509" parent="GridMap" unique_id=561311677 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31, 0, -8)
+
+[node name="TemplateFloorDetail510" parent="GridMap" unique_id=722783789 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35, 0, -8)
+
+[node name="TemplateFloorDetail511" parent="GridMap" unique_id=830981061 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27, 0, -4)
+
+[node name="TemplateFloorDetail512" parent="GridMap" unique_id=1054327197 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 0, -4)
+
+[node name="TemplateFloorDetail513" parent="GridMap" unique_id=2095288596 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23, 0, -8)
+
+[node name="TemplateFloorDetail514" parent="GridMap" unique_id=499154564 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27, 0, -8)
+
+[node name="TemplateFloorDetail515" parent="GridMap" unique_id=1238598587 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, -4)
+
+[node name="TemplateFloorDetail516" parent="GridMap" unique_id=1150433441 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, -4)
+
+[node name="TemplateFloorDetail517" parent="GridMap" unique_id=1941527199 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, -8)
+
+[node name="TemplateFloorDetail518" parent="GridMap" unique_id=1533245738 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19, 0, -8)
+
+[node name="TemplateFloorDetail519" parent="GridMap" unique_id=1684631210 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -4)
+
+[node name="TemplateFloorDetail520" parent="GridMap" unique_id=471247376 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -4)
+
+[node name="TemplateFloorDetail521" parent="GridMap" unique_id=1797757758 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -8)
+
+[node name="TemplateFloorDetail522" parent="GridMap" unique_id=567964068 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -8)
+
+[node name="TemplateFloorDetail523" parent="GridMap" unique_id=1305994146 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -4)
+
+[node name="TemplateFloorDetail524" parent="GridMap" unique_id=486215002 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -8)
+
+[node name="TemplateFloorDetail525" parent="GridMap" unique_id=787968630 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -4)
+
+[node name="TemplateFloorDetail526" parent="GridMap" unique_id=621148408 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -4)
+
+[node name="TemplateFloorDetail527" parent="GridMap" unique_id=2049408744 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -8)
+
+[node name="TemplateFloorDetail528" parent="GridMap" unique_id=1703986332 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -8)
+
+[node name="TemplateFloorDetail529" parent="GridMap" unique_id=126387628 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -79, 0, 20)
+
+[node name="TemplateFloorDetail530" parent="GridMap" unique_id=1738378801 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -75, 0, 20)
+
+[node name="TemplateFloorDetail531" parent="GridMap" unique_id=1980548671 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -75, 0, 16)
+
+[node name="TemplateFloorDetail532" parent="GridMap" unique_id=2029008744 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -79, 0, 16)
+
+[node name="TemplateFloorDetail533" parent="GridMap" unique_id=1344937709 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -71, 0, 20)
+
+[node name="TemplateFloorDetail534" parent="GridMap" unique_id=1771869226 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -67, 0, 20)
+
+[node name="TemplateFloorDetail535" parent="GridMap" unique_id=1992199353 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -67, 0, 16)
+
+[node name="TemplateFloorDetail536" parent="GridMap" unique_id=210493723 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -71, 0, 16)
+
+[node name="TemplateFloorDetail537" parent="GridMap" unique_id=1409499847 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63, 0, 20)
+
+[node name="TemplateFloorDetail538" parent="GridMap" unique_id=2017964985 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -59, 0, 20)
+
+[node name="TemplateFloorDetail539" parent="GridMap" unique_id=2096049505 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -59, 0, 16)
+
+[node name="TemplateFloorDetail540" parent="GridMap" unique_id=947526024 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63, 0, 16)
+
+[node name="TemplateFloorDetail541" parent="GridMap" unique_id=1707614429 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55, 0, 20)
+
+[node name="TemplateFloorDetail542" parent="GridMap" unique_id=1686577509 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -51, 0, 20)
+
+[node name="TemplateFloorDetail543" parent="GridMap" unique_id=505528203 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -51, 0, 16)
+
+[node name="TemplateFloorDetail544" parent="GridMap" unique_id=1705608499 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55, 0, 16)
+
+[node name="TemplateFloorDetail545" parent="GridMap" unique_id=238726635 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47, 0, 20)
+
+[node name="TemplateFloorDetail546" parent="GridMap" unique_id=653204287 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47, 0, 16)
+
+[node name="TemplateFloorDetail547" parent="GridMap" unique_id=170065631 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43, 0, 20)
+
+[node name="TemplateFloorDetail548" parent="GridMap" unique_id=566595627 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39, 0, 20)
+
+[node name="TemplateFloorDetail549" parent="GridMap" unique_id=1293403259 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39, 0, 16)
+
+[node name="TemplateFloorDetail550" parent="GridMap" unique_id=629893380 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43, 0, 16)
+
+[node name="TemplateFloorDetail551" parent="GridMap" unique_id=176274406 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -79, 0, 12)
+
+[node name="TemplateFloorDetail552" parent="GridMap" unique_id=825124945 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -75, 0, 12)
+
+[node name="TemplateFloorDetail553" parent="GridMap" unique_id=1255994174 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -75, 0, 8)
+
+[node name="TemplateFloorDetail554" parent="GridMap" unique_id=1826361628 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -79, 0, 8)
+
+[node name="TemplateFloorDetail555" parent="GridMap" unique_id=1989371845 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -71, 0, 12)
+
+[node name="TemplateFloorDetail556" parent="GridMap" unique_id=1881571386 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -67, 0, 12)
+
+[node name="TemplateFloorDetail557" parent="GridMap" unique_id=696862428 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -67, 0, 8)
+
+[node name="TemplateFloorDetail558" parent="GridMap" unique_id=937546338 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -71, 0, 8)
+
+[node name="TemplateFloorDetail559" parent="GridMap" unique_id=1752148434 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63, 0, 12)
+
+[node name="TemplateFloorDetail560" parent="GridMap" unique_id=673854984 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -59, 0, 12)
+
+[node name="TemplateFloorDetail561" parent="GridMap" unique_id=1348719786 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -59, 0, 8)
+
+[node name="TemplateFloorDetail562" parent="GridMap" unique_id=1081234235 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63, 0, 8)
+
+[node name="TemplateFloorDetail563" parent="GridMap" unique_id=1780999838 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55, 0, 12)
+
+[node name="TemplateFloorDetail564" parent="GridMap" unique_id=49580958 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -51, 0, 12)
+
+[node name="TemplateFloorDetail565" parent="GridMap" unique_id=1834174438 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -51, 0, 8)
+
+[node name="TemplateFloorDetail566" parent="GridMap" unique_id=1776946056 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55, 0, 8)
+
+[node name="TemplateFloorDetail567" parent="GridMap" unique_id=1454737646 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47, 0, 12)
+
+[node name="TemplateFloorDetail568" parent="GridMap" unique_id=928548026 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47, 0, 8)
+
+[node name="TemplateFloorDetail569" parent="GridMap" unique_id=1400577006 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43, 0, 12)
+
+[node name="TemplateFloorDetail570" parent="GridMap" unique_id=646936870 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39, 0, 12)
+
+[node name="TemplateFloorDetail571" parent="GridMap" unique_id=720874840 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39, 0, 8)
+
+[node name="TemplateFloorDetail572" parent="GridMap" unique_id=392208337 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43, 0, 8)
+
+[node name="TemplateFloorDetail573" parent="GridMap" unique_id=710216317 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -79, 0, 4)
+
+[node name="TemplateFloorDetail574" parent="GridMap" unique_id=2068618080 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -75, 0, 4)
+
+[node name="TemplateFloorDetail575" parent="GridMap" unique_id=2063395651 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -75, 0, 0)
+
+[node name="TemplateFloorDetail576" parent="GridMap" unique_id=74077887 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -79, 0, 0)
+
+[node name="TemplateFloorDetail577" parent="GridMap" unique_id=506990940 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -71, 0, 4)
+
+[node name="TemplateFloorDetail578" parent="GridMap" unique_id=1929689129 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -67, 0, 4)
+
+[node name="TemplateFloorDetail579" parent="GridMap" unique_id=264827151 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -67, 0, 0)
+
+[node name="TemplateFloorDetail580" parent="GridMap" unique_id=521770433 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -71, 0, 0)
+
+[node name="TemplateFloorDetail581" parent="GridMap" unique_id=1348128140 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63, 0, 4)
+
+[node name="TemplateFloorDetail582" parent="GridMap" unique_id=102571005 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -59, 0, 4)
+
+[node name="TemplateFloorDetail583" parent="GridMap" unique_id=1669368332 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -59, 0, 0)
+
+[node name="TemplateFloorDetail584" parent="GridMap" unique_id=1645122023 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63, 0, 0)
+
+[node name="TemplateFloorDetail585" parent="GridMap" unique_id=1522486421 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55, 0, 4)
+
+[node name="TemplateFloorDetail586" parent="GridMap" unique_id=1466620928 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -51, 0, 4)
+
+[node name="TemplateFloorDetail587" parent="GridMap" unique_id=351707486 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -51, 0, 0)
+
+[node name="TemplateFloorDetail588" parent="GridMap" unique_id=479556049 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55, 0, 0)
+
+[node name="TemplateFloorDetail589" parent="GridMap" unique_id=1122593015 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47, 0, 4)
+
+[node name="TemplateFloorDetail590" parent="GridMap" unique_id=1070067587 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47, 0, 0)
+
+[node name="TemplateFloorDetail591" parent="GridMap" unique_id=963112463 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43, 0, 4)
+
+[node name="TemplateFloorDetail592" parent="GridMap" unique_id=450742237 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39, 0, 4)
+
+[node name="TemplateFloorDetail593" parent="GridMap" unique_id=665707269 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39, 0, 0)
+
+[node name="TemplateFloorDetail594" parent="GridMap" unique_id=917273456 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43, 0, 0)
+
+[node name="TemplateFloorDetail595" parent="GridMap" unique_id=473968564 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -79, 0, -4)
+
+[node name="TemplateFloorDetail596" parent="GridMap" unique_id=572629540 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -75, 0, -4)
+
+[node name="TemplateFloorDetail597" parent="GridMap" unique_id=571522861 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -75, 0, -8)
+
+[node name="TemplateFloorDetail598" parent="GridMap" unique_id=51229702 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -79, 0, -8)
+
+[node name="TemplateFloorDetail599" parent="GridMap" unique_id=729103325 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -71, 0, -4)
+
+[node name="TemplateFloorDetail600" parent="GridMap" unique_id=48322363 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -67, 0, -4)
+
+[node name="TemplateFloorDetail601" parent="GridMap" unique_id=106324669 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -67, 0, -8)
+
+[node name="TemplateFloorDetail602" parent="GridMap" unique_id=558655142 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -71, 0, -8)
+
+[node name="TemplateFloorDetail603" parent="GridMap" unique_id=1674612672 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63, 0, -4)
+
+[node name="TemplateFloorDetail604" parent="GridMap" unique_id=931238425 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -59, 0, -4)
+
+[node name="TemplateFloorDetail605" parent="GridMap" unique_id=514524918 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -59, 0, -8)
+
+[node name="TemplateFloorDetail606" parent="GridMap" unique_id=1090089370 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63, 0, -8)
+
+[node name="TemplateFloorDetail607" parent="GridMap" unique_id=1413816235 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55, 0, -4)
+
+[node name="TemplateFloorDetail608" parent="GridMap" unique_id=968765568 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -51, 0, -4)
+
+[node name="TemplateFloorDetail609" parent="GridMap" unique_id=1071905145 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -51, 0, -8)
+
+[node name="TemplateFloorDetail610" parent="GridMap" unique_id=14134829 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55, 0, -8)
+
+[node name="TemplateFloorDetail611" parent="GridMap" unique_id=925379419 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47, 0, -4)
+
+[node name="TemplateFloorDetail612" parent="GridMap" unique_id=1451296422 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47, 0, -8)
+
+[node name="TemplateFloorDetail613" parent="GridMap" unique_id=700872473 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43, 0, -4)
+
+[node name="TemplateFloorDetail614" parent="GridMap" unique_id=1087473985 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39, 0, -4)
+
+[node name="TemplateFloorDetail615" parent="GridMap" unique_id=182498195 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43, 0, -8)
+
+[node name="TemplateFloorDetail616" parent="GridMap" unique_id=1272741427 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39, 0, -8)
 
 [editable path="portal_arch"]

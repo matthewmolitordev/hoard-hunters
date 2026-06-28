@@ -9,7 +9,7 @@ var is_spawning = true
 
 func _ready() -> void:
 	timer.timeout.connect(_on_timer_timeout)
-	timer.wait_time = 1
+	timer.wait_time = 0.5
 	timer.start()
 
 func _input_event(_camera: Camera3D, event: InputEvent, _position: Vector3, _normal: Vector3, _shape_idx: int) -> void:

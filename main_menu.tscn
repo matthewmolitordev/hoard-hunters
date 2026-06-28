@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://7t6sa4r5hm4r"]
+
+[ext_resource type="Script" uid="uid://bt2bd1elbmwse" path="res://main_menu.gd" id="1_06t4h"]
+[ext_resource type="Texture2D" uid="uid://bva4u2hegbxgx" path="res://assets/ui/PNG/buttonLong_brown.png" id="2_7vrkn"]
+[ext_resource type="Texture2D" uid="uid://cjnupyr2ncx7d" path="res://assets/ui/PNG/panel_beige.png" id="2_fu7sn"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_djjlw"]
+texture = ExtResource("2_7vrkn")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o0xtw"]
+texture = ExtResource("2_7vrkn")
+modulate_color = Color(0.41568628, 0.41568628, 0.41568628, 0.3882353)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7vrkn"]
+texture = ExtResource("2_7vrkn")
+modulate_color = Color(1, 1, 1, 0.8392157)
+
+[node name="MainMenu" type="Control" unique_id=1230572132]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_06t4h")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1678775640]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 434.00003
+offset_top = 21.0
+offset_right = -199.0
+offset_bottom = -143.0
+scale = Vector2(0.5378692, 0.51066947)
+texture = ExtResource("2_fu7sn")
+expand_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=2071538082]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=785812327]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer" unique_id=928990448]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1090307124]
+layout_mode = 2
+
+[node name="StartButton" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer" unique_id=671642972]
+custom_minimum_size = Vector2(90, 0)
+custom_maximum_size = Vector2(90, -1)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxTexture_djjlw")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_o0xtw")
+theme_override_styles/hover = SubResource("StyleBoxTexture_7vrkn")
+text = "Start"
+
+[node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer" unique_id=650218005]
+custom_minimum_size = Vector2(90, 0)
+custom_maximum_size = Vector2(90, -1)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxTexture_djjlw")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_o0xtw")
+theme_override_styles/hover = SubResource("StyleBoxTexture_7vrkn")
+text = "Quit
+"

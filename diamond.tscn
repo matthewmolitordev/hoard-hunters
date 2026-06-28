@@ -2,18 +2,30 @@
 
 [ext_resource type="PackedScene" uid="uid://dfmdkh2hyoquo" path="res://assets/diamond_source.glb" id="1_cxkya"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_h7n1j"]
-size = Vector3(0.34, 0.34, 0.34)
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_p8xw3"]
+points = PackedVector3Array(-0.00019574165, -5.0842762e-05, -1, -0.00019574165, 0.31987083, -0.6000391, 0.38253725, -5.0842762e-05, -0.92404073, -0.00019574165, -1, -0.00019574165, -0.382733, -5.0842762e-05, -0.92404073, -0.22963977, 0.31987083, -0.5544244, 0.42423654, 0.32000005, -0.42443228, 0.22944403, 0.31987083, -0.5544244, 0.7069303, -5.0842762e-05, -0.7071261, -0.382733, -5.0842762e-05, 0.92384493, -0.7071261, -5.0842762e-05, 0.7069303, -0.92404073, -5.0842762e-05, 0.38253725, -1, -5.0842762e-05, -0.00019574165, -0.92404073, -5.0842762e-05, -0.382733, -0.7071261, -5.0842762e-05, -0.7071261, 0.92384493, -5.0842762e-05, -0.382733, 1, -5.0842762e-05, -0.00019574165, 0.92384493, -5.0842762e-05, 0.38253725, 0.7069303, -5.0842762e-05, 0.7069303, 0.38253725, -5.0842762e-05, 0.92384493, -0.00019574165, -5.0842762e-05, 1, -0.42443228, 0.31987083, -0.42443228, -0.00019574165, 0.31987083, 0.5998434, 0.22944403, 0.31987083, 0.55422866, 0.42423654, 0.31987083, 0.42423654, 0.55422866, 0.31987083, 0.22944403, 0.5998434, 0.31987083, -0.00019574165, 0.55422866, 0.31987083, -0.22963977, -0.5544244, 0.31987083, -0.22963977, -0.6000391, 0.31987083, -0.00019574165, -0.5544244, 0.31987083, 0.22944403, -0.42443228, 0.31987083, 0.42423654, -0.22963977, 0.31987083, 0.55422866)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p8xw3"]
+albedo_color = Color(0.7058824, 1, 1, 1)
+metallic = 1.0
+metallic_specular = 1.0
+roughness = 0.1
 
 [node name="Diamond" type="RigidBody3D" unique_id=1743407167]
 collision_layer = 4
 collision_mask = 5
+mass = 5.0
+continuous_cd = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=775659870]
+transform = Transform3D(0.3, 0, 0, 0, 0.21213204, -0.21213204, 0, 0.21213204, 0.21213204, 0, 0.21425335, 0.21425335)
+shape = SubResource("ConvexPolygonShape3D_p8xw3")
 
 [node name="diamond_source" parent="." unique_id=890485976 instance=ExtResource("1_cxkya")]
 transform = Transform3D(0.3, 0, 0, 0, 0.21213204, -0.21213204, 0, 0.21213204, 0.21213204, 0, 0, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2028359120]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17, 0.17)
-shape = SubResource("BoxShape3D_h7n1j")
+[node name="Diamond_002" parent="diamond_source" index="0" unique_id=463234952]
+material_override = SubResource("StandardMaterial3D_p8xw3")
+transparency = 0.1
 
 [editable path="diamond_source"]

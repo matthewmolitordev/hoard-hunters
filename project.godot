@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="3d sandbox"
-run/main_scene="uid://3llsmtg8esoo"
+run/main_scene="uid://7t6sa4r5hm4r"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+HubWorldMusic="*uid://b386k54ydsd5b"
 
 [display]
 

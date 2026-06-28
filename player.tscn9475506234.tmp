@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://bd4abpdncwq8b"]
+
+[ext_resource type="Script" uid="uid://c48f71u1w6i50" path="res://player.gd" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://pnemroeekdkd" path="res://character_class/knight_kit.gd" id="2_onrkg"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gv5m4"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_f3sb7"]
+
+[node name="Player" type="CharacterBody3D" unique_id=55416726 groups=["player"]]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_4flbx")
+fire_ball_cooldown = null
+speed = null
+jump_velocity = null
+coyote_duration = null
+mouse_sensitivity = null
+push_force = null
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2079872323]
+shape = SubResource("CapsuleShape3D_gv5m4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=965246743]
+mesh = SubResource("CapsuleMesh_f3sb7")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1762887908]
+
+[node name="RayCast3D" type="RayCast3D" parent="Camera3D" unique_id=1698444435]
+target_position = Vector3(0, 0, -4)
+collision_mask = 4
+
+[node name="Generic6DOFJoint3D" type="Generic6DOFJoint3D" parent="Camera3D" unique_id=768238028]
+node_a = NodePath("../Hand")
+linear_limit_x/enabled = false
+linear_limit_y/enabled = false
+linear_limit_z/enabled = false
+linear_spring_x/enabled = true
+linear_spring_x/stiffness = 500.0
+linear_spring_x/damping = 50.0
+linear_spring_y/enabled = true
+linear_spring_y/stiffness = 500.0
+linear_spring_y/damping = 50.0
+linear_spring_z/enabled = true
+linear_spring_z/stiffness = 500.0
+linear_spring_z/damping = 50.0
+
+[node name="Hand" type="StaticBody3D" parent="Camera3D" unique_id=619965400]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -2)
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1556343225]
+
+[node name="CenterContainer" type="CenterContainer" parent="UI" unique_id=435143426]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="UI/CenterContainer" unique_id=33866590]
+custom_minimum_size = Vector2(6, 6)
+layout_mode = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.7372549)
+
+[node name="KnightSpells" type="Node" parent="." unique_id=1105139966]
+script = ExtResource("2_onrkg")
