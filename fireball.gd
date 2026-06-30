@@ -14,6 +14,5 @@ func _physics_process(delta: float) -> void:
 	global_position += velocity * delta
 
 func _on_body_entered(body:Node) -> void: 
-	if body.is_in_group("enemy"):
-		body.queue_free()
+	body.queue_free()
 	queue_free()

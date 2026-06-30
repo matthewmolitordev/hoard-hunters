@@ -4,6 +4,7 @@ extends CharacterBody3D
 @onready var joint = $Camera3D/Generic6DOFJoint3D
 @onready var hand = $Camera3D/Hand
 var grabbed_body: RigidBody3D = null
+var camera_target_pos: Vector3
 
 const FIREBALL_SCENE = preload("res://fireball.tscn")
 @export var fire_ball_cooldown: float = 0.3
@@ -21,6 +22,13 @@ var time_since_on_floor: float = 0.0
 var camera_look_input: float = 0.0
 var active_kit: Node = null
 
+# Knockback - damage
+enum State { NORMAL, KNOCKBACK, DIALOGUE }
+var current_state: State = State.NORMAL
+var knockback_timer: float = 0.0
+@export var knockback_duration: float = 0.4 # How long the player is helpless (in seconds)
+@export var knockback_friction: float = 8.0 # How fast they slow down during knockback
+
 @onready var camera: Camera3D = $ Camera3D
 
 func _ready() -> void:
@@ -33,7 +41,16 @@ func _ready() -> void:
 		active_kit = $SorcererSpells
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
+	
 func _physics_process(delta: float) -> void:
+	match current_state:
+		State.NORMAL:
+			process_normal_movement(delta)
+			
+		State.KNOCKBACK:
+			process_knockback_movement(delta)
+			
+func process_normal_movement(delta: float) -> void:
 	var speed = default_speed
 	if active_kit and "kit_speed" in active_kit:
 		speed = active_kit.kit_speed
@@ -79,31 +96,44 @@ func reset_position() -> void:
 	global_position = Vector3(0, 5, 0)
 	
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
-		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-		else:
-			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	
-	#handle mouse move
-	if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-		rotate_y(-event.relative.x * mouse_sensitivity)
-		camera.rotate_x(-event.relative.y * mouse_sensitivity)
-		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-85), deg_to_rad(85))
+	if current_state == State.NORMAL:
+		if event.is_action_pressed("ui_cancel"):
+			if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+				Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			else:
+				Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		
-	#handle action bar click (fireball)
-	if event.is_action_pressed("action_bar_slot_1") and fireball_can_shoot:
-		shoot_fireball()
-		
-	#handle mouse click grab
-	if event.is_action_pressed("click"):
-		try_grab_object()
-	elif event.is_action_released("click"):
-		release_object()
-		
-	#handle push
-	if event.is_action_pressed("right_click"):
-		push_object()
+		#handle mouse move
+		if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+			rotate_y(-event.relative.x * mouse_sensitivity)
+			camera.rotate_x(-event.relative.y * mouse_sensitivity)
+			camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-85), deg_to_rad(85))
+			
+		#handle action bar click (fireball)
+		if event.is_action_pressed("action_bar_slot_1") and fireball_can_shoot:
+			shoot_fireball()
+			
+		#handle mouse click grab
+		if event.is_action_pressed("click"):
+			if raycast.is_colliding():
+				var target = raycast.get_collider()
+				if target.has_method("start_dialogue"):
+					target.start_dialogue()
+				elif target.get_parent().has_method("start_dialogue"):
+					target.get_parent().start_dialogue()
+				else:
+					print("clicking... has method... NOT")
+					try_grab_object()
+		elif event.is_action_released("click"):
+			release_object()
+			
+		#handle push
+		if event.is_action_pressed("right_click"):
+			push_object()
+	elif current_state == State.DIALOGUE:
+		if event.is_action_pressed("ui_accept") or (event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT):
+			get_viewport().set_input_as_handled()
+			end_dialogue()
 		
 func shoot_fireball() ->void:
 	fireball_can_shoot = false
@@ -143,3 +173,42 @@ func push_object() -> void:
 			
 			# Apply a sudden physical kick to the object's center of mass
 			target.apply_central_impulse(push_direction * push_force)
+			
+func process_knockback_movement(delta: float) -> void:
+	# Apply heavy friction/drag to the knockback velocity over time so they don't slide forever
+	velocity.x = move_toward(velocity.x, 0, knockback_friction * delta)
+	velocity.z = move_toward(velocity.z, 0, knockback_friction * delta)
+	
+	# Apply normal gravity while flying backward
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+		
+	move_and_slide()
+	
+	# Count down the state timer
+	knockback_timer -= delta
+	if knockback_timer <= 0.0:
+		current_state = State.NORMAL # Hand control back to the player
+
+# 3. The function called by the projectile
+func apply_knockback(force: Vector3) -> void:
+	velocity = force
+	knockback_timer = knockback_duration
+	current_state = State.KNOCKBACK
+	
+func start_dialogue(face_position: Vector3, text: String) -> void:
+	current_state = State.DIALOGUE
+	velocity = Vector3.ZERO
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	
+	camera_target_pos = face_position
+	
+	DialogueUi.show_text(text)
+
+func end_dialogue() -> void:
+	DialogueUi.hide_dialogue()
+	
+	# Re-lock the cursor back into the crosshair center for gameplay
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	current_state = State.NORMAL

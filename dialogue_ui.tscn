@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://bkdt84gctsn43"]
+
+[ext_resource type="Script" uid="uid://c5dxbqrchgwy4" path="res://dialogue_ui.gd" id="1_njptv"]
+
+[node name="DialogueUI" type="CanvasLayer" unique_id=969875385]
+script = ExtResource("1_njptv")
+
+[node name="Label" type="Label" parent="." unique_id=1459654427]
+anchors_preset = -1
+anchor_left = 0.26500002
+anchor_top = 0.63000005
+anchor_right = 0.70400006
+anchor_bottom = 0.758
+offset_left = -0.2800293
+offset_top = -0.24002075
+offset_right = -0.008056641
+offset_bottom = -0.184021

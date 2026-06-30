@@ -9,34 +9,36 @@
 [ext_resource type="PackedScene" uid="uid://da7qgy6oekht8" path="res://tileset/corridor.tscn" id="7_fycy5"]
 [ext_resource type="PackedScene" uid="uid://bbaytslh405fy" path="res://tileset/corridor_corner.tscn" id="8_an8be"]
 [ext_resource type="PackedScene" uid="uid://dp4ul82372kpu" path="res://tileset/corridor_end.tscn" id="9_tkrox"]
-[ext_resource type="PackedScene" uid="uid://ceej01t55aneu" path="res://tileset/corridor_intersection.tscn" id="10_xj3tp"]
-[ext_resource type="PackedScene" uid="uid://bl1vm2qww23io" path="res://tileset/corridor_junction.tscn" id="11_dft3v"]
-[ext_resource type="PackedScene" uid="uid://bvqfn1ga2r6vd" path="res://tileset/corridor_transition.tscn" id="12_dbe7u"]
 [ext_resource type="PackedScene" uid="uid://ccpandllg68x8" path="res://tileset/gate_metal_bars.tscn" id="13_4gvti"]
+[ext_resource type="PackedScene" uid="uid://ykswxr12tn5p" path="res://tileset/room_large.tscn" id="13_fycy5"]
+[ext_resource type="PackedScene" uid="uid://co7kr2kk1mm0q" path="res://assets/monsters/goblin_merchant/goblin_npc.tscn" id="13_tkrox"]
 [ext_resource type="PackedScene" uid="uid://bk20rfxaluwci" path="res://tileset/template_floor_detail.tscn" id="14_an8be"]
+[ext_resource type="PackedScene" uid="uid://c4ruitx07hmny" path="res://tileset/template_floor_layer_raised.tscn" id="14_tkrox"]
+[ext_resource type="PackedScene" uid="uid://bkdt84gctsn43" path="res://dialogue_ui.tscn" id="15_tkrox"]
+[ext_resource type="PackedScene" uid="uid://b0tbcl0srj3hr" path="res://spawning_fountain_hub_world.tscn" id="16_xj3tp"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_h7n1j"]
 size = Vector3(3, 4, 1)
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_n5r1m"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_dft3v"]
 frequency = 0.05
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_djjlw"]
-noise = SubResource("FastNoiseLite_n5r1m")
+noise = SubResource("FastNoiseLite_dft3v")
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_h3cym"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_dbe7u"]
 frequency = 0.06
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_o0xtw"]
-noise = SubResource("FastNoiseLite_h3cym")
+noise = SubResource("FastNoiseLite_dbe7u")
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_6bdq6"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_4gvti"]
 frequency = 0.04
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_aut73"]
-noise = SubResource("FastNoiseLite_6bdq6")
+noise = SubResource("FastNoiseLite_4gvti")
 
-[sub_resource type="AnimatedTexture" id="AnimatedTexture_4n47x"]
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_wmwl5"]
 frames = 3
 frame_0/texture = SubResource("NoiseTexture2D_djjlw")
 frame_0/duration = 0.1
@@ -50,7 +52,7 @@ albedo_color = Color(0.49762362, 0.47888243, 0.19522938, 1)
 emission_enabled = true
 emission = Color(0.23365518, 0.3505286, 0.96071154, 1)
 emission_energy_multiplier = 0.14
-emission_texture = SubResource("AnimatedTexture_4n47x")
+emission_texture = SubResource("AnimatedTexture_wmwl5")
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_oe58s"]
 ground_bottom_color = Color(0.025447031, 0.10478487, 0.040150143, 1)
@@ -72,7 +74,7 @@ albedo_color = Color(0.19555321, 0.34288588, 0.16614762, 1)
 script = ExtResource("1_an8be")
 
 [node name="Player" parent="." unique_id=55416726 instance=ExtResource("1_1iog8")]
-transform = Transform3D(-0.9037503, 0, -0.42806, 0, 1, 0, 0.42806, 0, -0.9037503, 7.6418877, 1.7150738, 43.179695)
+transform = Transform3D(0.99670076, 0, -0.08116439, 0, 1, 0, 0.08116439, 0, 0.99670076, 5.6418877, 1.7150738, 38.179695)
 
 [node name="Portal" type="Area3D" parent="." unique_id=1267654559]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.4741082, 0)
@@ -149,28 +151,16 @@ material_overlay = ExtResource("4_w1cbi")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.467732, -0.020868301, 32.875164)
 
 [node name="Corridor" parent="." unique_id=164960555 instance=ExtResource("7_fycy5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.833109, -0.4456749, 33.955807)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.833109, -0.4456749, 33.955807)
 
 [node name="CorridorCorner" parent="." unique_id=1669641424 instance=ExtResource("8_an8be")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.55674, -0.445673, 33.792744)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.55674, -0.445673, 33.792744)
 
 [node name="CorridorEnd" parent="." unique_id=309848599 instance=ExtResource("9_tkrox")]
-transform = Transform3D(-0.008759073, 0, -0.9999616, 0, 1, 0, 0.9999616, 0, -0.008759073, 24.616749, -0.4456749, 30.13358)
-
-[node name="CorridorIntersection" parent="." unique_id=1930323746 instance=ExtResource("10_xj3tp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.972431, -0.4456749, 34.235268)
-
-[node name="CorridorJunction" parent="." unique_id=65619783 instance=ExtResource("11_dft3v")]
-transform = Transform3D(0.034361586, 0, 0.99940944, 0, 1, 0, -0.99940944, 0, 0.034361586, 17.134333, -0.445673, 30.142426)
-
-[node name="CorridorTransition" parent="." unique_id=727903612 instance=ExtResource("12_dbe7u")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.604418, -0.530797, 32.11596)
+transform = Transform3D(-0.008759073, 0, -0.9999616, 0, 1, 0, 0.9999616, 0, -0.008759073, 28.616749, -0.4456749, 30.13358)
 
 [node name="GateMetalBars" parent="." unique_id=292143203 instance=ExtResource("13_4gvti")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.591572, -0.445673, 28.150108)
-
-[node name="GateMetalBars2" parent="." unique_id=1964633604 instance=ExtResource("13_4gvti")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.044231, 1.5642262, 36.547817)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.591572, -0.445673, 28.150108)
 
 [node name="GridMap" type="GridMap" parent="." unique_id=619962754]
 
@@ -1038,12 +1028,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 43)
 [node name="TemplateFloorDetail288" parent="GridMap" unique_id=1587986437 instance=ExtResource("14_an8be")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 43)
 
-[node name="TemplateFloorDetail289" parent="GridMap" unique_id=1887864584 instance=ExtResource("14_an8be")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 39)
-
-[node name="TemplateFloorDetail290" parent="GridMap" unique_id=1770576339 instance=ExtResource("14_an8be")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 39)
-
 [node name="TemplateFloorDetail291" parent="GridMap" unique_id=1085495744 instance=ExtResource("14_an8be")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 43)
 
@@ -1098,18 +1082,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49, 0, 39)
 [node name="TemplateFloorDetail308" parent="GridMap" unique_id=2098827846 instance=ExtResource("14_an8be")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 39)
 
-[node name="TemplateFloorDetail309" parent="GridMap" unique_id=1969437707 instance=ExtResource("14_an8be")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 35)
-
-[node name="TemplateFloorDetail310" parent="GridMap" unique_id=925802795 instance=ExtResource("14_an8be")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 35)
-
-[node name="TemplateFloorDetail311" parent="GridMap" unique_id=1977045878 instance=ExtResource("14_an8be")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 31)
-
-[node name="TemplateFloorDetail312" parent="GridMap" unique_id=1941277425 instance=ExtResource("14_an8be")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 31)
-
 [node name="TemplateFloorDetail313" parent="GridMap" unique_id=1144959464 instance=ExtResource("14_an8be")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 35)
 
@@ -1163,18 +1135,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 49, 0, 31)
 
 [node name="TemplateFloorDetail330" parent="GridMap" unique_id=961412940 instance=ExtResource("14_an8be")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45, 0, 31)
-
-[node name="TemplateFloorDetail331" parent="GridMap" unique_id=1747262055 instance=ExtResource("14_an8be")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 27)
-
-[node name="TemplateFloorDetail332" parent="GridMap" unique_id=1595390987 instance=ExtResource("14_an8be")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 27)
-
-[node name="TemplateFloorDetail333" parent="GridMap" unique_id=932592040 instance=ExtResource("14_an8be")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 23)
-
-[node name="TemplateFloorDetail334" parent="GridMap" unique_id=716555288 instance=ExtResource("14_an8be")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, 23)
 
 [node name="TemplateFloorDetail335" parent="GridMap" unique_id=897344057 instance=ExtResource("14_an8be")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 0, 27)
@@ -1356,12 +1316,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 43)
 [node name="TemplateFloorDetail394" parent="GridMap" unique_id=321496393 instance=ExtResource("14_an8be")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 43)
 
-[node name="TemplateFloorDetail395" parent="GridMap" unique_id=630185891 instance=ExtResource("14_an8be")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 39)
-
-[node name="TemplateFloorDetail396" parent="GridMap" unique_id=2116402171 instance=ExtResource("14_an8be")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 39)
-
 [node name="TemplateFloorDetail397" parent="GridMap" unique_id=45696481 instance=ExtResource("14_an8be")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35, 0, 35)
 
@@ -1412,21 +1366,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, 31)
 
 [node name="TemplateFloorDetail413" parent="GridMap" unique_id=852586563 instance=ExtResource("14_an8be")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 35)
-
-[node name="TemplateFloorDetail414" parent="GridMap" unique_id=753349927 instance=ExtResource("14_an8be")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 31)
-
-[node name="TemplateFloorDetail415" parent="GridMap" unique_id=1976893555 instance=ExtResource("14_an8be")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 35)
-
-[node name="TemplateFloorDetail416" parent="GridMap" unique_id=1010862661 instance=ExtResource("14_an8be")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 35)
-
-[node name="TemplateFloorDetail417" parent="GridMap" unique_id=255505813 instance=ExtResource("14_an8be")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 31)
-
-[node name="TemplateFloorDetail418" parent="GridMap" unique_id=1709052780 instance=ExtResource("14_an8be")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 31)
 
 [node name="TemplateFloorDetail419" parent="GridMap" unique_id=1910539225 instance=ExtResource("14_an8be")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35, 0, 27)
@@ -1479,20 +1418,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, 23)
 [node name="TemplateFloorDetail435" parent="GridMap" unique_id=72277807 instance=ExtResource("14_an8be")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 27)
 
+[node name="TemplateFloorDetail437" parent="GridMap" unique_id=2027629793 instance=ExtResource("14_an8be")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 31)
+
 [node name="TemplateFloorDetail436" parent="GridMap" unique_id=527906831 instance=ExtResource("14_an8be")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 23)
-
-[node name="TemplateFloorDetail437" parent="GridMap" unique_id=466372613 instance=ExtResource("14_an8be")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 27)
-
-[node name="TemplateFloorDetail438" parent="GridMap" unique_id=2146398539 instance=ExtResource("14_an8be")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 27)
-
-[node name="TemplateFloorDetail439" parent="GridMap" unique_id=697769528 instance=ExtResource("14_an8be")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 23)
-
-[node name="TemplateFloorDetail440" parent="GridMap" unique_id=99661987 instance=ExtResource("14_an8be")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 23)
 
 [node name="TemplateFloorDetail441" parent="GridMap" unique_id=2038833229 instance=ExtResource("14_an8be")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35, 0, 20)
@@ -2021,5 +1951,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43, 0, -8)
 
 [node name="TemplateFloorDetail616" parent="GridMap" unique_id=1272741427 instance=ExtResource("14_an8be")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39, 0, -8)
+
+[node name="RoomLarge" parent="." unique_id=1627036046 instance=ExtResource("13_fycy5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 32)
+
+[node name="GoblinNpc" parent="." unique_id=81391864 instance=ExtResource("13_tkrox")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 27)
+
+[node name="TemplateFloorLayerRaised" parent="." unique_id=618393103 instance=ExtResource("14_tkrox")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -2, 26)
+
+[node name="DialogueUI" parent="." unique_id=969875385 instance=ExtResource("15_tkrox")]
+
+[node name="SpawningFountainHubWorld" parent="." unique_id=1752228861 instance=ExtResource("16_xj3tp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0788431, 3.7717392, 25.940042)
 
 [editable path="portal_arch"]

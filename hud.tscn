@@ -1,0 +1,83 @@
+[gd_scene format=3 uid="uid://txp76kd2343e"]
+
+[ext_resource type="Script" uid="uid://dhyc1yptax4h7" path="res://hud.gd" id="1_a2258"]
+[ext_resource type="Texture2D" uid="uid://dld3ptja5f75y" path="res://assets/icons/target_icon.png" id="2_1xsix"]
+[ext_resource type="Texture2D" uid="uid://rwodlao77w8y" path="res://assets/icons/01.png" id="2_rftc2"]
+[ext_resource type="Texture2D" uid="uid://c8cqoelkkgugi" path="res://assets/icons/sword_icon.png" id="3_rftc2"]
+[ext_resource type="Texture2D" uid="uid://dn3cjtidaum0j" path="res://assets/icons/foot_icon.png" id="4_61f8s"]
+[ext_resource type="Texture2D" uid="uid://byagooomc51gq" path="res://assets/icons/shield_icon.png" id="5_g10ll"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_a2258"]
+
+[node name="Hud" type="CanvasLayer" unique_id=1642921858 groups=["hud"]]
+script = ExtResource("1_a2258")
+
+[node name="TopRightContainer" type="MarginContainer" parent="." unique_id=965536746]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 166
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TopRightContainer" unique_id=1561445548]
+layout_mode = 2
+
+[node name="HPBar" type="TextureProgressBar" parent="TopRightContainer/VBoxContainer" unique_id=236909626]
+layout_mode = 2
+
+[node name="GemCounterContainer" type="HBoxContainer" parent="TopRightContainer/VBoxContainer/HPBar" unique_id=1384563877]
+layout_mode = 0
+offset_top = -4.0
+offset_right = 40.0
+offset_bottom = -4.0
+
+[node name="GemIcon" type="TextureRect" parent="TopRightContainer/VBoxContainer/HPBar/GemCounterContainer" unique_id=1149497256]
+layout_mode = 2
+texture = ExtResource("2_rftc2")
+
+[node name="GemLabel" type="Label" parent="TopRightContainer/VBoxContainer/HPBar/GemCounterContainer" unique_id=1556483550]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_a2258")
+
+[node name="BottomCenterContainer" type="MarginContainer" parent="." unique_id=1975970357]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_bottom = 30
+
+[node name="ActionBar" type="HBoxContainer" parent="BottomCenterContainer" unique_id=1238182145]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="BottomCenterContainer/ActionBar" unique_id=609340453]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("2_1xsix")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="BottomCenterContainer/ActionBar" unique_id=646604948]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("3_rftc2")
+expand_mode = 1
+
+[node name="TextureRect3" type="TextureRect" parent="BottomCenterContainer/ActionBar" unique_id=812596085]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("4_61f8s")
+expand_mode = 1
+
+[node name="TextureRect4" type="TextureRect" parent="BottomCenterContainer/ActionBar" unique_id=1186396367]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("5_g10ll")
+expand_mode = 1

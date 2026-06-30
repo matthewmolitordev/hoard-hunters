@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://co7kr2kk1mm0q"]
+
+[ext_resource type="Script" uid="uid://bbwtng0yuml0o" path="res://assets/monsters/goblin_merchant/goblin_npc.gd" id="1_a1u3u"]
+[ext_resource type="PackedScene" uid="uid://kriioe6x84j5" path="res://assets/monsters/goblin_merchant/goblin_merchant.tscn" id="2_p6gej"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ane53"]
+radius = 0.35839844
+height = 1.275
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_jyont"]
+radius = 1.132
+
+[node name="GoblinNpc" type="CharacterBody3D" unique_id=81391864 groups=["enemy"]]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_a1u3u")
+dialogue_text = "Hello traveler! Bring me ten gems to see my wares."
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1443697117]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.020874023, 0.5520518, -0.07992554)
+shape = SubResource("CapsuleShape3D_ane53")
+
+[node name="GoblinMerchant" parent="." unique_id=76652443 instance=ExtResource("2_p6gej")]
+
+[node name="Skeleton3D" parent="GoblinMerchant/Sketchfab_model/goblin_fbx/Object_2/RootNode/Armature/Object_9" parent_id_path=PackedInt32Array(76652443, 1270136355) index="0" unique_id=817412186]
+bones/1/position = Vector3(-6.071532e-18, 0.10113642, -0.043029774)
+bones/1/rotation = Quaternion(0.7945048, 2.0858958e-18, 6.266587e-18, 0.6072578)
+bones/3/rotation = Quaternion(0.10240525, 0.0001601991, -0.0011716635, 0.9947421)
+bones/6/rotation = Quaternion(-0.08405216, 0.15276209, -0.73942965, 0.6502637)
+bones/7/rotation = Quaternion(0.07641701, 0.0636325, -0.5044508, 0.857695)
+bones/11/rotation = Quaternion(-0.084052026, -0.15276192, 0.7394296, 0.65026385)
+bones/12/rotation = Quaternion(0.07641697, -0.06363248, 0.50445104, 0.85769486)
+bones/16/rotation = Quaternion(0.6834456, 0.20367779, 0.679077, 0.17398813)
+bones/17/rotation = Quaternion(-0.02069024, 0.0043818457, 0.33364013, 0.9424633)
+bones/18/rotation = Quaternion(3.8251915e-08, 1.4822797e-07, -0.74313027, 0.6691468)
+bones/20/rotation = Quaternion(0.6834456, -0.2036778, -0.6790771, 0.1739881)
+bones/21/rotation = Quaternion(-0.020690244, -0.004381846, -0.3336402, 0.9424633)
+bones/22/rotation = Quaternion(3.8251947e-08, -1.4822795e-07, 0.74313027, 0.66914684)
+
+[node name="InteractionArea" type="Area3D" parent="." unique_id=1093875581]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea" unique_id=796416336]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65836746, 0)
+shape = SubResource("SphereShape3D_jyont")
+
+[node name="FaceMarker" type="Marker3D" parent="." unique_id=837784732]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00998497, 0.8017848, 0)
+
+[connection signal="input_event" from="InteractionArea" to="." method="_on_interaction_area_input_event"]
+
+[editable path="GoblinMerchant"]

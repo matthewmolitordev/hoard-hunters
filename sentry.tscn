@@ -9,6 +9,7 @@
 radius = 20.0
 
 [node name="Sentry" type="CharacterBody3D" unique_id=81391864 groups=["enemy"]]
+collision_layer = 8
 script = ExtResource("1_lf4fg")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1443697117]
@@ -43,5 +44,7 @@ bones/15/rotation = Quaternion(0.514686, -1.0058284e-07, -2.6240014e-07, 0.85737
 bones/17/position = Vector3(-0.07458645, -0.00041803718, 0.020371702)
 bones/17/rotation = Quaternion(0, 7.66187e-40, 0, 1)
 bones/19/rotation = Quaternion(0.514686, 1.0617077e-07, 2.6309863e-07, 0.8573788)
+
+[node name="ShootTimer" type="Timer" parent="." unique_id=1682967705]
 
 [editable path="Sketchfab_Scene"]

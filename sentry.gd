@@ -15,12 +15,20 @@ var wander_velocity: Vector3 = Vector3.ZERO
 
 #y axis collision
 @onready var floor_checker: RayCast3D = $RayCast3D
+@export var projectile_scene: PackedScene = preload("res://sentry_projectile.tscn")
+@onready var shoot_timer: Timer = $ShootTimer
 
 func _ready() -> void:
 	$DetectionZone.body_entered.connect(_on_detection_zone_body_entered)
 	$DetectionZone.body_exited.connect(_on_detection_zone_body_exited)
 	current_platform_y = global_position.y
 	anim_player.play("Mushroom|Walk")
+	await get_tree().process_frame
+	
+	# Manually connect the signal via code to be absolutely sure it's linked
+	if not shoot_timer.timeout.is_connected(_on_shoot_timer_timeout):
+		shoot_timer.timeout.connect(_on_shoot_timer_timeout)
+	start_random_shoot_timer()
 
 func _physics_process(delta: float) -> void:
 	#floor sensor override
@@ -55,10 +63,38 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func _on_detection_zone_body_entered(body: Node) -> void:
+	print("woprkinggnsdjhgn")
 	if body.is_in_group("player"):
+		print("woprkinggnsdjhgn")
 		target_player = body
 		
 		
 func _on_detection_zone_body_exited(body: Node) -> void:
 	if body == target_player:
 		target_player = null
+		
+func fire_projectile() -> void:
+	if not projectile_scene: return
+	
+	var player = get_tree().get_first_node_in_group("player")
+	
+	if player:
+		var target_pos = player.global_transform.origin
+		
+		look_at(target_pos, Vector3.UP)
+	
+	var projectile_instance = projectile_scene.instantiate()
+	get_tree().current_scene.add_child(projectile_instance)
+	projectile_instance.global_transform = global_transform
+	
+func start_random_shoot_timer() -> void:
+	print("start timer...")
+	shoot_timer.wait_time = randf_range(2.0, 6.0)
+	shoot_timer.start()
+
+# This function runs every time the Timer finishes countdown
+func _on_shoot_timer_timeout() -> void:
+	# 1. Fire the projectile
+	fire_projectile()
+	
+	start_random_shoot_timer()

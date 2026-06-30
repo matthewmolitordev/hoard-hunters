@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://pnemroeekdkd" path="res://character_class/knight_kit.gd" id="2_onrkg"]
 [ext_resource type="Script" uid="uid://v7eseh2iskuh" path="res://character_class/acrobat.gd" id="3_hqtel"]
 [ext_resource type="Script" uid="uid://bukydh6luuojd" path="res://character_class/sorcerer_kit.gd" id="4_sweqy"]
+[ext_resource type="PackedScene" uid="uid://txp76kd2343e" path="res://hud.tscn" id="5_sweqy"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gv5m4"]
 
@@ -21,6 +22,7 @@ shape = SubResource("CapsuleShape3D_gv5m4")
 mesh = SubResource("CapsuleMesh_f3sb7")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1762887908]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5295371, 0)
 
 [node name="RayCast3D" type="RayCast3D" parent="Camera3D" unique_id=1698444435]
 target_position = Vector3(0, 0, -4)
@@ -68,3 +70,5 @@ script = ExtResource("3_hqtel")
 
 [node name="SorcererSpells" type="Node" parent="." unique_id=1717066597]
 script = ExtResource("4_sweqy")
+
+[node name="Hud" parent="." unique_id=1642921858 instance=ExtResource("5_sweqy")]

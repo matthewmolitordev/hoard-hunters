@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://b8enavqk6n83b"]
+
+[ext_resource type="Script" uid="uid://csg6ncglr20gj" path="res://sentry_projectile.gd" id="1_1wx70"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_4n47x"]
+radius = 0.4
+
+[sub_resource type="SphereMesh" id="SphereMesh_djjlw"]
+radius = 1.0
+height = 2.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_1wx70"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o0xtw"]
+albedo_color = Color(0.48235294, 0.5764706, 0.48235294, 0.52156866)
+albedo_texture = SubResource("NoiseTexture2D_1wx70")
+
+[node name="SentryProjectile" type="Area3D" unique_id=803413276]
+collision_mask = 7
+script = ExtResource("1_1wx70")
+speed = 40.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1248601997]
+shape = SubResource("SphereShape3D_4n47x")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=834507883]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
+mesh = SubResource("SphereMesh_djjlw")
+surface_material_override/0 = SubResource("StandardMaterial3D_o0xtw")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
