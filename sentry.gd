@@ -25,13 +25,12 @@ func _ready() -> void:
 	anim_player.play("Mushroom|Walk")
 	await get_tree().process_frame
 	
-	# Manually connect the signal via code to be absolutely sure it's linked
 	if not shoot_timer.timeout.is_connected(_on_shoot_timer_timeout):
 		shoot_timer.timeout.connect(_on_shoot_timer_timeout)
 	start_random_shoot_timer()
 
 func _physics_process(delta: float) -> void:
-	#floor sensor override
+
 	if not floor_checker.is_colliding():
 		target_height = current_platform_y + randf_range(2.0, 8.0)
 		state_timer = randf_range(2.0, 8.0)
@@ -43,7 +42,6 @@ func _physics_process(delta: float) -> void:
 			randf_range(2.0, 8.0)
 			var random_angle = randf_range(0, 2 * PI)
 			wander_velocity = Vector3(cos(random_angle), 0 , sin(random_angle)) * wander_speed
-	# vertical interpolation step
 	global_position.y = move_toward(global_position.y, target_height, float_speed * delta)
 
 	if target_player != null:
@@ -53,7 +51,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x = final_direction.x * speed
 		velocity.z = final_direction.z * speed
 		
-		#look at player
+
 		var target_look = Vector3(target_player.global_position.x, global_position.y, target_player.global_position.z)
 		if global_position.distance_to(target_look) > 1:
 			look_at(target_look, Vector3.UP)
@@ -63,9 +61,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func _on_detection_zone_body_entered(body: Node) -> void:
-	print("woprkinggnsdjhgn")
 	if body.is_in_group("player"):
-		print("woprkinggnsdjhgn")
 		target_player = body
 		
 		
@@ -92,9 +88,7 @@ func start_random_shoot_timer() -> void:
 	shoot_timer.wait_time = randf_range(2.0, 6.0)
 	shoot_timer.start()
 
-# This function runs every time the Timer finishes countdown
 func _on_shoot_timer_timeout() -> void:
-	# 1. Fire the projectile
 	fire_projectile()
 	
 	start_random_shoot_timer()

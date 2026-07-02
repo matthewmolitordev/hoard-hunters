@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 @onready var hp_bar: TextureProgressBar = $TopRightContainer/VBoxContainer/HPBar
-@onready var gem_label: Label = $TopRightContainer/VBoxContainer/HPBar/GemCounterContainer/GemLabel
+@onready var gem_label: Label = $TopRightContainer/VBoxContainer/GemCounterContainer/GemLabel
 
 @onready var slot_1: TextureRect = $BottomCenterContainer/ActionBar/Slot1
 @onready var total_gems: float = GameManager.total_loot_collected
@@ -18,3 +18,11 @@ func update_hp(new_hp: float) -> void:
 func update_gems(current_level_gems: int, total_game_gems: int) -> void:
 	# Formats text cleanly as: "Gems: 4 (Total: 25)"
 	gem_label.text = ": %d / %d" % [current_level_gems, total_gems]
+
+func update_health(current: float, max_value: float) -> void:
+	# DEBUG LINE: Check your Output console when you take damage
+	print("HUD received health update! Current: ", current, " Max: ", max_value)
+	
+	if hp_bar:
+		hp_bar.max_value = max_value
+		hp_bar.value = current

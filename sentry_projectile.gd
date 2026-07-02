@@ -17,6 +17,9 @@ func _on_body_entered(body: Node3D) -> void:
 	if body.is_in_group("player"):
 		if body.has_method("apply_knockback"):
 			body.apply_knockback(knockback_dir * knockback_force)
+		if body.has_method("take_damage"):
+			body.take_damage(3.0)
+			print("damage")
 	
 	elif body is RigidBody3D:
 		body.apply_central_impulse(knockback_dir * knockback_force)

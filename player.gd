@@ -1,14 +1,17 @@
 extends CharacterBody3D
 
 @onready var raycast = $Camera3D/RayCast3D
+@onready var raycast_fireball = $Camera3D/RayCast3DFireball
 @onready var joint = $Camera3D/Generic6DOFJoint3D
 @onready var hand = $Camera3D/Hand
 var grabbed_body: RigidBody3D = null
 var camera_target_pos: Vector3
 
 const FIREBALL_SCENE = preload("res://fireball.tscn")
+const FIREBALL_EXPLOSION_SCENE = preload("res://fireball_explosion.tscn")
 @export var fire_ball_cooldown: float = 0.3
 var fireball_can_shoot: bool = true
+var fireball_explosion_can_shoot: bool = true
 
 # exposed variable editable in the inspector panel
 @export var default_speed: float = 5.0
@@ -16,6 +19,9 @@ var fireball_can_shoot: bool = true
 @export var coyote_duration: float = 0.15 
 @export var mouse_sensitivity: float = 0.003
 @export var push_force: float = 50.0
+
+@export var max_hp: float = 100.0
+var current_hp: float = 100.
 
 var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var time_since_on_floor: float = 0.0
@@ -39,6 +45,8 @@ func _ready() -> void:
 		active_kit = $AcrobatSpells
 	elif chosen_class == "sorcerer":
 		active_kit = $SorcererSpells
+		
+	current_hp = max_hp
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
 	
@@ -112,6 +120,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		#handle action bar click (fireball)
 		if event.is_action_pressed("action_bar_slot_1") and fireball_can_shoot:
 			shoot_fireball()
+		#handle action bar click (fireball)
+		if event.is_action_pressed("action_bar_slot_2") and fireball_can_shoot:
+			cast_fireball_explosion()
 			
 		#handle mouse click grab
 		if event.is_action_pressed("click"):
@@ -212,3 +223,47 @@ func end_dialogue() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
 	current_state = State.NORMAL
+
+# Inside your Player Script
+func cast_fireball_explosion() -> void:
+	# Force the raycast to update its internal physics coordinates *right now* # instead of waiting for the end of the frame tick.
+	raycast_fireball.force_raycast_update()
+	
+	if raycast_fireball.is_colliding():
+		var hit_collider = raycast_fireball.get_collider()
+		
+		# DOUBLE-CHECK: Ensure we aren't accidentally pulling stale physics cache
+		if hit_collider == null:
+			print("Physics cache mismatch caught. Aborting cast.")
+			return
+			
+		# Grab the precise impact coordinates
+		var spawn_point: Vector3 = raycast_fireball.get_collision_point()
+		
+		# Spawn the fireball explosion
+		var explosion = FIREBALL_EXPLOSION_SCENE.instantiate()
+		get_parent().add_child(explosion)
+		explosion.global_position = spawn_point
+		
+		print("Spell successfully detonated at: ", spawn_point)
+	else:
+		# If the raycast misses everything (sky, void, out of range), 
+		# we completely ignore the old position coordinates.
+		print("Aiming at empty space or out of range. Casting aborted.")
+	
+	
+func take_damage(amount: float) -> void:
+	current_hp = clamp(current_hp - amount, 0.0, max_hp)
+	update_hud_hp()
+	
+	if current_hp <= 0.0:
+		player_die()
+
+func update_hud_hp() -> void:
+	var hud = get_tree().get_first_node_in_group("hud")
+	if hud and hud.has_method("update_health"):
+		print("has method")
+		hud.update_health(current_hp, max_hp)
+
+func player_die() -> void:
+	print("Player has died!")

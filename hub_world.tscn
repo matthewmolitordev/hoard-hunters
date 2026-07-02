@@ -78,7 +78,7 @@ transform = Transform3D(0.99670076, 0, -0.08116439, 0, 1, 0, 0.08116439, 0, 0.99
 
 [node name="Portal" type="Area3D" parent="." unique_id=1267654559]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.4741082, 0)
-collision_mask = 3
+collision_mask = 2
 script = ExtResource("2_oe58s")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Portal" unique_id=1932113505]
@@ -1956,14 +1956,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39, 0, -8)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 32)
 
 [node name="GoblinNpc" parent="." unique_id=81391864 instance=ExtResource("13_tkrox")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, 27)
+transform = Transform3D(0.9259152, 0, 0.37773132, 0, 1, 0, -0.37773132, 0, 0.9259152, 1.3887737, 1, 26.838932)
 
 [node name="TemplateFloorLayerRaised" parent="." unique_id=618393103 instance=ExtResource("14_tkrox")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -2, 26)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 25)
 
 [node name="DialogueUI" parent="." unique_id=969875385 instance=ExtResource("15_tkrox")]
 
 [node name="SpawningFountainHubWorld" parent="." unique_id=1752228861 instance=ExtResource("16_xj3tp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0788431, 3.7717392, 25.940042)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5207275, 2.7798393, 24.975605)
 
 [editable path="portal_arch"]

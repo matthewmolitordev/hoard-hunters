@@ -46,6 +46,19 @@ linear_spring_z/damping = 50.0
 [node name="Hand" type="StaticBody3D" parent="Camera3D" unique_id=619965400]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -2)
 
+[node name="RayCast3DFireball" type="RayCast3D" parent="Camera3D" unique_id=1474081313]
+target_position = Vector3(0, -1, -50)
+collision_mask = 13
+
+[node name="KnightSpells" type="Node" parent="." unique_id=1105139966]
+script = ExtResource("2_onrkg")
+
+[node name="AcrobatSpells" type="Node" parent="." unique_id=1613242509]
+script = ExtResource("3_hqtel")
+
+[node name="SorcererSpells" type="Node" parent="." unique_id=1717066597]
+script = ExtResource("4_sweqy")
+
 [node name="UI" type="CanvasLayer" parent="." unique_id=1556343225]
 
 [node name="CenterContainer" type="CenterContainer" parent="UI" unique_id=435143426]
@@ -61,14 +74,5 @@ custom_minimum_size = Vector2(6, 6)
 layout_mode = 2
 mouse_filter = 2
 color = Color(1, 1, 1, 0.7372549)
-
-[node name="KnightSpells" type="Node" parent="." unique_id=1105139966]
-script = ExtResource("2_onrkg")
-
-[node name="AcrobatSpells" type="Node" parent="." unique_id=1613242509]
-script = ExtResource("3_hqtel")
-
-[node name="SorcererSpells" type="Node" parent="." unique_id=1717066597]
-script = ExtResource("4_sweqy")
 
 [node name="Hud" parent="." unique_id=1642921858 instance=ExtResource("5_sweqy")]

@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://hemv2cvqfsdb" path="res://assets/monsters/mushroom.tscn" id="2_mmh82"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_h7n1j"]
+size = Vector3(1.680603, 2.6356812, 1)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_h7n1j"]
 radius = 20.0
@@ -13,6 +14,7 @@ collision_layer = 8
 script = ExtResource("1_lf4fg")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1443697117]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.020111084, 0.8178406, 0)
 shape = SubResource("BoxShape3D_h7n1j")
 
 [node name="DetectionZone" type="Area3D" parent="." unique_id=354151201]

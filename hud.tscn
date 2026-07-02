@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dhyc1yptax4h7" path="res://hud.gd" id="1_a2258"]
 [ext_resource type="Texture2D" uid="uid://dld3ptja5f75y" path="res://assets/icons/target_icon.png" id="2_1xsix"]
+[ext_resource type="Texture2D" uid="uid://0mhk4b7a0c0s" path="res://assets/ui/PNG/barRed_horizontalMid.png" id="2_61f8s"]
+[ext_resource type="Texture2D" uid="uid://da5k5t3o2jwlx" path="res://assets/ui/PNG/barBack_horizontalMid.png" id="2_g10ll"]
 [ext_resource type="Texture2D" uid="uid://rwodlao77w8y" path="res://assets/icons/01.png" id="2_rftc2"]
 [ext_resource type="Texture2D" uid="uid://c8cqoelkkgugi" path="res://assets/icons/sword_icon.png" id="3_rftc2"]
 [ext_resource type="Texture2D" uid="uid://dn3cjtidaum0j" path="res://assets/icons/foot_icon.png" id="4_61f8s"]
@@ -23,22 +25,29 @@ theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 166
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TopRightContainer" unique_id=1561445548]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
 [node name="HPBar" type="TextureProgressBar" parent="TopRightContainer/VBoxContainer" unique_id=236909626]
+propagate_maximum_size = true
+layout_mode = 2
+value = 100.0
+nine_patch_stretch = true
+stretch_margin_left = 10
+stretch_margin_top = 10
+stretch_margin_right = 10
+stretch_margin_bottom = 10
+texture_under = ExtResource("2_g10ll")
+texture_progress = ExtResource("2_61f8s")
+
+[node name="GemCounterContainer" type="HBoxContainer" parent="TopRightContainer/VBoxContainer" unique_id=1384563877]
 layout_mode = 2
 
-[node name="GemCounterContainer" type="HBoxContainer" parent="TopRightContainer/VBoxContainer/HPBar" unique_id=1384563877]
-layout_mode = 0
-offset_top = -4.0
-offset_right = 40.0
-offset_bottom = -4.0
-
-[node name="GemIcon" type="TextureRect" parent="TopRightContainer/VBoxContainer/HPBar/GemCounterContainer" unique_id=1149497256]
+[node name="GemIcon" type="TextureRect" parent="TopRightContainer/VBoxContainer/GemCounterContainer" unique_id=1149497256]
 layout_mode = 2
 texture = ExtResource("2_rftc2")
 
-[node name="GemLabel" type="Label" parent="TopRightContainer/VBoxContainer/HPBar/GemCounterContainer" unique_id=1556483550]
+[node name="GemLabel" type="Label" parent="TopRightContainer/VBoxContainer/GemCounterContainer" unique_id=1556483550]
 layout_mode = 2
 label_settings = SubResource("LabelSettings_a2258")
 
@@ -48,9 +57,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -20.0
-offset_top = -40.0
-offset_right = 20.0
+offset_left = -134.0
+offset_top = -94.0
+offset_right = 134.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/margin_bottom = 30
