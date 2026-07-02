@@ -13,7 +13,6 @@ const FIREBALL_EXPLOSION_SCENE = preload("res://fireball_explosion.tscn")
 var fireball_can_shoot: bool = true
 var fireball_explosion_can_shoot: bool = true
 
-# exposed variable editable in the inspector panel
 @export var default_speed: float = 5.0
 @export var jump_velocity: float = 4.5
 @export var coyote_duration: float = 0.15 
@@ -37,6 +36,15 @@ var knockback_timer: float = 0.0
 
 @onready var camera: Camera3D = $ Camera3D
 
+@export var GRAVITY_SPHERE_SCENE: PackedScene = load("res://gravity_sphere.tscn")
+@export var default_hold_distance: float = 8.0
+@export var scroll_speed: float = 1.0 # How many units the sphere moves per scroll click
+@export var min_distance: float = 2.0  # Prevent pulling the sphere inside your head
+@export var max_distance: float = 30.0 # Maximum range you can push the sphere away
+
+var current_gravity_sphere: Node3D = null
+var active_hold_distance: float = 8.0 # This tracks the dynamic distance live
+
 func _ready() -> void:
 	var chosen_class = HubWorldMusic.player_class
 	if chosen_class == "knight":
@@ -57,6 +65,18 @@ func _physics_process(delta: float) -> void:
 			
 		State.KNOCKBACK:
 			process_knockback_movement(delta)
+	
+	if is_instance_valid(current_gravity_sphere):
+		var camera = get_viewport().get_camera_3d()
+		var screen_center = get_viewport().get_size() / 2
+		
+		var ray_origin = camera.project_ray_origin(screen_center)
+		var ray_direction = camera.project_ray_normal(screen_center)
+		
+		# Position the sphere on the plane utilizing our scrolling distance value!
+		var target_position = ray_origin + (ray_direction * active_hold_distance)
+		
+		current_gravity_sphere.global_position = target_position
 			
 func process_normal_movement(delta: float) -> void:
 	var speed = default_speed
@@ -95,7 +115,6 @@ func process_normal_movement(delta: float) -> void:
 	
 	move_and_slide()
 	
-	#safety net
 	if global_position.y < -20:
 		reset_position()
 		
@@ -111,20 +130,30 @@ func _unhandled_input(event: InputEvent) -> void:
 			else:
 				Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 		
-		#handle mouse move
 		if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 			rotate_y(-event.relative.x * mouse_sensitivity)
 			camera.rotate_x(-event.relative.y * mouse_sensitivity)
 			camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-85), deg_to_rad(85))
 			
-		#handle action bar click (fireball)
+
 		if event.is_action_pressed("action_bar_slot_1") and fireball_can_shoot:
 			shoot_fireball()
-		#handle action bar click (fireball)
+
 		if event.is_action_pressed("action_bar_slot_2") and fireball_can_shoot:
 			cast_fireball_explosion()
 			
-		#handle mouse click grab
+		if event.is_action_pressed("action_bar_slot_3") and fireball_can_shoot:
+			print("gravity sphere")
+			cast_gravity_sphere()
+			
+		if is_instance_valid(current_gravity_sphere):
+			if event.is_action_pressed("wheel_up"): # Replace with your input map action name
+				active_hold_distance = clamp(active_hold_distance + scroll_speed, min_distance, max_distance)
+				get_viewport().set_input_as_handled() # Stops the input from switching weapons/zooming camera
+			elif event.is_action_pressed("wheel_down"):
+				active_hold_distance = clamp(active_hold_distance - scroll_speed, min_distance, max_distance)
+				get_viewport().set_input_as_handled()
+			
 		if event.is_action_pressed("click"):
 			if raycast.is_colliding():
 				var target = raycast.get_collider()
@@ -138,7 +167,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif event.is_action_released("click"):
 			release_object()
 			
-		#handle push
 		if event.is_action_pressed("right_click"):
 			push_object()
 	elif current_state == State.DIALOGUE:
@@ -181,27 +209,20 @@ func push_object() -> void:
 		var target = raycast.get_collider()
 		if target is RigidBody3D and not target.freeze:
 			var push_direction = -camera.global_transform.basis.z.normalized()
-			
-			# Apply a sudden physical kick to the object's center of mass
 			target.apply_central_impulse(push_direction * push_force)
 			
 func process_knockback_movement(delta: float) -> void:
-	# Apply heavy friction/drag to the knockback velocity over time so they don't slide forever
 	velocity.x = move_toward(velocity.x, 0, knockback_friction * delta)
 	velocity.z = move_toward(velocity.z, 0, knockback_friction * delta)
 	
-	# Apply normal gravity while flying backward
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 		
 	move_and_slide()
-	
-	# Count down the state timer
 	knockback_timer -= delta
 	if knockback_timer <= 0.0:
-		current_state = State.NORMAL # Hand control back to the player
+		current_state = State.NORMAL
 
-# 3. The function called by the projectile
 func apply_knockback(force: Vector3) -> void:
 	velocity = force
 	knockback_timer = knockback_duration
@@ -211,46 +232,32 @@ func start_dialogue(face_position: Vector3, text: String) -> void:
 	current_state = State.DIALOGUE
 	velocity = Vector3.ZERO
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	
 	camera_target_pos = face_position
-	
 	DialogueUi.show_text(text)
 
 func end_dialogue() -> void:
 	DialogueUi.hide_dialogue()
-	
-	# Re-lock the cursor back into the crosshair center for gameplay
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	
 	current_state = State.NORMAL
 
 # Inside your Player Script
 func cast_fireball_explosion() -> void:
-	# Force the raycast to update its internal physics coordinates *right now* # instead of waiting for the end of the frame tick.
 	raycast_fireball.force_raycast_update()
 	
 	if raycast_fireball.is_colliding():
 		var hit_collider = raycast_fireball.get_collider()
 		
-		# DOUBLE-CHECK: Ensure we aren't accidentally pulling stale physics cache
 		if hit_collider == null:
-			print("Physics cache mismatch caught. Aborting cast.")
 			return
 			
-		# Grab the precise impact coordinates
 		var spawn_point: Vector3 = raycast_fireball.get_collision_point()
 		
-		# Spawn the fireball explosion
 		var explosion = FIREBALL_EXPLOSION_SCENE.instantiate()
 		get_parent().add_child(explosion)
 		explosion.global_position = spawn_point
-		
-		print("Spell successfully detonated at: ", spawn_point)
 	else:
-		# If the raycast misses everything (sky, void, out of range), 
-		# we completely ignore the old position coordinates.
-		print("Aiming at empty space or out of range. Casting aborted.")
-	
+		print("Aiming at empty space or out of range. Fireball Casting aborted.")
+
 	
 func take_damage(amount: float) -> void:
 	current_hp = clamp(current_hp - amount, 0.0, max_hp)
@@ -267,3 +274,24 @@ func update_hud_hp() -> void:
 
 func player_die() -> void:
 	print("Player has died!")
+	
+func cast_gravity_sphere() -> void:
+	if is_instance_valid(current_gravity_sphere):
+		return
+		
+	# 1. Determine initial distance based on what you are looking at right now
+	raycast_fireball.force_raycast_update()
+	if raycast_fireball.is_colliding():
+		var hit_point = raycast_fireball.get_collision_point()
+		var camera = get_viewport().get_camera_3d()
+		# Calculate the precise distance between the camera lens and the environment point
+		active_hold_distance = camera.global_position.distance_to(hit_point)
+		# Clamp it just in case you look at something miles away or right against your nose
+		active_hold_distance = clamp(active_hold_distance, min_distance, max_distance)
+	else:
+		# Fallback if casting into the empty sky
+		active_hold_distance = default_hold_distance
+		
+	# 2. Instantiate the sphere
+	current_gravity_sphere = GRAVITY_SPHERE_SCENE.instantiate()
+	get_parent().add_child(current_gravity_sphere)
