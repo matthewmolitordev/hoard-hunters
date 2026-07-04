@@ -1,4 +1,3 @@
-# fireball_explosion.gd
 extends Area3D
 
 @export var max_radius: float = 5.0
@@ -31,10 +30,6 @@ func _ready() -> void:
 	queue_free()
 
 func _on_body_entered(body: Node3D) -> void:
-	# DEBUG PRINT: This will print the name of ANY physical object the blast touches
-	print("EXPLOSION COLLIDED WITH: ", body.name, " (Group enemy?: ", body.is_in_group("enemy"), ")")
-
 	if body.is_in_group("enemy") and not damaged_bodies.has(body):
 		damaged_bodies.append(body)
-		print("Obliterated: ", body.name)
 		body.queue_free()

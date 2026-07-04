@@ -9,6 +9,8 @@ var camera_target_pos: Vector3
 
 const FIREBALL_SCENE = preload("res://fireball.tscn")
 const FIREBALL_EXPLOSION_SCENE = preload("res://fireball_explosion.tscn")
+const LIGHTNING_SCENE = preload("res://lightning_bolt.tscn")
+
 @export var fire_ball_cooldown: float = 0.3
 var fireball_can_shoot: bool = true
 var fireball_explosion_can_shoot: bool = true
@@ -41,10 +43,19 @@ var knockback_timer: float = 0.0
 @export var scroll_speed: float = 1.0 # How many units the sphere moves per scroll click
 @export var min_distance: float = 2.0  # Prevent pulling the sphere inside your head
 @export var max_distance: float = 30.0 # Maximum range you can push the sphere away
+@export var sphere_move_speed: float = 10.0 # Maximum units per second it can travel
 
 var current_gravity_sphere: Node3D = null
-var active_hold_distance: float = 8.0 # This tracks the dynamic distance live
+var active_hold_distance: float = 8.0 # This tracks the dynamic distance of gravity sphere
 
+@export var lightning_max_range: float = 60.0
+@export var lightning_beam_thickness: float = 0.3 # Width of the damage beam
+
+var current_lightning_instance: Node3D = null
+
+func _process(delta: float) -> void:
+	handle_lightning_continuous()
+	
 func _ready() -> void:
 	var chosen_class = HubWorldMusic.player_class
 	if chosen_class == "knight":
@@ -67,16 +78,17 @@ func _physics_process(delta: float) -> void:
 			process_knockback_movement(delta)
 	
 	if is_instance_valid(current_gravity_sphere):
-		var camera = get_viewport().get_camera_3d()
 		var screen_center = get_viewport().get_size() / 2
 		
 		var ray_origin = camera.project_ray_origin(screen_center)
 		var ray_direction = camera.project_ray_normal(screen_center)
 		
-		# Position the sphere on the plane utilizing our scrolling distance value!
 		var target_position = ray_origin + (ray_direction * active_hold_distance)
 		
-		current_gravity_sphere.global_position = target_position
+		current_gravity_sphere.global_position = current_gravity_sphere.global_position.move_toward(
+			target_position, 
+			sphere_move_speed * delta
+		)
 			
 func process_normal_movement(delta: float) -> void:
 	var speed = default_speed
@@ -100,7 +112,6 @@ func process_normal_movement(delta: float) -> void:
 	# handle jump
 	if Input.is_action_just_pressed("ui_accept"):
 		if active_kit.try_jump(self) or time_since_on_floor <= coyote_duration:
-			print("jump_velocity", jump_velocity)
 			velocity.y = jump_velocity
 		
 	var input_dir := Input.get_vector("move_left", "move_right", "move_forward", "move_back")
@@ -143,13 +154,16 @@ func _unhandled_input(event: InputEvent) -> void:
 			cast_fireball_explosion()
 			
 		if event.is_action_pressed("action_bar_slot_3") and fireball_can_shoot:
-			print("gravity sphere")
 			cast_gravity_sphere()
 			
+		#if event.is_action_pressed("action_bar_slot_4") and fireball_can_shoot:
+			#cast_lightning_spell()
+			#handle_lightning_continuous()
+			
 		if is_instance_valid(current_gravity_sphere):
-			if event.is_action_pressed("wheel_up"): # Replace with your input map action name
+			if event.is_action_pressed("wheel_up"):
 				active_hold_distance = clamp(active_hold_distance + scroll_speed, min_distance, max_distance)
-				get_viewport().set_input_as_handled() # Stops the input from switching weapons/zooming camera
+				get_viewport().set_input_as_handled() 
 			elif event.is_action_pressed("wheel_down"):
 				active_hold_distance = clamp(active_hold_distance - scroll_speed, min_distance, max_distance)
 				get_viewport().set_input_as_handled()
@@ -162,7 +176,6 @@ func _unhandled_input(event: InputEvent) -> void:
 				elif target.get_parent().has_method("start_dialogue"):
 					target.get_parent().start_dialogue()
 				else:
-					print("clicking... has method... NOT")
 					try_grab_object()
 		elif event.is_action_released("click"):
 			release_object()
@@ -240,7 +253,6 @@ func end_dialogue() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	current_state = State.NORMAL
 
-# Inside your Player Script
 func cast_fireball_explosion() -> void:
 	raycast_fireball.force_raycast_update()
 	
@@ -269,7 +281,6 @@ func take_damage(amount: float) -> void:
 func update_hud_hp() -> void:
 	var hud = get_tree().get_first_node_in_group("hud")
 	if hud and hud.has_method("update_health"):
-		print("has method")
 		hud.update_health(current_hp, max_hp)
 
 func player_die() -> void:
@@ -279,19 +290,121 @@ func cast_gravity_sphere() -> void:
 	if is_instance_valid(current_gravity_sphere):
 		return
 		
-	# 1. Determine initial distance based on what you are looking at right now
+	if GRAVITY_SPHERE_SCENE == null:
+		return
+		
 	raycast_fireball.force_raycast_update()
 	if raycast_fireball.is_colliding():
 		var hit_point = raycast_fireball.get_collision_point()
-		var camera = get_viewport().get_camera_3d()
-		# Calculate the precise distance between the camera lens and the environment point
 		active_hold_distance = camera.global_position.distance_to(hit_point)
-		# Clamp it just in case you look at something miles away or right against your nose
 		active_hold_distance = clamp(active_hold_distance, min_distance, max_distance)
 	else:
-		# Fallback if casting into the empty sky
 		active_hold_distance = default_hold_distance
 		
-	# 2. Instantiate the sphere
 	current_gravity_sphere = GRAVITY_SPHERE_SCENE.instantiate()
+	
+	var screen_center = get_viewport().get_size() / 2
+	var ray_origin = camera.project_ray_origin(screen_center)
+	var ray_direction = camera.project_ray_normal(screen_center)
+	
+	var initial_target = ray_origin + (ray_direction * active_hold_distance)
 	get_parent().add_child(current_gravity_sphere)
+	current_gravity_sphere.global_position = initial_target
+
+func cast_lightning_spell() -> void:
+	var origin_point: Vector3 = global_position + Vector3(0, 0.5, 0)
+	var target_point: Vector3 = Vector3.ZERO
+	if has_node("Muzzle"):
+		origin_point = $Muzzle.global_position
+	raycast_fireball.force_raycast_update()
+	
+	if raycast_fireball.is_colliding() and raycast_fireball.get_collision_point() != Vector3.ZERO:
+		target_point = raycast_fireball.get_collision_point()
+		var hit_object = raycast_fireball.get_collider()
+		if hit_object and hit_object.is_in_group("enemy"):
+			hit_object.queue_free()
+			# if hit_object.has_method("disintegrate"):
+			#     hit_object.disintegrate()
+	else:
+		if camera:
+			var forward_vector = -camera.global_transform.basis.z
+			target_point = camera.global_position + (forward_vector * 30.0)
+		else:
+			target_point = origin_point + Vector3(0, 0, -30.0)
+	
+	if origin_point == Vector3.ZERO or target_point == Vector3.ZERO:
+		if target_point == Vector3.ZERO:
+			target_point = origin_point + Vector3(0, 0, -5.0)
+
+	fire_lightning_visual(origin_point, target_point)
+	
+
+func fire_lightning_visual(from_pos: Vector3, to_pos: Vector3) -> void:
+	var bolt = LIGHTNING_SCENE.instantiate()
+	var tween = create_tween()
+	add_child(bolt)
+	bolt.global_position = from_pos
+	bolt.global_transform.basis = Basis.IDENTITY 
+	bolt.set_points(from_pos, to_pos)
+	tween.tween_interval(0.5) 
+	tween.tween_callback(bolt.queue_free)
+	
+	
+func handle_lightning_continuous() -> void:
+	if Input.is_action_just_pressed("action_bar_slot_4"):
+		if current_lightning_instance == null:
+			current_lightning_instance = LIGHTNING_SCENE.instantiate()
+			add_child(current_lightning_instance)
+
+	if Input.is_action_pressed("action_bar_slot_4") and is_instance_valid(current_lightning_instance):
+		var origin_point: Vector3 = global_position + Vector3(0, 0.9, 0)
+		if has_node("Muzzle"):
+			origin_point = $Muzzle.global_position
+			
+		var camera = get_viewport().get_camera_3d()
+		var forward_vector = -camera.global_transform.basis.z
+		
+		var target_point: Vector3 = camera.global_position + (forward_vector * lightning_max_range)
+		
+		current_lightning_instance.global_position = origin_point
+		current_lightning_instance.global_transform.basis = Basis.IDENTITY
+		
+		current_lightning_instance.set_points(origin_point, target_point)
+		
+		check_piercing_damage(origin_point, target_point)
+
+	if Input.is_action_just_released("action_bar_slot_4"):
+		stop_lightning_channel()
+
+func stop_lightning_channel() -> void:
+	if is_instance_valid(current_lightning_instance):
+		current_lightning_instance.queue_free()
+	current_lightning_instance = null
+
+func check_piercing_damage(start: Vector3, end: Vector3) -> void:
+	var space_state = get_world_3d().direct_space_state
+	
+	var query = PhysicsShapeQueryParameters3D.new()
+	
+	var cylinder = CylinderShape3D.new()
+	cylinder.radius = lightning_beam_thickness
+	cylinder.height = start.distance_to(end)
+	query.shape = cylinder
+	
+	var mid_point = start.lerp(end, 0.5)
+	var base_transform = Transform3D(Basis.IDENTITY, mid_point)
+	
+	base_transform = base_transform.looking_at(end, Vector3.UP)
+	
+	var rotation_fix = Basis(Vector3.RIGHT, deg_to_rad(90.0))
+	query.transform = Transform3D(base_transform.basis * rotation_fix, mid_point)
+	
+	var hits = space_state.intersect_shape(query, 32)
+	
+	for hit in hits:
+		var hit_object = hit["collider"]
+		if hit_object and hit_object.is_in_group("enemy"):
+			hit_object.call_deferred("queue_free")
+
+func _exit_tree() -> void:
+	stop_lightning_channel()

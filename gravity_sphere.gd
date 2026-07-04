@@ -1,7 +1,7 @@
 
 extends Area3D
 
-@export var lifetime: float = 12.0
+@export var lifetime: float = 5.0
 @export var pull_force: float = 150.0
 
 var active_bodies: Array[Node3D] = []
@@ -31,7 +31,7 @@ func _physics_process(delta: float) -> void:
 				body.global_position += direction.normalized() * (pull_force * 0.5) * delta
 				
 func _on_body_entered(body: Node3D) -> void:
-	if (body is RigidBody3D or body.is_in_group("enemy")) and not active_bodies.has(body):
+	if (body.is_in_group("loot") or body.is_in_group("enemy")) and not active_bodies.has(body):
 		active_bodies.append(body)
 
 func _on_body_exited(body: Node3D) -> void:

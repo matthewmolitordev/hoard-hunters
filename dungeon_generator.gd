@@ -23,7 +23,6 @@ func generate_dungeon() -> void:
 	grid[current_pos] = true
 	spawn_tile(current_pos)
 	
-	# walker algorithm loop: carve out 40 connected spaces
 	for i in range(map_size):
 		#pick random direction and step
 		var directions = [Vector2.UP, Vector2.DOWN, Vector2.RIGHT, Vector2.LEFT]
@@ -52,6 +51,5 @@ func spawn_element(scene_resource: PackedScene, grid_pos: Vector2, elevation: fl
 	#map 2D grid to 3d 
 	instance.position = Vector3(grid_pos.x * tile_spacing, elevation, grid_pos.y * tile_spacing)
 	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass

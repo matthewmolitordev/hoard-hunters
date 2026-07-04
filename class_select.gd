@@ -4,7 +4,6 @@ extends Control
 @onready var acrobat_button: Button = $MarginContainer/VBoxContainer/VBoxContainer/AcrobatButton
 @onready var sorcerer_button: Button = $MarginContainer/VBoxContainer/VBoxContainer/SorcererButton
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	knight_button.pressed.connect(_on_class_selected.bind("knight"))
 	acrobat_button.pressed.connect(_on_class_selected.bind("acrobat"))

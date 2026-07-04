@@ -76,3 +76,6 @@ mouse_filter = 2
 color = Color(1, 1, 1, 0.7372549)
 
 [node name="Hud" parent="." unique_id=1642921858 instance=ExtResource("5_sweqy")]
+
+[node name="Muzzle" type="Marker3D" parent="." unique_id=1110149965]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.36291796, 0.28013617, -0.7246548)
