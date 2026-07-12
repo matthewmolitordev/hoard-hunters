@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://dh4524klbis48"]
+
+[ext_resource type="Script" uid="uid://com0wwsg8n0ml" path="res://entities/player/kits/spells/gravity_sphere.gd" id="1_i8wo7"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_h7n1j"]
+radius = 4.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_jyont"]
+radius = 4.0
+height = 8.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_co1li"]
+transparency = 1
+albedo_color = Color(0.28235295, 0, 0.43529412, 0.6745098)
+
+[node name="GravitySphere" type="Area3D" unique_id=1258770268]
+collision_layer = 13
+collision_mask = 13
+script = ExtResource("1_i8wo7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1202182525]
+shape = SubResource("SphereShape3D_h7n1j")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1958769176]
+mesh = SubResource("SphereMesh_jyont")
+surface_material_override/0 = SubResource("StandardMaterial3D_co1li")

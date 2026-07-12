@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://dywg40ste3ov0"]
+
+[ext_resource type="Script" uid="uid://cbjehime3u2hn" path="res://ui/network/network_manager.gd" id="1_v3k62"]
+
+[node name="NetworkManager" type="Control" unique_id=1314267170]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_v3k62")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=187700082]
+layout_mode = 0
+offset_left = 531.0
+offset_top = 227.0
+offset_right = 582.0
+offset_bottom = 293.0
+offset_transform_enabled = true
+alignment = 1
+
+[node name="HostButton" type="Button" parent="VBoxContainer" unique_id=1451115477]
+layout_mode = 2
+text = "HOST"
+
+[node name="JoinButton" type="Button" parent="VBoxContainer" unique_id=893731249]
+layout_mode = 2
+text = "JOIN"

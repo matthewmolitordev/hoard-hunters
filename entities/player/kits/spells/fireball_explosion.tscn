@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://chpnokywrgmf2"]
+
+[ext_resource type="Script" uid="uid://buvr03e5l7nkq" path="res://entities/player/kits/spells/fireball_explosion.gd" id="1_j23gl"]
+[ext_resource type="Texture2D" uid="uid://de01wk7c5p3dy" path="res://assets/particles/PNG (Transparent)/star_01.png" id="2_pmtcj"]
+
+[sub_resource type="Curve" id="Curve_pd8pr"]
+_data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_1asew"]
+curve = SubResource("Curve_pd8pr")
+
+[sub_resource type="Curve" id="Curve_1asew"]
+_limits = [-360.0, 360.0, 0.0, 1.0]
+_data = [Vector2(0, -360), 0.0, 1008.0, 0, 0, Vector2(1, 360), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_pmtcj"]
+curve = SubResource("Curve_1asew")
+
+[sub_resource type="Curve" id="Curve_pmtcj"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.997669, 0.011494279), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_pd8pr"]
+curve = SubResource("Curve_pmtcj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pd8pr"]
+spread = 180.0
+initial_velocity_min = 3.0
+initial_velocity_max = 6.0
+angular_velocity_curve = SubResource("CurveTexture_pmtcj")
+gravity = Vector3(0, 0, 0)
+use_scale_3d = true
+scale_3d_min = Vector3(1, 1, 1)
+scale_3d_max = Vector3(2, 2, 2)
+scale_curve = SubResource("CurveTexture_pd8pr")
+color = Color(1, 1, 1, 0)
+alpha_curve = SubResource("CurveTexture_1asew")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1asew"]
+transparency = 1
+albedo_color = Color(0.9999997, 0.75236386, 0.3227968, 1)
+albedo_texture = ExtResource("2_pmtcj")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_pmtcj"]
+material = SubResource("StandardMaterial3D_1asew")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_h7n1j"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_pmtcj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jyont"]
+transparency = 1
+albedo_color = Color(0.972549, 0.043137256, 0, 0.3529412)
+albedo_texture = SubResource("NoiseTexture2D_pmtcj")
+emission_enabled = true
+emission = Color(0.57802224, 0.3407614, 0, 1)
+emission_energy_multiplier = 3.13
+
+[sub_resource type="SphereMesh" id="SphereMesh_h7n1j"]
+material = SubResource("StandardMaterial3D_jyont")
+
+[node name="FireballExplosion" type="Area3D" unique_id=2046795646]
+collision_mask = 9
+script = ExtResource("1_j23gl")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=747519474]
+emitting = false
+amount = 50
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_pd8pr")
+draw_pass_1 = SubResource("QuadMesh_pmtcj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=443200119]
+shape = SubResource("SphereShape3D_h7n1j")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=140054450]
+layers = 9
+mesh = SubResource("SphereMesh_h7n1j")
