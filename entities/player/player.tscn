@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://v7eseh2iskuh" path="res://character_class/acrobat.gd" id="3_hqtel"]
 [ext_resource type="Script" uid="uid://bukydh6luuojd" path="res://character_class/sorcerer_kit.gd" id="4_sweqy"]
 [ext_resource type="PackedScene" uid="uid://txp76kd2343e" path="res://ui/hud/hud.tscn" id="5_sweqy"]
+[ext_resource type="Script" uid="uid://bew6nlw01gu7m" path="res://entities/player/kits/spells/sorcerer/fireball_spell.gd" id="6_8fjmc"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gv5m4"]
 
@@ -90,3 +91,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.36291796, 0.28013617, -0.72
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=827902686]
 replication_config = SubResource("SceneReplicationConfig_sweqy")
+
+[node name="Spells" type="Node" parent="." unique_id=1594124422]
+
+[node name="FireballSpell" type="Node" parent="Spells" unique_id=1313995739]
+script = ExtResource("6_8fjmc")

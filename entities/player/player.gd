@@ -2,9 +2,10 @@ extends CharacterBody3D
 
 enum State { NORMAL, KNOCKBACK, DIALOGUE }
 
-const FIREBALL_SCENE := preload("res://entities/player/kits/spells/fireball.tscn")
-const FIREBALL_EXPLOSION_SCENE := preload("res://entities/player/kits/spells/fireball_explosion.tscn")
-const LIGHTNING_SCENE := preload("res://entities/player/kits/spells/lightning_bolt.tscn")
+@onready var fireball_spell: Node = $Spells/FireballSpell
+const FIREBALL_SCENE := preload("res://entities/player/kits/spells/sorcerer/fireball_spell.gd")
+const FIREBALL_EXPLOSION_SCENE := preload("res://entities/player/kits/spells/sorcerer/fireball_explosion.tscn")
+const LIGHTNING_SCENE := preload("res://entities/player/kits/spells/sorcerer/lightning_bolt.tscn")
 
 @export_group("Movement Properties")
 @export var default_speed: float = 5.0
@@ -20,7 +21,7 @@ const LIGHTNING_SCENE := preload("res://entities/player/kits/spells/lightning_bo
 @export var knockback_friction: float = 8.0
 
 @export_group("Gravity Sphere")
-@export var GRAVITY_SPHERE_SCENE: PackedScene = preload("res://entities/player/kits/spells/gravity_sphere.tscn")
+@export var GRAVITY_SPHERE_SCENE: PackedScene = preload("res://entities/player/kits/spells/sorcerer/gravity_sphere.tscn")
 @export var default_hold_distance: float = 8.0
 @export var scroll_speed: float = 1.0
 @export var min_distance: float = 2.0 
@@ -41,7 +42,6 @@ var current_state: State = State.NORMAL
 var knockback_timer: float = 0.0
 var camera_target_pos: Vector3
 
-var fireball_can_shoot: bool = true
 var grabbed_body: RigidBody3D = null
 
 var active_kit: Node = null
@@ -57,7 +57,22 @@ var current_lightning_instance: Node3D = null
 func _enter_tree() -> void:
 	_configure_network_authority()
 
-func _ready() -> void: 
+func _ready() -> void:
+	await get_tree().process_frame
+	
+	var network_id := name.to_int()
+	if network_id == 0:
+		network_id = 1
+		
+	set_multiplayer_authority(network_id)
+	
+	if has_node("MultiplayerSynchronizer"):
+		get_node("MultiplayerSynchronizer").set_multiplayer_authority(network_id)
+	
+	if not is_multiplayer_authority():
+		camera.current = false
+		set_process_unhandled_input(false)
+		
 	_synchronize_session_frame()
 
 func _process(delta: float) -> void:
@@ -80,7 +95,6 @@ func _unhandled_input(event: InputEvent) -> void:
 func _exit_tree() -> void:
 	_stop_lightning_channel()
 
-# --- Initialization & Setup ---
 
 func _configure_network_authority() -> void:
 	if has_node("MultiplayerSynchronizer"):
@@ -106,8 +120,6 @@ func _bind_class_kit() -> void:
 		"knight": active_kit = get_node_or_null("KnightSpells")
 		"acrobat": active_kit = get_node_or_null("AcrobatSpells")
 		"sorcerer": active_kit = get_node_or_null("SorcererSpells")
-
-# --- State Machine & Movement Drivers ---
 
 func _process_state_machine(delta: float) -> void:
 	match current_state:
@@ -186,10 +198,10 @@ func _handle_normal_input(event: InputEvent) -> void:
 		camera.rotate_x(-event.relative.y * mouse_sensitivity)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-85.0), deg_to_rad(85.0))
 
-	if fireball_can_shoot:
-		if event.is_action_pressed("action_bar_slot_1"): _shoot_fireball()
-		if event.is_action_pressed("action_bar_slot_2"): _cast_fireball_explosion()
-		if event.is_action_pressed("action_bar_slot_3"): _cast_gravity_sphere()
+	
+	if event.is_action_pressed("action_bar_slot_1") and fireball_spell: fireball_spell.cast_pressed()
+	if event.is_action_pressed("action_bar_slot_2"): _cast_fireball_explosion()
+	if event.is_action_pressed("action_bar_slot_3"): _cast_gravity_sphere()
 		
 	if is_instance_valid(current_gravity_sphere):
 		_handle_sphere_scrolling(event)
@@ -240,22 +252,6 @@ func _handle_click_interaction() -> void:
 		_try_grab_object(target)
 
 # --- Spells & Combat Mechanics ---
-
-func _shoot_fireball() -> void:
-	fireball_can_shoot = false
-	var fireball = FIREBALL_SCENE.instantiate()
-	get_tree().root.add_child(fireball)
-	
-	var forward_vector := -camera.global_transform.basis.z.normalized()
-	var spawn_pos := camera.global_position + (forward_vector * 1.5)
-	spawn_pos.y -= 0.4
-	
-	fireball.global_position = spawn_pos
-	fireball.velocity = forward_vector * fireball.speed
-	fireball.look_at(fireball.global_position + forward_vector, Vector3.UP)
-	
-	get_tree().create_timer(fire_ball_cooldown).timeout.connect(func(): fireball_can_shoot = true)
-
 func _cast_fireball_explosion() -> void:
 	raycast_fireball.force_raycast_update()
 	if not raycast_fireball.is_colliding():

@@ -17,7 +17,7 @@ func _on_start_pressed() -> void:
 	_navigate_to_scene("res://ui/class_select/class_select.tscn")
 
 func _on_multiplayer_pressed() -> void:
-	_navigate_to_scene("res://network_manager.tscn")
+	_navigate_to_scene("res://ui/network/network_manager.tscn")
 
 func _on_quit_pressed() -> void:
 	get_tree().quit()

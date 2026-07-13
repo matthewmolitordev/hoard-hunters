@@ -18,6 +18,8 @@ func _connect_ui_signals() -> void:
 func _connect_multiplayer_signals() -> void:
 	multiplayer.connected_to_server.connect(_on_connected_to_server)
 	multiplayer.connection_failed.connect(_on_connection_failed)
+	# SERVER ONLY: Listen for clients connecting to spawn their player characters
+	multiplayer.peer_connected.connect(_on_peer_connected)
 
 func _on_host_pressed() -> void:
 	_apply_fallback_session_state()
@@ -37,7 +39,9 @@ func _initialize_network_server() -> void:
 		
 	NetworkConfig.peer = peer
 	multiplayer.multiplayer_peer = peer
+	print("Server hosted successfully. Loading world...")
 	
+	# The Host changes scenes instantly because they own the server environment
 	_transition_to_game_world()
 
 func _initialize_network_client() -> void:
@@ -51,15 +55,21 @@ func _initialize_network_client() -> void:
 	NetworkConfig.peer = peer
 	multiplayer.multiplayer_peer = peer
 	print("Connecting to host at ", DEFAULT_IP, ":", PORT, "...")
+	# 🛑 DO NOT transition here. Wait for the server to reply!
 
 func _on_connected_to_server() -> void:
-	print("Connected to host. Joining session...")
+	print("Connected to host successfully. Joining session...")
+	# Client transitions now that the handshake is secure
 	_transition_to_game_world()
 
 func _on_connection_failed() -> void:
 	print("Connection attempt failed.")
 	NetworkConfig.clear_connection()
 	multiplayer.multiplayer_peer = null
+
+func _on_peer_connected(id: int) -> void:
+	print("Server detected peer connected with ID: ", id)
+	# This is where your world level script will spawn the new player scene instance.
 
 func _apply_fallback_session_state() -> void:
 	if HubWorldMusic.has_method("set_player_class"):
@@ -68,8 +78,5 @@ func _apply_fallback_session_state() -> void:
 		HubWorldMusic.player_class = "knight"
 
 func _transition_to_game_world() -> void:
-	var scene_path := "res://scenes/hub_world.tscn"
-	if ResourceLoader.exists(scene_path):
-		get_tree().change_scene_to_file(scene_path)
-	else:
-		get_tree().change_scene_to_file("res://hub_world.tscn")
+	var scene_path := "res://core/levels/hub_world.tscn"
+	get_tree().change_scene_to_file(scene_path)

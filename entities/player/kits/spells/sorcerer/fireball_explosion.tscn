@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://chpnokywrgmf2"]
 
-[ext_resource type="Script" uid="uid://buvr03e5l7nkq" path="res://entities/player/kits/spells/fireball_explosion.gd" id="1_j23gl"]
+[ext_resource type="Script" uid="uid://buvr03e5l7nkq" path="res://entities/player/kits/spells/sorcerer/fireball_explosion.gd" id="1_j23gl"]
 [ext_resource type="Texture2D" uid="uid://de01wk7c5p3dy" path="res://assets/particles/PNG (Transparent)/star_01.png" id="2_pmtcj"]
 
 [sub_resource type="Curve" id="Curve_pd8pr"]
