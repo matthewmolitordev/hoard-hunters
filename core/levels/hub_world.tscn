@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://c4ruitx07hmny" path="res://tileset/template_floor_layer_raised.tscn" id="14_dtofy"]
 [ext_resource type="PackedScene" uid="uid://bkdt84gctsn43" path="res://ui/hud/dialogue_ui.tscn" id="15_f2sfu"]
 [ext_resource type="PackedScene" uid="uid://b0tbcl0srj3hr" path="res://entities/objects/spawning_fountain_hub_world.tscn" id="16_d2bvg"]
+[ext_resource type="Script" uid="uid://dn7n4c4lnrgh6" path="res://core/shared/components/player_spawner_component.gd" id="17_l8o4s"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_h7n1j"]
 size = Vector3(3, 4, 1)
@@ -1972,5 +1973,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.294857, 4.5668583, 32.4149
 _spawnable_scenes = PackedStringArray("uid://bd4abpdncwq8b")
 spawn_path = NodePath("../SpawnMarker")
 spawn_limit = 4
+
+[node name="PlayerSpawnerComponent" type="Node" parent="." unique_id=1999452802]
+script = ExtResource("17_l8o4s")
+player_scene = ExtResource("2_l8o4s")
+spawn_container_path = NodePath("../SpawnMarker")
+metadata/_custom_type_script = "uid://dn7n4c4lnrgh6"
 
 [editable path="portal_arch"]

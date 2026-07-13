@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b2304n47afmuv"]
 
-[ext_resource type="Script" uid="uid://bvyyedgblfou6" path="res://entities/player/kits/spells/fireball.gd" id="1_sf4mh"]
+[ext_resource type="Script" uid="uid://bvyyedgblfou6" path="res://entities/player/kits/spells/sorcerer/preloads/fireball.gd" id="1_sf4mh"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_h7n1j"]
 radius = 0.2

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dh4524klbis48"]
 
-[ext_resource type="Script" uid="uid://com0wwsg8n0ml" path="res://entities/player/kits/spells/gravity_sphere.gd" id="1_i8wo7"]
+[ext_resource type="Script" uid="uid://com0wwsg8n0ml" path="res://entities/player/kits/spells/sorcerer/gravity_sphere.gd" id="1_i8wo7"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_h7n1j"]
 radius = 4.0
