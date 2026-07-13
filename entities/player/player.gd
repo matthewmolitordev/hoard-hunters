@@ -101,7 +101,7 @@ func _synchronize_session_frame() -> void:
 	current_hp = max_hp
 
 func _bind_class_kit() -> void:
-	var chosen_class := HubWorldMusic.player_class
+	var chosen_class = HubWorldMusic.player_class
 	match chosen_class:
 		"knight": active_kit = get_node_or_null("KnightSpells")
 		"acrobat": active_kit = get_node_or_null("AcrobatSpells")
@@ -282,7 +282,7 @@ func _cast_gravity_sphere() -> void:
 	
 	var screen_center: Vector2 = Vector2(get_viewport().get_size()) / 2.0
 	var ray_origin := camera.project_ray_origin(screen_center)
-	var ray_direction := camera.project_ray_normal(screen_center)
+	var ray_direction := -camera.global_transform.basis.z
 	current_gravity_sphere.global_position = ray_origin + (ray_direction * active_hold_distance)
 
 func _update_gravity_sphere_position(delta: float) -> void:
@@ -291,7 +291,8 @@ func _update_gravity_sphere_position(delta: float) -> void:
 		
 	var screen_center: Vector2 = Vector2(get_viewport().get_size()) / 2.0
 	var ray_origin := camera.project_ray_origin(screen_center)
-	var ray_direction := camera.project_ray_normal(screen_center)
+	#var ray_direction := camera.project_ray_normal(screen_center)
+	var ray_direction := -camera.global_transform.basis.z
 	var target_position := ray_origin + (ray_direction * active_hold_distance)
 	
 	current_gravity_sphere.global_position = current_gravity_sphere.global_position.move_toward(
